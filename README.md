@@ -19,7 +19,7 @@ Navigate to `localhost:8000`.
 
 If you see any typos or formatting errors in a post, or any other issue that needs to be addressed, please do not hesitate to open a pull request and fix it!
 
-## Acknowledgements
+## Built with
 
 - Ruben Harutyunyan - [Gatsby Advanced Starter](https://github.com/vagr9k/gatsby-advanced-starter/)
 
