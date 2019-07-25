@@ -7,7 +7,7 @@ Personal website build w/ Gatsby, React, and Node.js.
 Run local server:
 
 ```bash
-git clone https://github.com/taniarascia/taniarascia.com
+git clone https://github.com/snimmagadda/s11a.com
 cd s11a.com
 yarn
 yarn run dev
