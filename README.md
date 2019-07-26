@@ -22,6 +22,7 @@ If you see any typos or formatting errors in a post, or any other issue that nee
 ## Built with
 
 - Ruben Harutyunyan - [Gatsby Advanced Starter](https://github.com/vagr9k/gatsby-advanced-starter/)
+- Tania Rascia - [Primitive](https://taniarascia.github.io/primitive/)
 
 ## Author
 
