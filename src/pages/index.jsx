@@ -1,6 +1,7 @@
 import React from "react";
 import Helmet from "react-helmet";
 import { graphql } from "gatsby";
+import GitHubButton from 'react-github-btn'
 import Layout from "../layout";
 import PostListing from "../components/PostListing/PostListing";
 import SEO from "../components/SEO/SEO";
@@ -29,6 +30,16 @@ class Index extends React.Component {
                     Follow @taniarascia
                   </a>
                 </div>
+                <div>
+                <GitHubButton
+                  href="https://github.com/snimmagadda1"
+                  data-size="large"
+                  data-show-count="true"
+                  aria-label="Follow @snimmagadda1 on GitHub"
+                >
+                  Follow
+                </GitHubButton>
+              </div>
               </div>
             </div>
           </div>
