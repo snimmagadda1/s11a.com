@@ -1,4 +1,5 @@
 import React from "react";
+import Img from 'gatsby-image'
 import { Link } from "gatsby";
 
 class PostListing extends React.Component {
@@ -10,6 +11,7 @@ class PostListing extends React.Component {
         tags: postEdge.node.frontmatter.tags,
         cover: postEdge.node.frontmatter.cover,
         title: postEdge.node.frontmatter.title,
+        thumbnail: postEdge.node.frontmatter.thumbnail,
         date: postEdge.node.fields.date,
         excerpt: postEdge.node.excerpt,
         timeToRead: postEdge.node.timeToRead
@@ -21,14 +23,25 @@ class PostListing extends React.Component {
     const postList = this.getPostList();
     return (
       <div>
-        {/* Your post list here. */
-        postList.map(post => (
-          <Link to={post.path} key={post.title}>
-            <div className="post-line">
-              <h2>{post.title}</h2>
-            </div>
-          </Link>
-        ))}
+        {postList.map(post => {
+          let thumbnail;
+          if (post.thumbnail) {
+            thumbnail = post.thumbnail.childImageSharp.fixed;
+          }
+
+          return (
+            <Link to={post.path} key={post.title}>
+              <div className="post-info">
+                <div className="icon">
+                  {thumbnail ? <Img fixed={thumbnail} /> : <div />}
+                </div>
+                <div className="post-line">
+                  <h2>{post.title}</h2>
+                </div>
+              </div>
+            </Link>
+          );
+        })}
       </div>
     );
   }

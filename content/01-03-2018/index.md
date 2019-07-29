@@ -3,6 +3,7 @@ title: "An open source ETL tool..."
 cover: "https://unsplash.it/400/300/?random?AngelsofMist"
 category: "test3"
 date: "01/03/2017"
+thumbnail: '../thumbnails/luigi.png'
 tags:
     - cheese
     - other
