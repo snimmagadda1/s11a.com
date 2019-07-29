@@ -3,6 +3,7 @@ import Helmet from "react-helmet";
 import config from "../../data/SiteConfig";
 import "./index.css";
 import '../styles/main.scss'
+import Navbar from '../components/Navbar/Navbar'
 
 export default class MainLayout extends React.Component {
   render() {
@@ -12,6 +13,7 @@ export default class MainLayout extends React.Component {
         <Helmet>
           <meta name="description" content={config.siteDescription} />
         </Helmet>
+        <Navbar menuLinks={config.menuLinks}/>
         <main id="main-content">{children}</main>
       </div>
     );

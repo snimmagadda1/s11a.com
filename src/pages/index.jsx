@@ -27,7 +27,7 @@ class Index extends React.Component {
                     data-size="large"
                     data-show-screen-name="false"
                   >
-                    Follow @taniarascia
+                    Follow @funsaized
                   </a>
                 </div>
                 <div>
@@ -44,7 +44,7 @@ class Index extends React.Component {
             </div>
           </div>
           <div className="container front-page">
-            <section className="section">
+            <section className="posts">
               <h2>Latest Articles</h2>
               <PostListing simple postEdges={postEdges} />
             </section>

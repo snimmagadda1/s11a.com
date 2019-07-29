@@ -1,3 +1,50 @@
 /**
  * Layout
  */
+
+.nav {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 100%;
+  background: white;
+
+  .nav-container {
+    padding: 0 2rem;
+    height: 55px;
+    max-width: $width;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: height 0.3s ease;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    flex: 1;
+    margin: 0;
+
+    a {
+      display: flex;
+      align-items: center;
+      font-size: 1.05rem;
+      font-weight: 500;
+      padding: 1rem 0.75rem;
+      margin: 0;
+      color: rgba(0, 0, 0, 0.45);
+      line-height: 1.2;
+      text-align: center;
+
+      &:hover,
+      &:active {
+        color: #111;
+      }
+    }
+  }
+
+}
