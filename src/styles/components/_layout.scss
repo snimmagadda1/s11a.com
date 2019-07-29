@@ -18,6 +18,16 @@
 }
 
 @include small-breakpoint {
+  .lead {
+    font-size: 1.2rem;
+
+    h1 {
+      font-size: 4rem;
+    }
+  }
+}
+
+@include small-breakpoint {
   .container {
     padding: 0 2rem;
   }
