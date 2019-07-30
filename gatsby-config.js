@@ -18,7 +18,13 @@ module.exports = {
     }
   },
   plugins: [
-    'gatsby-plugin-sass',
+    {
+      resolve: `gatsby-plugin-s3`,
+      options: {
+        bucketName: "s11a-website"
+      }
+    },
+    "gatsby-plugin-sass",
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-lodash",
     {
