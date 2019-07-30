@@ -2,6 +2,8 @@
 
 Personal website build w/ Gatsby, React, and Node.js.
 
+[See here for progress during development](http://s11a-website.s3-website-us-east-1.amazonaws.com/)
+
 ## Installation
 
 Run local server:
