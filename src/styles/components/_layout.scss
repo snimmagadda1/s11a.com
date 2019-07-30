@@ -42,12 +42,11 @@
   }
 }
 
-.post-info{
-  display: flex;
-
-  img{
-    width: 30px;
-  }
+.post-info {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 60px 2fr;
+  grid-gap: 0.6rem;
 }
 
 .post-line {
