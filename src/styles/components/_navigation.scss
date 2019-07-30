@@ -25,9 +25,7 @@
   .me {
     font-size: 1.3rem;
     font-weight: 600;
-  }
 
-  .me {
     a {
       display: flex;
       align-items: center;
@@ -44,6 +42,11 @@
 
     .text {
       display: none;
+    }
+
+    img {
+      width: 30px;
+      margin-right: 1rem;
     }
   }
 
