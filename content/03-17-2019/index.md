@@ -2,6 +2,9 @@
 title: "Persistant volumes on Openshift"
 cover: "https://unsplash.it/400/300/?random?AngelsofMist"
 category: "test3"
+categories:
+  - Cloud
+  - Random
 date: "01/03/2017"
 thumbnail: '../thumbnails/openshift.png'
 tags:

@@ -30,7 +30,7 @@ export default class Navbar extends Component {
     return (
       <div className={scrolled ? 'nav scroll' : 'nav'}>
         <div className="nav-container">
-          <div className="me">Sai Nimmagadda</div>
+          <div className="me"><Link key="sai" to="/" activeClassName="active">Sai Nimmagadda</Link></div>
           <div className="links">
             {menuLinks.map(link => (
               <Link key={link.name} to={link.link} activeClassName="active">

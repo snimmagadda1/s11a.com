@@ -27,6 +27,26 @@
     font-weight: 600;
   }
 
+  .me {
+    a {
+      display: flex;
+      align-items: center;
+      color: #333;
+      margin-right: 0;
+      font-weight: 600;
+      font-size: 1.1rem;
+
+      &:hover,
+      &:focus {
+        color: black;
+      }
+    }
+
+    .text {
+      display: none;
+    }
+  }
+
   .links {
     display: flex;
     flex-direction: row;
@@ -52,7 +72,6 @@
       }
     }
   }
-
 }
 
 @include small-breakpoint {
@@ -65,7 +84,6 @@
       }
 
       .links a {
-
         &:hover,
         &.active {
           color: #111;

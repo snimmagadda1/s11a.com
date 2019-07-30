@@ -49,6 +49,13 @@
   grid-gap: 0.6rem;
 }
 
+.posts.expanded {
+  .post-info{
+    grid-gap: 1.3rem;
+
+  }
+}
+
 .post-line {
   h2 {
     font-size: 1.3rem;

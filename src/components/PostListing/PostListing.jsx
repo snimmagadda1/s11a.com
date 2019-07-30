@@ -21,8 +21,10 @@ class PostListing extends React.Component {
   }
   render() {
     const postList = this.getPostList();
+    const { expanded } = this.props
+
     return (
-      <div>
+      <div className={`posts ${expanded ? 'expanded' : ''}`}>
         {postList.map(post => {
           let thumbnail;
           if (post.thumbnail) {
