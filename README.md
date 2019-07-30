@@ -25,6 +25,7 @@ If you see any typos or formatting errors in a post, or any other issue that nee
 
 - Ruben Harutyunyan - [Gatsby Advanced Starter](https://github.com/vagr9k/gatsby-advanced-starter/)
 - Tania Rascia - [Primitive - A minimalist front-end design sass toolkit](https://taniarascia.github.io/primitive/)
+- Amazon Web Services - [AWS](https://aws.amazon.com/)
 
 ## Author
 
