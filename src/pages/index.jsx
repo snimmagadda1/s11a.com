@@ -1,7 +1,7 @@
 import React from "react";
 import Helmet from "react-helmet";
 import { graphql } from "gatsby";
-import GitHubButton from 'react-github-btn'
+import GitHubButton from "react-github-btn";
 import Layout from "../layout";
 import PostListing from "../components/PostListing/PostListing";
 import SEO from "../components/SEO/SEO";
@@ -16,9 +16,9 @@ class Index extends React.Component {
           <Helmet title={config.siteTitle} />
           <SEO />
           <div className="container">
-            <div className="lead">
+            <div className="lead speech-bubble padding-left">
               <h1>{`Hi, I'm Sai`}</h1>
-              <p>{`I'm a software developer ....`}</p>
+              <p>{`I'm a full stack software developer focused on using new and innovative tech to find novel solutions to today's problems. My day to day focus is largely in the healthcare sphere. I build things, contribute to open source, and love a good challenge.`}</p>
               <div className="social-buttons">
                 <div>
                   <a
@@ -31,15 +31,15 @@ class Index extends React.Component {
                   </a>
                 </div>
                 <div>
-                <GitHubButton
-                  href="https://github.com/snimmagadda1"
-                  data-size="large"
-                  data-show-count="true"
-                  aria-label="Follow @snimmagadda1 on GitHub"
-                >
-                  Follow
-                </GitHubButton>
-              </div>
+                  <GitHubButton
+                    href="https://github.com/snimmagadda1"
+                    data-size="large"
+                    data-show-count="true"
+                    aria-label="Follow @snimmagadda1 on GitHub"
+                  >
+                    Follow
+                  </GitHubButton>
+                </div>
               </div>
             </div>
           </div>

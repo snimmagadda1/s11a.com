@@ -20,10 +20,35 @@
 @include small-breakpoint {
   .lead {
     font-size: 1.2rem;
-
+    padding-left: 1rem;
+    padding-right: 0.5rem;
     h1 {
       font-size: 4rem;
     }
+  }
+}
+
+@include medium-breakpoint {
+
+  .speech-bubble {
+    position: relative;
+    background: lighten($primary-color, 42%);
+    border-radius: .6em;
+  }
+
+  .speech-bubble:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 7%;
+    width: 0;
+    height: 0;
+    border: 3.82em solid transparent;
+    border-bottom-color: lighten($primary-color, 42%);
+    border-top: 0;
+    border-left: 0;
+    margin-left: -1.9em;
+    margin-top: -3.8em;
   }
 }
 
