@@ -33,7 +33,7 @@ export default class Navbar extends Component {
           <div className="me">
             <Link key="sai" to="/" activeClassName="active">
               <img src={face} className="favicon" alt="Face" />
-              <span>Sai Nimmagadda</span>
+              <span className="text">Sai Nimmagadda</span>
             </Link>
           </div>
           <div className="links">

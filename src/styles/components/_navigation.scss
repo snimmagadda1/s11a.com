@@ -101,3 +101,11 @@
     }
   }
 }
+
+@include medium-breakpoint{
+  .nav-container {
+    .text {
+      display: block !important;
+    }
+  }
+}
