@@ -1,5 +1,5 @@
 ---
-title: "Persistant volumes on Openshift"
+title: "Persistent volumes on Openshift"
 cover: "https://unsplash.it/400/300/?random?AngelsofMist"
 category: "test3"
 categories:
