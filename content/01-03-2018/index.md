@@ -1,17 +1,16 @@
 ---
-title: "An open source ETL tool..."
+title: "Luigi: An open source ETL tool..."
 cover: "https://unsplash.it/400/300/?random?AngelsofMist"
 category: "test3"
 categories:
   - Data
   - Random
-date: "01/03/2017"
+date: "01/03/2018"
 thumbnail: '../thumbnails/luigi.png'
 tags:
     - cheese
     - other
 ---
-# Exploring Luigi
 
 ## The "Problem"
 When developing a production ready data pipeline, there are a number of aspects to consider aside from simply developing functional code. For example, a strong workflow may include dependency management, checkpoints, parameterization, visualization, and failure recovery. Suddenly, the traditional python data (shown below) pipeline becomes much more complex:

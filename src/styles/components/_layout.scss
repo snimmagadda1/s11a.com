@@ -163,3 +163,58 @@
   font-size: 1.4rem;
   font-weight: 600;
 }
+
+.post-tag-container {
+  button {
+    background: #f2f2f2; 
+    font-size: 0.9rem;
+    color: $alternate-color;
+    padding: .3rem .8rem;
+    border: none;
+  }
+
+  a:not(:first-child) {
+    margin-left: 0.4rem;
+  }
+}
+
+@include small-breakpoint {
+  .single-header {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    margin-bottom: 80px;
+
+    h1 {
+      margin: 0 0 0.5rem 0;
+    }
+  }
+}
+
+.post-meta {
+  font-size: 0.8rem;
+  display: inline-block !important;
+  margin-bottom: 1rem;
+
+  .date {
+    margin-right: 0.5rem;
+  }
+
+  a {
+    color: $alternate-color;
+    font-weight: 600;
+
+    &.comment-link,
+    &.twitter-link,
+    &.github-link {
+      margin: 0 0.5rem;
+    }
+
+    &.comment-link {
+      text-transform: lowercase;
+    }
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+}

@@ -5,7 +5,7 @@ category: "test3"
 categories:
   - Cloud
   - Random
-date: "01/03/2017"
+date: "03/17/2019"
 thumbnail: '../thumbnails/openshift.png'
 tags:
     - cloud
