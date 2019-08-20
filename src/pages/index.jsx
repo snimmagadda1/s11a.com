@@ -16,7 +16,7 @@ class Index extends React.Component {
           <Helmet title={config.siteTitle} />
           <SEO />
           <div className="container">
-            <div className="lead speech-bubble">
+            <div className="lead">
               <h1>{`Hi, I'm Sai`}</h1>
               <p>{`I'm a full stack software engineer focused on using new and innovative tech to find novel solutions to today's problems. My day to day focus is largely in the healthcare sphere. I build things, contribute to open source, and love a good challenge.`}</p>
               <div className="social-buttons">
