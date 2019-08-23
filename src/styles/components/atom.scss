@@ -45,6 +45,13 @@ pre[class*="language-"] {
   border-radius: 0.3em;
 }
 
+// background of  language-text
+p code[class*="-text"]{
+  background: #FFF !important;
+  color: #404040 !important;
+  text-shadow: none;
+}
+
 .token.comment,
 .token.prolog,
 .token.doctype,
