@@ -47,11 +47,7 @@ const config = {
     {
       name: 'Articles',
       link: '/blog/',
-    },
-    {
-      name: 'Contact',
-      link: '/contact/',
-    },
+    }
   ],
   copyright: "Copyright © 2019. Sai Nimmagadda", // Copyright string for the footer of the website and RSS feed.
   themeColor: "#c62828", // Used for setting manifest and progress theme colors.
