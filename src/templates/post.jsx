@@ -95,6 +95,7 @@ export const pageQuery = graphql`
             }
           }
         }
+        slug
         cover
         date
         category

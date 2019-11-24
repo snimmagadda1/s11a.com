@@ -1,5 +1,6 @@
 ---
 title: "Luigi: An open source ETL tool..."
+slug: luigi-an-open-source-etl-tool
 cover: "https://unsplash.it/400/300/?random?AngelsofMist"
 category: "test3"
 categories:
