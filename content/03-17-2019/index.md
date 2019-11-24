@@ -4,11 +4,10 @@ cover: "https://unsplash.it/400/300/?random?AngelsofMist"
 category: "test3"
 categories:
   - Cloud
-  - Random
+  - Code
 date: "03/17/2019"
 thumbnail: '../thumbnails/openshift.png'
 tags:
-    - cloud
     - kubernetes
     - nginx
     - openshift

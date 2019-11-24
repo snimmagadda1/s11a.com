@@ -4,11 +4,11 @@ cover: "https://unsplash.it/400/300/?random?AngelsofMist"
 category: "test3"
 categories:
   - Data
-  - Random
+  - Code
 date: "01/03/2018"
 thumbnail: '../thumbnails/luigi.png'
 tags:
-    - cheese
+    - OSE
     - other
 ---
 
