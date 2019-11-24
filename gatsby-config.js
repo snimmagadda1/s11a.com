@@ -21,7 +21,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-s3`,
       options: {
-        bucketName: "s11a-website"
+        bucketName: "s11a.com"
       }
     },
     "gatsby-plugin-sass",
