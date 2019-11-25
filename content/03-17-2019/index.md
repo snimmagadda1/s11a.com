@@ -13,7 +13,7 @@ tags:
     - nginx
     - openshift
 ---
-# Serving Static Content Simplified
+# Serving static content simplified
 
 There have been a number of instances where a project or demo I’ve been a part of has the need to serve and retrieve static content (i.e files like .pdf, .png, .js, .css, etc), and I can’t count the number of times I’ve had to recreate a solution… So I’ve decided to write one out!
 
@@ -24,15 +24,15 @@ In today’s day and age there are countless ways to deploy and serve files on t
 * An OSE service and route to reach the NGINX server
 
 ## The Tools
-### Openshift
+#### Openshift
 
 The tutorial here assumes you have an instance of Openshift deployed and a project running on your infrastructure of choice. If you don’t currently have a running cluster, I would recommend checking out Redhat’s developer preview [here](https://try.openshift.com/) which can be easily set up on AWS or setting up a [minishift cluster](https://github.com/minishift/minishift). At the time of writing this images were deployed on an instance of Openshift running openshift v3.9.
 
-### NGINX
+#### NGINX
 
 If you’re not familiar with NGINX, I would recommend checking out their [docs](https://www.nginx.com/resources/glossary/nginx/). They’re rich in examples and documentation for each of the use cases. At a high level, NGINX is an open source software that can be used for a number of capabilities including proxies, web servers, load balancers, and many more. In this example we’ll be using NGINX to serve static content. More background about this use case can be found [here](https://docs.nginx.com/nginx/admin-guide/web-server/serving-static-content/).
 
-### Kubernetes
+#### Kubernetes
 
 Within the Kubernetes architecture, we’ll be working with a number of objects including persistent volumes (PV), persistent volume claims (PVCs), pods, and services.
 
@@ -104,7 +104,7 @@ docker run -p 8081:8081 snimmagadda/nginx-pvc-example
 
 and making a GET request to `http://localhost:8081/` should result in the contents of our `index.html` being served. Once that’s verified working, we’ll go ahead and push up the docker image to a given repository (in this example we’re using docker hub). You’ll notice at this step we haven’t mentioned any of the content we’ll be serving nor added the content to the container itself. This is **intentional** and an advantage of this implementation, which decouples the container serving the static files from the data itself. The files to be served will be stored and managed within a persistent volume. As a result, we can easily deploy a number of NGINX containers all pointing to the same data for high-load use cases or delete a container without worrying about the loss of data.
 
-### Deploying and adding a volume
+## Deploying and adding a volume
 
 A `PersistentVolume` is a term for a storage resource on an OSE (really a k8s) cluster. The explicit resource itself varies based on the cloud provider and is created from items such as a GCE Persistent Disk or AWS Elastic Block Store. There are a number of use cases for volumes including:
 
@@ -166,7 +166,7 @@ Note: Running oc get pvc will also verify that the volume has been successfully 
 
 TODO: Image here
 
-### Uploading and accessing static content
+## Uploading and accessing static content
 At this point we have a running NGINX web server attached to a persistent volume and its time to finally add the content we would like to serve. To do this we are going to use the oc rsh command combined with tar. First we get the name of the pod mounted to the volume using the oc get pods command. In this example our pod is named `nginx-static-5c89688f44-nkrxj` so we’ll package the contents of the pdf directory and copy the files to the volume using the command
 
 ```
