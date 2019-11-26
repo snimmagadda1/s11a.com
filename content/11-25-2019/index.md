@@ -101,7 +101,7 @@ For the other settings you should be ok to continue with the defaults:
 
 ![](../images/cloudFront2.png)
 
-Once these are created (this step may take away as AWS is pushing your content across its network of distribution servers) head back into the S3 console. For the secondary bucket created in step 1, www.example.com, change the redirect protocol to HTTPS. 
+Once these are created (this step may take a while as AWS is pushing your content across its network of distribution servers) head back into the S3 console. For the secondary bucket created in step 1, www.example.com, change the redirect protocol to HTTPS. 
 
 Lastly navigate to the Route53 console. For the two Type A aliases created in step 2, change each to point to their respective Cloudfront resources. That's it! The setup to securely deliver your website is finished. You might have DNS/connection issues if you immediately navigate to https://www.example.com. However, grab a cup of coffee and come back a bit later and the nameservers should resolve. 
 
