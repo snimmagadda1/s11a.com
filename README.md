@@ -2,6 +2,8 @@
 
 Personal website build w/ Gatsby, React, and Node.js.
 
+Why s11a? Think k8s!
+
 [See here for progress during development](http://s11a.com/)
 
 ## Installation
