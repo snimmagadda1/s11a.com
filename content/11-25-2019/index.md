@@ -106,14 +106,3 @@ Once these are created (this step may take a while as AWS is pushing your conten
 Lastly navigate to the Route53 console. For the two Type A aliases created in step 2, change each to point to their respective Cloudfront resources. That's it! The setup to securely deliver your website is finished. You might have DNS/connection issues if you immediately navigate to https://www.example.com. However, grab a cup of coffee and come back a bit later and the nameservers should resolve. 
 
 Hopefully this guide has been useful. Now go spin up your army of websites to start hosting and sharing your stuff!
-
-
-
-
-
-
-
-
-
-
-
