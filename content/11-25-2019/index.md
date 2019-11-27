@@ -15,7 +15,7 @@ tags:
     - Route53
 ---
 
-I recently migrated this site's hosting to AWS and was pleasantly surprised to find that you can host a static and secure website with a custom domain on the AWS free tier (not including the cost of the domain). Hosting on AWS can be done with a number of services but for this example we'll be using the following:
+I recently migrated this site's hosting to AWS and was pleasantly surprised to find that you can host a static, secure website with a custom domain on the AWS free tier (not including the cost of the domain). Hosting on AWS can be done with a number of services but for this example we'll be using the following:
 
 * S3
 * Route53
@@ -33,13 +33,13 @@ First, you'll want to set up two buckets. One bucket should be the name of your 
 
 ![](../images/s3Console.png)
 
-The first bucket (example.com) will hold your site's content. This is where you should put your CSS, JS, html, assets, etc. There are a number of ways to get content into a bucket, so pick your preferred method. This site is built with [Gatsby](https://www.gatsbyjs.org/), so I'm currently using the handy plugin `gatsby-plugin-s3` which makes building and pushing as easy as `npm run build && npm run deploy`. 
+The first bucket (example.com) will hold your site's content. This is where you should put your CSS, JS, HTML, assets, etc. There are a number of ways to get content into a bucket, so pick your preferred method. This site is built with [Gatsby](https://www.gatsbyjs.org/), so I'm currently using the handy plugin `gatsby-plugin-s3` which makes building and pushing as easy as `npm run build && npm run deploy`. 
 
 After your content is uploaded, head over to the Properties tab of the bucket and enable static website hosting on it:
 
 ![](../images/s3StaticHosting.png)
 
-Since user's browsers will be accessing the content in your bucket, it is important to ensure that the bucket policy is set to public. In the Permissions tab of the bucket make sure "Block all public access" is set to off and add this snippet to the bucket policy editor if not already present:
+Since users will be accessing the content in your bucket via their browser, it is important to ensure that the bucket policy is set to public. In the Permissions tab of the bucket make sure "Block all public access" is set to off and add this snippet to the bucket policy editor if not already present:
 
 ```terminal
 {
@@ -103,6 +103,6 @@ For the other settings you should be ok to continue with the defaults:
 
 Once these are created (this step may take a while as AWS is pushing your content across its network of distribution servers) head back into the S3 console. For the secondary bucket created in step 1, www.example.com, change the redirect protocol to HTTPS. 
 
-Lastly navigate to the Route53 console. For the two Type A aliases created in step 2, change each to point to their respective Cloudfront resources. That's it! The setup to securely deliver your website is finished. You might have DNS/connection issues if you immediately navigate to https://www.example.com. However, grab a cup of coffee and come back a bit later and the nameservers should resolve. 
+Lastly navigate to the Route53 console. For the two Type A aliases created in step 2, change each to point to their respective Cloudfront resources. That's it! The setup to securely deliver your website is finished. You might have DNS/connection issues if you immediately navigate to https://www.example.com. However, grab a cup of coffee and come back a bit later and the name servers should resolve. 
 
 Hopefully this guide has been useful. Now go spin up your army of websites to start hosting and sharing your stuff!
