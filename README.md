@@ -1,8 +1,6 @@
-# s11a.com [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+# s11a.com [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![Netlify Status](https://api.netlify.com/api/v1/badges/1755d67b-fe3a-42f4-900e-d7ba57eb4bdd/deploy-status)](https://app.netlify.com/sites/s11a/deploys)
 
 Personal website build w/ Gatsby, React, and Node.js.
-
-Status: [![Netlify Status](https://api.netlify.com/api/v1/badges/1755d67b-fe3a-42f4-900e-d7ba57eb4bdd/deploy-status)](https://app.netlify.com/sites/s11a/deploys)
 
 Why s11a? Think k8s!
 
