@@ -200,3 +200,15 @@
     }
   }
 }
+
+.footer {
+  display: flex;
+  flex-direction: row;
+
+  .footer-image {
+    height: 30px;
+    width: 30px;
+    margin-bottom: 0;
+  }
+
+}
