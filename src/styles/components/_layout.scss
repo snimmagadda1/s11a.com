@@ -17,6 +17,12 @@
   margin-right: auto;
 }
 
+@include medium-breakpoint{
+  footer {
+    margin-top: 2.5rem;
+  }
+}
+
 @include small-breakpoint {
   .lead {
     font-size: 1.2rem;
