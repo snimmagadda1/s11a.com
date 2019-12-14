@@ -17,8 +17,8 @@ export default class MainLayout extends React.Component {
         <Navbar menuLinks={config.menuLinks} />
         <main id="main-content">
           {children}
-          <Footer></Footer>
         </main>
+        <Footer></Footer>
 
       </div>
     );
