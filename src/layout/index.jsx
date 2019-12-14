@@ -15,8 +15,10 @@ export default class MainLayout extends React.Component {
           <meta name="description" content={config.siteDescription} />
         </Helmet>
         <Navbar menuLinks={config.menuLinks} />
-        <main id="main-content">{children}</main>
-        <Footer></Footer>
+        <main id="main-content">
+          {children}
+          <Footer></Footer>
+        </main>
 
       </div>
     );
