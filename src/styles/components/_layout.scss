@@ -17,6 +17,12 @@
   margin-right: auto;
 }
 
+@include medium-breakpoint{
+  footer {
+    margin-top: 2.5rem;
+  }
+}
+
 @include small-breakpoint {
   .lead {
     font-size: 1.2rem;
@@ -199,16 +205,4 @@
       color: $primary-color;
     }
   }
-}
-
-.footer {
-  display: flex;
-  flex-direction: row;
-
-  .footer-image {
-    height: 30px;
-    width: 30px;
-    margin-bottom: 0;
-  }
-
 }

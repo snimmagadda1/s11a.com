@@ -1,8 +1,16 @@
 .footer {
+    display: flex;
     justify-content: center;
     align-content: center;
     padding: 10px 5px 5px;
 }
+
+.footer-image {
+    height: 30px;
+    width: 30px;
+    margin-bottom: 0;
+    margin-right: 1rem;
+  }
 
 .notice-container {
     display: flex;
