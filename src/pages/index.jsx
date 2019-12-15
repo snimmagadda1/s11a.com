@@ -52,7 +52,7 @@ class Index extends React.Component {
             </section>
 
             <section className="section">
-              <h2>Open Source Projects</h2>
+              <h2>OSS & Projects</h2>
               <ProjectListing projects={projects} />
           </section>
           </div>
