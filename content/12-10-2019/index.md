@@ -56,11 +56,11 @@ The Domains section of Netlify has a wizard for adding a domain. Using it is pre
 
 After the wizard was finished, I was presented with four of Netlify's nameservers. At this point it was time to transfer control of my domain's DNS to Netlify. In the Route53 console I performed the following steps to change my domain's DNS to Netlify DNS created in step 1:
 
-* Replace the existing NS value with the four Netlify hostnames
-* Update the SOA record: 
-  * Change the "authority-domain" value to the first DNS server Netlify listed: `dns1.p08.nsone.net.`
-  * Change the "hostmaster-email-address" value to `hostmaster@nsone.net.`
-  * Leave the remaining values as is and click "Save Record Set"
+* Replaced the existing NS value with the four Netlify hostnames
+* Updated the SOA record: 
+  * Changed the "authority-domain" value to the first DNS server Netlify listed: `dns1.p08.nsone.net.`
+  * Changed the "hostmaster-email-address" value to `hostmaster@nsone.net.`
+  * left the remaining values as is and clicked "Save Record Set"
 
 Since AWS was my registrar, I had to update my domain's DNS. I navigated to `Route53` -> `Registered domains` -> `MY-DOMAIN.com` ->`Add or edit name servers` and set the value to the four Netlify name servers from step 1.
 
