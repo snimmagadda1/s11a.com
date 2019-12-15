@@ -42,7 +42,7 @@ Next I wanted to have Netlify host my site at my custom domain. After taking dow
 ## Route53 -> Netlify DNS
 I think parts of Netlify's docs are a perfect example of when minimal is too minimal, but their [migration docs](https://docs.netlify.com/domains-https/netlify-dns/) do a decent enough job explaining the process for a number of migration methods. In my case, I wanted to keep AWS as my registrar but use Netlify's DNS service. From reading  some of their suggested migration strategies, this seemed the easiest way to get started hosting. 
 
-I choose to use [Netlify DNS](https://www.netlify.com/blog/2017/12/19/an-easier-way-to-manage-domains-and-dns-on-netlify/) (still in beta), so there was really only a few steps to get the site up at a custom domain:
+I started with [Netlify DNS](https://www.netlify.com/blog/2017/12/19/an-easier-way-to-manage-domains-and-dns-on-netlify/) (still in beta), so there was really only a few steps to get the site up at a custom domain:
 
 1. Add the domain to Netlify
 2. Update AWS Route53 hosted zone (NS, SOA)
