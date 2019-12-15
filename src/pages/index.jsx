@@ -4,8 +4,10 @@ import { graphql } from "gatsby";
 import GitHubButton from "react-github-btn";
 import Layout from "../layout";
 import PostListing from "../components/PostListing/PostListing";
+import ProjectListing from "../components/ProjectListing/ProjectListing";
 import SEO from "../components/SEO/SEO";
 import config from "../../data/SiteConfig";
+import projects from '../../data/projects'
 
 class Index extends React.Component {
   render() {
@@ -48,6 +50,11 @@ class Index extends React.Component {
               <h2>Articles</h2>
               <PostListing simple postEdges={postEdges} />
             </section>
+
+            <section className="section">
+              <h2>OSS & Projects</h2>
+              <ProjectListing projects={projects} />
+          </section>
           </div>
         </div>
       </Layout>
