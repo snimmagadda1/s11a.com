@@ -11,7 +11,7 @@ export default [
         title: 'azure-terraform-generator',
         path: '',
         source: 'https://github.com/snimmagadda1/azure-terraform-generator',
-        description: 'CLI tool to query resources within a Microsoft Azure deployment and generate terraform definitions for existing objects',
+        description: 'CLI tool to query resources and generate terraform definitions for existing objects',
     },
     {
         icon: '🐥',
