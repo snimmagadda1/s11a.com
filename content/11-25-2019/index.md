@@ -29,7 +29,7 @@ With this method to deploy a website, let's say example.com, you'll need to perf
 3. Request a certificate and configure Cloudfront
 
 ## Deploying the site to buckets
-To host the site with this method, it is important to setup two buckets. One bucket should be the name of your website, and another prefixed with www (in my case s11a.com and www.s11a.com):
+To host the site with this method, it is important to set up two buckets. One bucket should be the name of your website, and another prefixed with www (in my case s11a.com and www.s11a.com):
 
 ![](../images/s3Console.png)
 
