@@ -29,13 +29,13 @@ With this method to deploy a website, let's say example.com, you'll need to perf
 3. Request a certificate and configure Cloudfront
 
 ## Deploying the site to buckets
-First, you'll want to set up two buckets. One bucket should be the name of your website, and another prefixed with www (in my case s11a.com and www.s11a.com):
+To host the site with this method, it is important to setup two buckets. One bucket should be the name of your website, and another prefixed with www (in my case s11a.com and www.s11a.com):
 
 ![](../images/s3Console.png)
 
 The first bucket (example.com) will hold your site's content. This is where you should put your CSS, JS, HTML, assets, etc. There are a number of ways to get content into a bucket, so pick your preferred method. This site is built with [Gatsby](https://www.gatsbyjs.org/), so I'm currently using the handy plugin `gatsby-plugin-s3` which makes building and pushing as easy as `npm run build && npm run deploy`. 
 
-After your content is uploaded, head over to the Properties tab of the bucket and enable static website hosting on it:
+After the site's content is uploaded, head over to the Properties tab of the bucket and enable static website hosting on it:
 
 ![](../images/s3StaticHosting.png)
 
@@ -63,7 +63,7 @@ Now inspect the other bucket you created (www.example.com) and in the Properties
 ![Setup of redirect bucket via HTTP](../images/s3Redirect.png)
 
 ## Route53 configuration
-Now that your website is up and running, you'll probably want it served at your custom domain. Assuming you already registered your domain with the Amazon registrar, you should see a hosted zone. If your domain is registered with a registrar other than Amazon, you'll need to follow some [additional steps](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-configuring.html) to set up the routing configuration. The zone should have a couple record sets attributed to the name servers and SOA. You're going to add two more, one for each bucket. For simplicity's sake, name them the same name as your two buckets. For the buckets select the following:
+Now that the website is up and running, you'll probably want it served at your custom domain. Assuming you already registered your domain with the Amazon registrar, you should see a hosted zone. If your domain is registered with a registrar other than Amazon, you'll need to follow some [additional steps](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-configuring.html) to set up the routing configuration. The zone should have a couple record sets attributed to the name servers and SOA. You're going to add two more, one for each bucket. For simplicity's sake, name them the same name as your two buckets. For the buckets select the following:
 
 - Type: A - IPv4 address
 - Alias: Yes 
@@ -83,9 +83,9 @@ Navigate to the Certificate Manager in AWS and request a free public certificate
 AWS will ask for confirmation that you own the domains you are requesting a certificate for. Choose either email verification or DNS. In my case, I selected DNS since I was using Route53. Doing so resulted in a couple additional records being added to my record set; however, this process should be mostly automated via AWS. After your certificate is issued (may take a few minutes), we can configure Cloudfront to securely deliver our site to users. 
 
 ##### Configure Cloudfront 
-As a bonus, using Cloudfront (a CDN) our site will be cached globally to ensure low latency and high transfer speeds for clients. You will need to define a web distribution for each bucket created in step 1. In the Cloudfront console create each web distribution as follows:
+As a bonus of using Cloudfront (a CDN), our site will be cached globally to ensure low latency and high transfer speeds for clients. You will need to define a web distribution for each bucket created in step 1. In the Cloudfront console create each web distribution as follows:
 
-* **Origin Domain Name**: Set this to the S3 website endpoint for one of the buckets. You may see autocomplete options, which may work for your case. In my experience letting this part autocomplete may have adverse effects. You're best off copying the bucket endpoint directly (i.e. the URLs from step 1 with the format `http://<bucket-name>.s3-website-<region>.amazonaws.com)
+* **Origin Domain Name**: Set this to the S3 website endpoint for one of the buckets. You may see autocomplete options, which may work for your case. In my experience letting this part autocomplete may have adverse effects. It's best to copy the bucket endpoint directly (i.e. the URLs from step 1 with the format `http://<bucket-name>.s3-website-<region>.amazonaws.com)
   
 * **Origin Id**: This should be filled for you when you enter Origin Domain Name.
 * **Viewer Protocol Policy**: Set to “Redirect HTTP to HTTPS”.
