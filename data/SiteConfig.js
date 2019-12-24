@@ -6,15 +6,15 @@ const config = {
   siteUrl: "https://s11a.com", // Domain of your website without pathPrefix.
   repo: "https://github.com/snimmagadda1/s11a.com",
   pathPrefix: "", // Prefixes all links. For cases when deployed to example.github.io/gatsby-advanced-starter/.
-  siteDescription: "A GatsbyJS stater with Advanced design in mind.", // Website description used for RSS feeds/meta description tag.
+  siteDescription: "A personal development blog", // Website description used for RSS feeds/meta description tag.
   siteRss: "/rss.xml", // Path to the RSS file.
   siteFBAppID: "1825356251115265", // FB Application ID for using app insights
   googleAnalyticsID: "UA-47311644-5", // GA tracking ID.
-  disqusShortname: "https-vagr9k-github-io-gatsby-advanced-starter", // Disqus shortname.
+  disqusShortname: "https-s11a-com", // Disqus shortname.
   postDefaultCategoryID: "Tech", // Default category for posts.
   dateFromFormat: "MM-DD-YYYY", // Date format used in the frontmatter.
   dateFormat: 'MMMM Do, YYYY', // Date format for display.
-  userName: "Example User", // Username to display in the author segment.
+  userName: "Sai Nimmagadda", // Username to display in the author segment.
   userEmail: "ExampleUser@example.com", // Email used for RSS feed's author segment
   userTwitter: "", // Optionally renders "Follow Me" in the UserInfo segment.
   userLocation: "NC, USA", // User location to display in the author segment.
