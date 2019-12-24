@@ -11,7 +11,7 @@ class About extends Component {
             I also created this site to keep myself on track: I love the excitement that comes with contributing to the web and wanted a way combine my learning with contributing.
           </p>
           <p>I believe the best way to learn is through collaboration with others, so I'll be posting anything and everything I come across in the web that I think might be useful or interesting. 
-            Hopefully others will find the knowledge/rants here useful.</p>
+            Hopefully visitors will find the knowledge/rants here useful.</p>
         </div>
       </div>
     );
