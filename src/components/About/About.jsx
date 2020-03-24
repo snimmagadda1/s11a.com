@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import mePic from '../../images/me.jpg'
 import leetCode from '../../../static/logos/leetcode.png'
 import udemy from '../../../static/logos/udemy.png'
+import graphql from '../../../static/logos/graphql.png'
 class About extends Component {
 
   navigateToSomething = (url) => {
@@ -42,7 +43,18 @@ class About extends Component {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="button-pic"
-                alt="LeetCode"
+                alt="Udemy"
+              />
+            </button>
+            <button className="muted-button"
+              onClick={() => this.navigateToSomething("https://advancedreact.com/")}>
+              Advanced React & GraphQL 
+              <img
+                src={graphql}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="button-pic"
+                alt="AdvancedReact"
               />
             </button>
           </div>
