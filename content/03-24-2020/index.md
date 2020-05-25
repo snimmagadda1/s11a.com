@@ -16,7 +16,7 @@ tags:
 
 ## Starting a collection ...
 
-CSS still scares me. Even after using it everyday for years I'm always fascinated by the number of ways techniques that exist to do something and the new features that come out each year.
+CSS still scares me. Even after using it everyday for years I'm always fascinated by the number of ways that exist to do something and the new features that come out each year.
 
 [Exhibit A: A quick codepen search](https://codepen.io/search/pens?q=css+art)
 
@@ -41,6 +41,8 @@ Thy styles on the classs `buttonList` demonstrate the result:
   border-top: 1px solid #e1e1e1;
 }
 ```
+
+(inspect and change size to see, or edit the `max-width` property)
 
 And you could imagine where using something like this might come in handy, i.e if we had an item in a store catalog [(styles from this course)](https://advancedreact.com/):
 
