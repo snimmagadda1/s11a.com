@@ -29,7 +29,7 @@ With CSS grid, you can repeat grid columns as you like and place items in them. 
   (<a href='https://codepen.io/snimmagadda1'>@snimmagadda1</a>) on <a href='https://codepen.io'>CodePen</a>.
 </iframe>
 
-Thy styles on the classs `buttonList` demonstrate the result:
+The styles on the classs `buttonList` demonstrate the result:
 
 ```css
 .buttonList {
