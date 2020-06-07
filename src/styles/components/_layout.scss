@@ -17,7 +17,7 @@
   margin-right: auto;
 }
 
-@include medium-breakpoint{
+@include medium-breakpoint {
   footer {
     margin-top: 2.5rem;
   }
@@ -79,7 +79,6 @@
   }
 }
 
-
 .projects {
   .each {
     display: flex;
@@ -132,7 +131,6 @@
     padding: 0.5rem;
     font-size: 1rem;
   }
-
 }
 
 @include small-breakpoint {
@@ -249,10 +247,10 @@
 
 .post-tag-container {
   button {
-    background: #f2f2f2; 
+    background: #f2f2f2;
     font-size: 0.9rem;
     color: $alternate-color;
-    padding: .3rem .8rem;
+    padding: 0.3rem 0.8rem;
     border: none;
   }
 
@@ -303,7 +301,7 @@
 }
 
 // About page
-.me-content{
+.me-content {
   display: flex;
   justify-content: space-between;
   img {
@@ -317,9 +315,9 @@
     // align-items: start;
     column-gap: 4%;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: .25fr 1fr 1fr;
+    grid-template-rows: 0.25fr 1fr 1fr;
 
-    h3{
+    h3 {
       grid-column: 1/3;
       text-align: center;
       margin: 0 0;
@@ -336,18 +334,41 @@
     }
 
     // Colors of the things
-    button:nth-child(2){
-      background: linear-gradient(315deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%), linear-gradient(315deg, #FA5A5A 0%, #FF2F2F 100%);
+    button:nth-child(2) {
+      background: linear-gradient(
+          315deg,
+          rgba(255, 255, 255, 0.5) 0%,
+          rgba(255, 255, 255, 0) 100%
+        ),
+        linear-gradient(315deg, #fa5a5a 0%, #ff2f2f 100%);
     }
 
-    button:nth-child(3){
-      background: linear-gradient(315deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%), linear-gradient(315deg, #AF6AFF 0%, #6700DF 100%);
+    button:nth-child(3) {
+      background: linear-gradient(
+          315deg,
+          rgba(255, 255, 255, 0.5) 0%,
+          rgba(255, 255, 255, 0) 100%
+        ),
+        linear-gradient(315deg, #af6aff 0%, #6700df 100%);
     }
 
-    button:nth-child(4){
-      background: linear-gradient(315deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%), linear-gradient(315deg, #3FC7FF 0%, #00A3E6 100%);
+    button:nth-child(4) {
+      background: linear-gradient(
+          315deg,
+          rgba(255, 255, 255, 0.5) 0%,
+          rgba(255, 255, 255, 0) 100%
+        ),
+        linear-gradient(315deg, #3fc7ff 0%, #00a3e6 100%);
     }
 
+    button:nth-child(5) {
+      background: linear-gradient(
+          315deg,
+          rgba(255, 255, 255, 0.5) 0%,
+          rgba(255, 255, 255, 0) 100%
+        ),
+        linear-gradient(315deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%);
+    }
   }
 }
 

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import mePic from '../../images/me.jpg'
-import leetCode from '../../../static/logos/leetcode.png'
-import udemy from '../../../static/logos/udemy.png'
-import graphql from '../../../static/logos/graphql.png'
+import mePic from '../../images/me.jpg';
+import leetCode from '../../../static/logos/leetcode.png';
+import udemy from '../../../static/logos/udemy.png';
+import graphql from '../../../static/logos/graphql.png';
+import qmk from '../../../static/logos/qmk.png'
 class About extends Component {
 
   navigateToSomething = (url) => {
@@ -51,6 +52,17 @@ class About extends Component {
               Advanced React & GraphQL 
               <img
                 src={graphql}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="button-pic"
+                alt="AdvancedReact"
+              />
+            </button>
+            <button className="muted-button"
+              onClick={() => this.navigateToSomething("https://docs.qmk.fm/#/")}>
+              Hacking my keyboard (QMK)
+              <img
+                src={qmk}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="button-pic"
