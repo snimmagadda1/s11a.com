@@ -25,7 +25,7 @@ I've been eyeing [styled-components](https://styled-components.com/) for a while
 </p>
 
 
-After throwing this together, I gotta say I enjoyed flow of using styled-components. I know it's just CSS in JS, but it *feels* slick. Using it completely removed any worry of conflicting class names / styles and I also really enjoyed the way props work. I personally find coding logic to determine styles in render methods tedious. But with styled-components the coupling of logic and styles is closer than ever. Take this simple usage of props:
+After throwing this together, I gotta say I enjoyed flow of using styled-components. I know it's just CSS in JS, but it *feels* slick. Using it completely removed any worry of conflicting class names / styles and I also really enjoyed the way props work. I personally find coding logic to determine styles in render methods tedious. But with styled-components the coupling of logic and styles is closer than ever. Take this simple usage of props. By passing in the prop `primary` to the `GamerForm` we are able to influence its style:
 
 ```css
 /* GamerForm.js */
