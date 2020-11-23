@@ -17,7 +17,7 @@ tags:
 
 ## [styled-components](https://styled-components.com/) 
 
-I've been eyeing [styled-components](https://styled-components.com/) for a while now, so I decided to throw together a clone of the Discord login form to get a feel for developing with the library. 
+I've been eyeing [styled-components](https://styled-components.com/) for a while now, so I decided to throw together a clone of the Discord login form to get a feel for developing with the library. Here's my current progresss - it's responsive, but missing some key elements like the cool SVG animation of the background:
 
 ![](../images/discordClone.png)
 <p style="text-align: center; font-weight: 800; font-style:italic">
