@@ -1,5 +1,5 @@
 ---
-title: "Cloning Discord's login form to mess with styled components"
+title: "Cloning Discord's login form to mess with styled-components"
 slug: cloning-discords-login-form-to-mess-with-styled-components
 cover: "https://unsplash.it/400/300/?random?AngelsofMist"
 category: "test3"
