@@ -1,6 +1,6 @@
 ---
 title: "T.I.G: JavaScript push to the beginning of an array"
-slug: merge-and-remove-duplicates-in-javasscript
+slug: merge-and-remove-duplicates-in-javascript
 cover: "https://unsplash.it/400/300/?random?AngelsofMist"
 category: "test3"
 categories:
