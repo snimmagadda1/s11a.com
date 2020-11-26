@@ -22,7 +22,7 @@ I like new things. AWS has an endless amount of cool things in its services, but
 ## Getting on Netlify
 I chose to follow the `New site from Git` track to quickly get a version of my site deployed. After signing up and a few clicks, Netlify was aware of my site and watching with a configured build pipeline. To get my Gatsby site to deploy, I only had to update the build command the pipeline would use. To do this, I added `netlify.toml` to the root of my directory containing the following:
 
-```yaml
+```docker
 [build]
   publish = "public"
   command = "npm run build"

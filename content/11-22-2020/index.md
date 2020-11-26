@@ -42,7 +42,7 @@ const GamerForm = styled.form`
   ....
 ```
 
-```jsx
+```jsx{7}
 // DiscordForm.js
 class DiscordForm extends React.Component {
   render() {
@@ -73,7 +73,7 @@ class DiscordForm extends React.Component {
 
 Theming is another neat tool that comes in styled components that has parallels in things like SASS. By wrapping styled-components in  a `<ThemeProvider>` component and passing in an object like the following you can build re-usable and dynamically themed sites:
 
-```
+```css
 const theme = {
   colors: {
     muted: "#B9BBBE",

@@ -40,7 +40,7 @@ Within the Kubernetes architecture, we’ll be working with a number of objects 
 
 All of the “heavy lifting” for how our files are served is handled by NGINX. We simply have to provide the container some configuration context and instructions for how to serve our files we’d like deployed. Full code for the following tutorials can be found [here](https://github.com/snimmagadda1/nginx-openshift-pvc). First we’ll construct a `Dockerfile` as follows:
 
-```docker
+```dockerfile
 FROM nginx:mainline
  
 ADD nginx.conf /etc/nginx/
@@ -97,7 +97,7 @@ nginx -g "daemon off;"
 
 At this point we can build and test our NGINX implementation locally. For example, to build and run the image with a name `snimmagadda/nginx-pvc-example` within the directory we can run
 
-```bash
+```docker
 docker build . -t snimmagadda/nginx-pvc-example
 docker run -p 8081:8081 snimmagadda/nginx-pvc-example
 ```
