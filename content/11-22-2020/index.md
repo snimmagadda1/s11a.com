@@ -10,9 +10,8 @@ date: "11/22/2020"
 thumbnail: "../thumbnails/styled-components-logo.png"
 tags:
   - JavaScript
-  - ES6
-  - Spread
-  - Set
+  - styled-components
+  - responsive
 ---
 
 ## [styled-components](https://styled-components.com/) 
