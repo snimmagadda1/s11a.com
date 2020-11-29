@@ -24,6 +24,8 @@ class SEO extends Component {
       image = config.siteLogo;
     }
 
+    console.log('The image found is s', image)
+
     image = urljoin(config.siteUrl, config.pathPrefix, image);
     const blogURL = urljoin(config.siteUrl, config.pathPrefix);
     const schemaOrgJSONLD = [
