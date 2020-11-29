@@ -175,7 +175,8 @@ tar cf - . | oc rsh nginx-static-5c89688f44-nkrxj tar xofC - /var/www/static --n
 
 With files now copied into the volume, we can test it by exposing our service (creating a route) and making a `GET` request to `<base-url>/my_file.pdf`. If you’ve been using the code [here](https://github.com/snimmagadda1/nginx-openshift-pvc) making a request to:
 
-```
+
+```http
 http://<base-url>/ipsum.pdf
 ```
 

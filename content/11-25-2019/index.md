@@ -41,7 +41,7 @@ After the site's content is uploaded, head over to the Properties tab of the buc
 
 Since users will be accessing the content in your bucket via their browser, it is important to ensure that the bucket policy is set to public. In the Permissions tab of the bucket make sure "Block all public access" is set to off and add this snippet to the bucket policy editor if not already present:
 
-```terminal
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
