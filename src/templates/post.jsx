@@ -52,7 +52,7 @@ export default class PostTemplate extends React.Component {
               <div>
                 <h1>{post.title}</h1>
                 <div className="post-meta">
-                  <time className="date">{date}</time> |
+                  <time className="date">By <strong>Sai Nimmagadda</strong> on {date}</time> |
                   <a className="twitter-link" href={twitterShare}>
                     Share  📤
                   </a> |
