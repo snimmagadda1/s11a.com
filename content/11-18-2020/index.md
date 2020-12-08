@@ -1,6 +1,6 @@
 ---
 title: "T.I.G: JavaScript push to the beginning of an array"
-slug: merge-and-remove-duplicates-in-javascript
+slug: javascript-push-to-the-beginning-of-an-array
 cover: "https://unsplash.it/400/300/?random?AngelsofMist"
 category: "test3"
 categories:
@@ -37,4 +37,4 @@ let myObjects = [
 myObjects.unshsift({})
 ```
 
-Easy user experience win. 
+Easy user experience win.
