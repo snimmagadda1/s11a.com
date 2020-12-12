@@ -17,7 +17,7 @@ tags:
 
 ## Flexible and fast development
 
-Admittedly, I'm probably a bit late to the game on this one, but I stumbled on downshift and have been impressed! Developing with it feels _fast_. It offers so many features out of the box and uses render props. Render props are great because they decouple implementation details with the content being rendered, and after using this for a couple hours I am thrilled with the low-level control this puts in a developer's hands. Lets take this example, building a dropdown that searches onChange:
+Admittedly I'm probably a bit late to the game on this one, but I stumbled on downshift and have been impressed! Developing with it feels _fast_. It offers so many features out of the box and uses render props. Render props are great because they decouple implementation details with the content being rendered, and after using this for a couple hours I am thrilled with the low-level control this puts in a developer's hands. Lets take this example, building a dropdown that searches a backend onChange:
 
 ```jsx
   render() {
@@ -83,3 +83,21 @@ Admittedly, I'm probably a bit late to the game on this one, but I stumbled on d
 ```
 
 ![Dropdown render output expanded with results](../images/before.png)
+
+Full source code and styles can be [found here](https://github.com/snimmagadda1/downshift-twitch-clips-search) - for brevity I've left out the full component declaration, data fetching and helper functions. In the JSX above all we've done so far is render and search `input` and map the results of a fetch to some styled `div`s. Pretty typical stuff. Now examine the result after we've used the `<Downshift>` component with some composition:
+
+![Annotated render method of Downshfit powered input](../images/afterdownshift.png)
+
+Some high-level things to note:
+
+- Downshift provides [a whole lot to destructure](https://github.com/downshift-js/downshift#advanced-props) in the form of `props` and `propGetters`. These props provide functionality and necessary aria attributes.
+
+- We provide an `onChange` function to tell the component what to do with changes. Since we are using a list of objects, we pass an `itemToString` prop to tell Downshift how to render our state.
+  
+- Here we are taking advantage of `getInputProps` to hook up our `input` element and `getItemProps` to hook up our selections.
+
+- We are using the optional props `isOpen`, `inputValue` and `highlightedIndex` to enhance the user experience of our dropdown component
+
+- We have ommitted `getRootProps`. This is an important prop and recommended to provide a fully accessible experience with screen readers.
+
+That's really all there is to it. Downshift is a primitive that fits into any component or existing implementation because of how flexibile the API is. Easy WAI-ARIA compliance win with alot of power.
