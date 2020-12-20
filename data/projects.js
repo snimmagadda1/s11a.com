@@ -11,7 +11,7 @@ export default [
         title: "Stack Exchange GraphQL Server",
         path: "https://stack-exchange-graphql-server.azurewebsites.net/",
         source: "https://github.com/snimmagadda1/stack-exchange-graphql-server",
-        description: "A GraphQL endpoint for Stack Overflow data powered by Go",
+        description: "A GraphQL endpoint for Stack Exchange data powered by Go",
     },
     {
         icon: "🚧",
