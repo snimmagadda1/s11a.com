@@ -84,7 +84,7 @@ Admittedly I'm probably a bit late to the game on this one, but I stumbled on do
 
 ![Dropdown render output expanded with results](../images/before.png)
 
-Full source code and styles can be [found here](https://github.com/snimmagadda1/downshift-twitch-clips-search) - for brevity I've left out the full component declaration, data fetching and helper functions. In the JSX above all we've done so far is render and search `input` and map the results of a fetch to some styled `div`s. Pretty typical stuff. Now examine the result after we've used the `<Downshift>` component with some composition:
+Full source code and styles can be [found here](https://github.com/snimmagadda1/downshift-twitch-clips-search) - for brevity I've left out the full component declaration, data fetching and helper functions. In the JSX above all we've done so far is render a search `input` and map the results of a fetch to some styled `div`s. Pretty typical stuff. Now examine the result after we've used the `<Downshift>` component with some composition:
 
 ![Annotated render method of Downshfit powered input](../images/afterdownshift.png)
 
