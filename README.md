@@ -1,8 +1,6 @@
-# s11a.com [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![Netlify Status](https://api.netlify.com/api/v1/badges/7221c3fe-992b-448e-ab3f-00124c3d8801/deploy-status)](https://app.netlify.com/sites/s11a/deploys)
+# [s11a.com](s11a.com) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![Netlify Status](https://api.netlify.com/api/v1/badges/7221c3fe-992b-448e-ab3f-00124c3d8801/deploy-status)](https://app.netlify.com/sites/s11a/deploys)
 
 Personal website build w/ Gatsby, React, and Node.js.
-
-Why s11a? Think k8s!
 
 ## Installation
 
@@ -23,14 +21,14 @@ If you see any typos or formatting errors in a post, or any other issue that nee
 
 ## Built with
 
-- Ruben Harutyunyan - [Gatsby Advanced Starter](https://github.com/vagr9k/gatsby-advanced-starter/)
-- Tania Rascia - [Primitive - A minimalist front-end design sass toolkit](https://taniarascia.github.io/primitive/)
-- Netlify - [Netlify](https://www.netlify.com/) 
-- Amazon Web Services - [AWS](https://aws.amazon.com/)
+-   Ruben Harutyunyan - [Gatsby Advanced Starter](https://github.com/vagr9k/gatsby-advanced-starter/)
+-   Tania Rascia - [Primitive - A minimalist front-end design sass toolkit](https://taniarascia.github.io/primitive/)
+-   Netlify - [Netlify](https://www.netlify.com/)
+-   Amazon Web Services - [AWS](https://aws.amazon.com/)
 
 ## Author
 
-- [Sai Nimmagadda](https://www.s11a.com)
+-   [Sai Nimmagadda](https://www.s11a.com)
 
 ## License
 
