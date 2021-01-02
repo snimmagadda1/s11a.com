@@ -1,18 +1,18 @@
 ---
-title: "Rapid development & accessible dropdowns with Downshift "
+title: "Rapid development & accessible dropdowns with Downshift"
 slug: rapid-development-and-accessible-dropdowns-with-downshit
 cover: "https://unsplash.it/400/300/?random?AngelsofMist"
 category: "test3"
 categories:
-  - Code
-  - Frontend
+    - Code
+    - Frontend
 date: "12/10/2020"
 thumbnail: "../thumbnails/downshift.png"
 tags:
-  - JavaScript
-  - styled-components
-  - downshift
-  - react
+    - JavaScript
+    - styled-components
+    - downshift
+    - react
 ---
 
 ## Flexible and fast development
@@ -90,14 +90,14 @@ Full source code and styles can be [found here](https://github.com/snimmagadda1/
 
 Some high-level things to note:
 
-- Downshift provides [a whole lot to destructure](https://github.com/downshift-js/downshift#advanced-props) in the form of `props` and `propGetters`. These props provide functionality and necessary aria attributes.
+-   Downshift provides [a whole lot to destructure](https://github.com/downshift-js/downshift#advanced-props) in the form of `props` and `propGetters`. These props provide functionality and necessary aria attributes.
 
-- We provide an `onChange` function to tell the component what to do with changes. Since we are using a list of objects, we pass an `itemToString` prop to tell Downshift how to render our state.
-  
-- Here we are taking advantage of `getInputProps` to hook up our `input` element and `getItemProps` to hook up our selections.
+-   We provide an `onChange` function to tell the component what to do with changes. Since we are using a list of objects, we pass an `itemToString` prop to tell Downshift how to render our state.
 
-- We are using the optional props `isOpen`, `inputValue` and `highlightedIndex` to enhance the user experience of our dropdown component
+-   Here we are taking advantage of `getInputProps` to hook up our `input` element and `getItemProps` to hook up our selections.
 
-- We have ommitted `getRootProps`. This is an important prop and recommended to provide a fully accessible experience with screen readers.
+-   We are using the optional props `isOpen`, `inputValue` and `highlightedIndex` to enhance the user experience of our dropdown component
+
+-   We have ommitted `getRootProps`. This is an important prop and recommended to provide a fully accessible experience with screen readers.
 
 That's really all there is to it. Downshift is a primitive that fits into any component or existing implementation because of how flexibile the API is. Easy WAI-ARIA compliance win with alot of power.
