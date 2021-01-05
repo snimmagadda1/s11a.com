@@ -1,5 +1,5 @@
 ---
-title: "A Spring Batch Quickstarter"
+title: "A Spring Batch quickstarter"
 slug: a-spring-batch-quickstarter
 cover: "https://unsplash.it/400/300/?random?AngelsofMist"
 category: "test3"
@@ -7,7 +7,7 @@ categories:
     - Code
     - Backend
     - Cloud
-date: "01-03-2021"
+date: "01/03/2021"
 thumbnail: "../thumbnails/batch.png"
 tags:
     - Spring
