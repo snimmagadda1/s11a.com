@@ -9,7 +9,7 @@ export default [
     {
         icon: "🐙",
         title: "Stack Exchange GraphQL Server",
-        path: "https://stack-exchange-graphql-server.azurewebsites.net/",
+        path: "https://stacke-graphql.azurewebsites.net",
         source: "https://github.com/snimmagadda1/stack-exchange-graphql-server",
         description: "A GraphQL endpoint for Stack Exchange data powered by Go",
     },
