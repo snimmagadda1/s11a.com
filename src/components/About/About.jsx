@@ -48,17 +48,6 @@ class About extends Component {
               />
             </button>
             <button className="muted-button"
-              onClick={() => this.navigateToSomething("https://advancedreact.com/")}>
-              Advanced React & GraphQL 
-              <img
-                src={graphql}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="button-pic"
-                alt="AdvancedReact"
-              />
-            </button>
-            <button className="muted-button"
               onClick={() => this.navigateToSomething("https://docs.qmk.fm/#/")}>
               Hacking my keyboard (QMK)
               <img
