@@ -14,7 +14,8 @@ class PostListing extends React.Component {
         thumbnail: postEdge.node.frontmatter.thumbnail,
         date: postEdge.node.fields.date,
         excerpt: postEdge.node.excerpt,
-        timeToRead: postEdge.node.timeToRead
+        timeToRead: postEdge.node.timeToRead,
+        isdev: postEdge.node.frontmatter.isdev
       });
     });
     return postList;
@@ -31,15 +32,18 @@ class PostListing extends React.Component {
             thumbnail = post.thumbnail.childImageSharp.fixed;
           }
 
+          let postClass = post.isdev? "post-info-building" : "post-info"
+
           return (
             <Link to={post.path} key={post.title}>
-              <div className="post-info">
+              <div className={postClass}>
                 <div className="icon">
                   {thumbnail ? <Img fixed={thumbnail} /> : <div />}
                 </div>
                 <div className="post-line">
                   <h2>{post.title}</h2>
                 </div>
+                {post.isdev ? <span className="badge">BUILDING</span> : null}
               </div>
             </Link>
           );

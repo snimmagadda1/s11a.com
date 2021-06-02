@@ -3,6 +3,12 @@
   @media (min-width: #{$mobile}) {
     @content;
   } 
+} 
+
+@mixin small-only-breakpoint {
+  @media (max-width: #{$mobile}) {
+    @content;
+  } 
 }  
 
 // Break on tablet
