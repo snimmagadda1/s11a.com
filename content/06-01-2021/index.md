@@ -1,5 +1,5 @@
 ---
-title: "Batch processing with Spring Batch"
+title: "Building a pipeline with Spring Batch"
 slug: batch-processing-in-java-with-spring-batch
 cover: "https://unsplash.it/400/300/?random?AngelsofMist"
 category: "test3"
@@ -24,6 +24,8 @@ You must have a general knowledge of Java for this guide. Along with that, knowl
 - Databases
 - Docker (not required but useful for running locally)
 
+We will do a quick overview of some of the primary components that you'll work with in Spring Batch. Depending on your use case, you may want to dig around [the official docs](https://spring.io/projects/spring-batch#learn) for additional info. 
+
 ## Goals
 In this walkthrough, we will build a modest, multi-threaded batch pipeline. It will read a directory of files (XML data dumps from Stack Exchange), perform some processing, and write to a relational DB (MySQL). Here is the link to the full source:
 
@@ -36,6 +38,8 @@ If you're someone looking for a refresher in the strategies and principles of ba
 Like most-things-Spring, the framework comes with a lot built for you out of the box and you can get [running pretty quickly](https://spring.io/guides/gs/batch-processing/). Adding `@EnableBatchProcessing` to your spring app gives you everything you need to code with for free (magic). Personal experience has taught me it's best to have a decent grasp on Spring's implementation of whatever you're using. We'll use the following diagram to quickly go through the way Spring implements batch.
 
 ![Spring batch functional architecture](../images/spring-batch-architecture.png)
+
+The diagram depicts a broad lifecycle of a Spring Batch job. In summary, any external trigger could interact with the `JobLauncher`, which is responsible for kicking off a `Job`. As jobs are triggered and run, metadata and progress is reported to a datastore via the `JobRepository`. A developer defines isolated steps that handle their own reads, processing, and writes from N inputs and outputs.
 
 The above isn't a comprehensive architecture diagram (theres some additional classes & interfaces exposed by the framework) but it should give you a baseline of what you're working with:
 
@@ -73,16 +77,20 @@ The above isn't a comprehensive architecture diagram (theres some additional cla
         }
     ```
 
-- **A `Step` represents an independent unit of work.** A step could literally do anything...
+&nbsp;
+&nbsp;
+  
+- **A `Step` represents an independent unit of work.** Spring doesn't impose too many restrictions on how a step must be implemented. A step could be as easy as reading from a file and writing to a table in a DB. A more complicated step might read a file with different entities, apply some business logic, and write the aggregate somewhere. Just like a job has a `JobExecution` object holding metadata for each run, a step has a `StepExecution` with some more granular fields like readCount, errorCount, startTime, etc.
+
+
+    You'll want to be familiar with the process of defining and fine tuning a step
 
 
 
 
 
 
-
-
-## Setting up the jobs "wiring"
+## Setting up the job's "wiring"
 
 .... When starting a project I like to be explicit:
 
