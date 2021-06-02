@@ -14,6 +14,7 @@ tags:
     - Batch
     - pipeline
     - Java
+isdev: true
 ---
 
 The last post took look at a Spring Batch project template to get off the ground quickly. In this one we're going to take it a step further and use the starter to build out a batch job. We won't focus too much here on the implementation of the framework itself ([docs do a good job of that](https://docs.spring.io/spring-batch/docs/4.3.x/reference/html/domain.html#domainLanguageOfBatch)), but rather practical use-cases to quickly enable yourself to build robust batch apps for enterprise apps.
