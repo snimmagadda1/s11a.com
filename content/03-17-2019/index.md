@@ -160,11 +160,9 @@ spec:
               mountPath: /var/www/static
 ```
 
-Notably the volume `nginx-static-storage` is created from the PVC we defined in the first block, and then is mounted to the `/var/www/static` directory within the NGINX container. This effectively means that data at this location within the container will be managed by our newly created PV. If we go ahead and execute the deployment `oc create -f deployment.yml` we will receive output that the PVC, deployment, and associated service have been created (screenshot of OSE console below).
-
+Notably the volume `nginx-static-storage` is created from the PVC we defined in the first block, and then is mounted to the `/var/www/static` directory within the NGINX container. This effectively means that data at this location within the container will be managed by our newly created PV. If we go ahead and execute the deployment `oc create -f deployment.yml` we will receive output that the PVC, deployment, and associated service have been created.
 Note: Running oc get pvc will also verify that the volume has been successfully created.
 
-TODO: Image here
 
 ## Uploading and accessing static content
 At this point we have a running NGINX web server attached to a persistent volume and its time to finally add the content we would like to serve. To do this we are going to use the oc rsh command combined with tar. First we get the name of the pod mounted to the volume using the oc get pods command. In this example our pod is named `nginx-static-5c89688f44-nkrxj` so we’ll package the contents of the pdf directory and copy the files to the volume using the command
@@ -181,8 +179,6 @@ http://<base-url>/ipsum.pdf
 ```
 
 should result in being served the static pdf document!
-
-TODO: Image here
 
 Now you could delete the pod, scale down/up, add more content, etc and your data will remain in the PV for access via pods that mount the volume. 
 
