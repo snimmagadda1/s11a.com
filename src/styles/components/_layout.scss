@@ -55,25 +55,6 @@
     grid-template-columns: 60px 2fr 120px;
     grid-gap: 0.6rem;
 
-    .badge {
-        border: 4px dashed rgba(0, 0, 0, 0.6);
-        background-color: #dea731;
-        color: rgba(0, 0, 0, 0.6);
-        font-weight: bold;
-        border-radius: 6px;
-        text-align: center;
-        padding: 5px;
-    }
-
-    @include small-only-breakpoint {
-        .badge {
-            display: none;
-        }
-
-        .post-info-building {
-            border: 4px solid #dea731 !important;
-        }
-    }
 }
 
 

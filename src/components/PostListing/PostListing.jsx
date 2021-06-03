@@ -43,7 +43,6 @@ class PostListing extends React.Component {
                 <div className="post-line">
                   <h2>{post.title}</h2>
                 </div>
-                {post.isdev ? <span className="badge">BUILDING</span> : null}
               </div>
             </Link>
           );
