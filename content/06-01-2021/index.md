@@ -1,6 +1,6 @@
 ---
-title: "Building a pipeline with Spring Batch"
-slug: batch-processing-in-java-with-spring-batch
+title: "Building a batch pipeline w/ Java #1: crash course in Spring Batch"
+slug: building-a-batch-pipeline-01-crash-course-in-spring-batch
 cover: "https://unsplash.it/400/300/?random?AngelsofMist"
 category: "test3"
 categories:
@@ -17,7 +17,7 @@ tags:
 isdev: true
 ---
 
-The last post took look at a Spring Batch project template to get off the ground quickly. In this one we're going to take it a step further and use the starter to build out a batch job. We won't focus too much here on the implementation of the framework itself ([docs do a good job of that](https://docs.spring.io/spring-batch/docs/4.3.x/reference/html/domain.html#domainLanguageOfBatch)), but rather practical use-cases to quickly enable yourself to build robust batch apps for enterprise apps.
+The last post took look at a Spring Batch project template to get off the ground quickly. In this series we're going to take it a step further and use the starter to build out a batch job. We won't focus too much here on the implementation of the framework itself ([docs do a good job of that](https://docs.spring.io/spring-batch/docs/4.3.x/reference/html/domain.html#domainLanguageOfBatch)), but rather practical use-cases to quickly enable yourself to build robust batch apps for enterprise apps.
 
 ## Prerequisites
 You be proficient with Java for this guide. Along with that, knowledge of the following is very beneficial:
@@ -25,10 +25,10 @@ You be proficient with Java for this guide. Along with that, knowledge of the fo
 - Databases
 - Docker (not required but useful for running locally)
 
-We will do a quick overview of some of the primary components that you'll work with in Spring Batch. Depending on your use case, you may want to dig around [the official docs](https://spring.io/projects/spring-batch#learn) for additional info. 
+Here we'll do a quick overview of some of the primary components that you'll work with in Spring Batch. Depending on your use case, you may want to dig around [the official docs](https://spring.io/projects/spring-batch#learn) for additional info. 
 
 ## Goals
-In this walkthrough, we will build a modest, multi-threaded batch pipeline. It will read a directory of files (XML data dumps from Stack Exchange), perform some processing, and write to a relational DB (MySQL). Here is the link to the full source:
+In this set of posts we will build a modest, multi-threaded batch pipeline. It will read a directory of files (XML data dumps from Stack Exchange), perform some processing, and write to a relational DB (MySQL). Here is the link to the full source:
 
 - [**Source**](https://github.com/snimmagadda1/stack-exchange-dump-to-mysql)
 
@@ -215,20 +215,18 @@ The builder also exposes a number of options for fault tolerance, skipping, mult
 &nbsp;
 
 #### Tasklet steps
-A *TaskletStep* is a simplest 
-
-
-
-
-
-
-## Setting up the job's "wiring"
-
-.... When starting a project I like to be explicit:
+A *TaskletStep* is a bit simpler than a *chunk-oriented* step. It is best used in steps of a pipeline that don't fit into the chunk-based mold i.e calling a stored procedure or executing some DDL statements. The syntax for defining a `TaskletStep` is much simpler:
 
 ```java
-    @Bean
-    BatchConfigurer batchConfigurer(@Qualifier("springDataSource") DataSource dataSource) {
-        return new DefaultBatchConfigurer(dataSource);
-    }
+@Bean
+public Step step1() {
+    return this.stepBuilderFactory.get("step1")
+    			.tasklet(myTasklet())
+    			.build();
+}
+```
+
+You simply define a class that implements the `Tasklet` interface. This class has a single method, `execute`, that is called repeatedly until returning `RepeateStatus.FINISHED`. A common pattern in the early/late steps of a job is to run some DDL to instantiate a schema before writing. This could be done by creating a `Tasklet`:
+
+```java
 ```
