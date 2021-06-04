@@ -164,7 +164,7 @@ public Step step1() {
 }
 ```
 
-We also pass to the builder an `ItemReader` and `ItemWriter` that direct the read/write behavior of the step. [Spring and the community already provide many different types of readers and writers](https://docs.spring.io/spring-batch/docs/4.3.x/reference/html/appendix.html#listOfReadersAndWriters) so writing a full-fledged batch pipeline could take very little code. [Readers](https://docs.spring.io/spring-batch/docs/current/api/org/springframework/batch/item/ItemReader.html#read--) and [writers](https://docs.spring.io/spring-batch/docs/current/api/org/springframework/batch/item/ItemWriter.html) are very simple interfaces so building a custom reader/writer is as easy as defining a single method. 
+We also pass to the builder an `ItemReader` and `ItemWriter` that direct the read/write behavior of the step (these will be explained in a bit more detail later). [Spring and the community already provide many different types of readers and writers](https://docs.spring.io/spring-batch/docs/4.3.x/reference/html/appendix.html#listOfReadersAndWriters) so writing a full-fledged batch pipeline could take very little code. [Readers](https://docs.spring.io/spring-batch/docs/current/api/org/springframework/batch/item/ItemReader.html#read--) and [writers](https://docs.spring.io/spring-batch/docs/current/api/org/springframework/batch/item/ItemWriter.html) are very simple interfaces so building a custom reader/writer is as easy as defining a single method. 
 
 We won't look too deeply into the process of defining `ItemReader`s and `ItemWriter`s here because the syntax of each is largely specific to the implementation. For completeness, here's the reader and writer definitions for this scenario:
 
