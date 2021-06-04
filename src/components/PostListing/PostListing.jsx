@@ -14,7 +14,8 @@ class PostListing extends React.Component {
         thumbnail: postEdge.node.frontmatter.thumbnail,
         date: postEdge.node.fields.date,
         excerpt: postEdge.node.excerpt,
-        timeToRead: postEdge.node.timeToRead
+        timeToRead: postEdge.node.timeToRead,
+        isdev: postEdge.node.frontmatter.isdev
       });
     });
     return postList;
@@ -33,7 +34,7 @@ class PostListing extends React.Component {
 
           return (
             <Link to={post.path} key={post.title}>
-              <div className="post-info">
+               <div className="post-info">
                 <div className="icon">
                   {thumbnail ? <Img fixed={thumbnail} /> : <div />}
                 </div>
