@@ -84,7 +84,6 @@ export const pageQuery = graphql`
             tags
             cover
             date
-            isdev
             thumbnail {
               childImageSharp {
                 fixed(width: 50, height: 50) {

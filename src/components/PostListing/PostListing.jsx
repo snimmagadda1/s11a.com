@@ -32,11 +32,9 @@ class PostListing extends React.Component {
             thumbnail = post.thumbnail.childImageSharp.fixed;
           }
 
-          let postClass = post.isdev? "post-info-building" : "post-info"
-
           return (
             <Link to={post.path} key={post.title}>
-              <div className={postClass}>
+               <div className="post-info">
                 <div className="icon">
                   {thumbnail ? <Img fixed={thumbnail} /> : <div />}
                 </div>
