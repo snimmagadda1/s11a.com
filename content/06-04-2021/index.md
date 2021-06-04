@@ -52,7 +52,7 @@ Above isn't a comprehensive architecture diagram (there's some additional classe
 ### The `Job` interface
 **A `Job` is the object Spring gives you to configure and declare a batch pipeline.** 
 
-It comes with some configuration options you can tune like restartability (at the highest level), step order, etc. To define your job, you'll want to use the provided `JobBuilderFactory`. Doing so will give you access to some handy builder syntax to create simple job definitions. We can define paths of execution by chaining multiple `Step`s or `Flow`s to descrobe our batch logic:
+It comes with some configuration options you can tune like restartability (at the highest level), step order, etc. To define your job, you'll want to use the provided `JobBuilderFactory`. Doing so will give you access to some handy builder syntax to create simple job definitions. We can define paths of execution by chaining multiple `Step`s or `Flow`s to describe our batch logic:
 
 ```java
 @Bean
@@ -65,10 +65,10 @@ public Job coolBatchJob() {
 }
 ```
 
-In the above snippet, we're definine a job called `coolBatchJob` and kicking it off with a single step. That step is coming from a method `stepA()` that returns an object of type `Step`. 
+In the above snippet, we're defining a job called `coolBatchJob` and kicking it off with a single step. That step is coming from a method `stepA()` that returns an object of type `Step`. 
 
 
-Many batch pipelines consist of multiple steps with triggers and even conditional logic. The builder allows us to define this with ease. For example, the following demonstrates how the builder is used to detail conditional logic. The pipeline runs a "happy path" of `stepA` followed by a seqence of steps in `flow1()` and `flow2()`; however, we've also defined an alternate step to run if `stepA` returns an ending status of `NOTIFY`:
+Many batch pipelines consist of multiple steps with triggers and even conditional logic. The builder allows us to define this with ease. For example, the following demonstrates how the builder is used to detail conditional logic. The pipeline runs a "happy path" of `stepA` followed by a sequence of steps in `flow1()` and `flow2()`; however, we've also defined an alternate step to run if `stepA` returns an ending status of `NOTIFY`:
 
 ```java
 @Bean
@@ -122,7 +122,7 @@ for(Object item: items){
 itemWriter.write(processedItems);
 ```
 
-The real power & legwork of the framework lies within this type of chunk-based approach. The type of data being processed and resources of your system should factor into the chunksize of each step. This is why the number of read/writes in each step is highly configurable.
+The real power & legwork of the framework lies within this type of chunk-based approach. The type of data being processed and resources of your system should factor into the chunk size of each step. This is why the number of read/writes in each step is highly configurable.
 
 To create a step using this approach, you specify an `ItemReader` that is able to ingest the input data and an `ItemWriter` that writes to a desired output. Step definitions could optionally use an `ItemProcessor` that specifies a function to run on each item. To demonstrate how you might go about constructing a step, let's use the following scenario:
 
@@ -209,7 +209,7 @@ public JdbcBatchItemWriter<Person> jdbcWriter() {
     JdbcBatchItemWriter<Person> writer = new JdbcBatchItemWriter<Person>();
     writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<Person>());
     writer.setSql("INSERT INTO people (first, last) VALUES (:first, :last)");
-    writer.setDataSource(dsDestino);
+    writer.setDataSource(dsOut);
     
     return writer;
 }
@@ -255,7 +255,7 @@ public class SetupTasklet implements Tasklet {
 
 ### The `ItemReader` interface
 
-The reader itself is super generic and is only responsible for reading a line of data and incrementing the cursor. It handles the input to a step.  When all data is read, it should return null so the framework knows when the end has been reached. The reader is responsible for opening and closing connections and allocationg resources needed to perform the reads.
+The reader itself is super generic and is only responsible for reading a line of data and incrementing the cursor. It handles the input to a step.  When all data is read, it should return null so the framework knows when the end has been reached. The reader is responsible for opening and closing connections and allocating resources needed to perform the reads.
 
 ```java
 public interface ItemReader<T> {
@@ -299,7 +299,7 @@ public class PersonItemProcessor implements ItemProcessor<Person, Person> {
 ```
 
 ### The `ItemWriter` interface
-Another relatively simple interface, the `ItemWriter` is responsible for the writeback operations. The method of write could be anything such as writing to MongoDB or a file.
+Another relatively simple interface, the `ItemWriter` is responsible for the write-back operations. The method of write could be anything such as writing to MongoDB or a file.
 
 ```java
 public interface ItemWriter<T> {
@@ -310,4 +310,4 @@ public interface ItemWriter<T> {
 ```
 
 ## Summary
-We've touched on the basics of configuring jobs and the inner workings of a step in Spring Batch which should enable you to start writing some batch jobs. All-things-spring have a boatload of configuration options and tools to speed up implemenation and reduce boilerplate code. The official docs have things worth checking out like listeners and parallel processing/scaling options that may improve the quality your job. In the next post we will take this basis to develop and run a full pipeline E2E.
+We've touched on the basics of configuring jobs and the inner workings of a step in Spring Batch which should enable you to start writing some batch jobs. All-things-spring have a boatload of configuration options and tools to speed up implementation and reduce boilerplate code. The official docs have things worth checking out like listeners and parallel processing/scaling options that may improve the quality your job. In the next post we will take this basis to develop and run a full pipeline E2E.
