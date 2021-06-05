@@ -309,4 +309,4 @@ public interface ItemWriter<T> {
 ```
 
 ## Summary
-We've touched on the basics of configuring jobs and the inner workings of a step in Spring Batch which should enable you to start writing some batch jobs. All-things-spring have a boatload of configuration options and tools to speed up implementation and reduce boilerplate code. The official docs have things worth checking out like listeners and parallel processing/scaling options that may improve the quality your job. In the next post we will take this basis to develop and run a full pipeline E2E.
+We've touched on the basics of configuring jobs and the inner workings of a step in Spring Batch which should enable you to start writing some batch jobs. All-things-spring have a boatload of configuration options and tools to speed up implementation and reduce boilerplate code. The official docs present some additional useful tools like listeners and parallel processing options that may improve the quality your job. In the next post we will take this basis to develop and run a full pipeline E2E.
