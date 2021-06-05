@@ -67,7 +67,7 @@ public Job coolBatchJob() {
 In the above snippet, we're defining a job called `coolBatchJob` and kicking it off with a single step. That step is coming from a method `stepA()` that returns an object of type `Step`. 
 
 
-Many batch pipelines consist of multiple steps with triggers and even conditional logic. The builder allows us to define this with ease. For example, the following demonstrates how the builder is used to detail conditional logic. The pipeline runs a "happy path" of `stepA` followed by a sequence of steps in `flow1()` and `flow2()`; however, we've also defined an alternate step to run if `stepA` returns an ending status of `NOTIFY`:
+Many batch pipelines consist of multiple steps with triggers and even conditional logic. What if we only wanted to run a step if certain conditions are met? The builder allows us to define this with ease. For example, the following demonstrates how the builder is used to detail conditional logic. The pipeline runs a "happy path" of `stepA` followed by a sequence of steps in `flow1()` and `flow2()`; however, we've also defined an alternate step to run if `stepA` returns an ending status of `NOTIFY`:
 
 ```java
 @Bean
@@ -168,7 +168,7 @@ public Step step1() {
 }
 ```
 
-We also pass to the builder an `ItemReader` and `ItemWriter` that direct the read/write behavior of the step (these will be explained in a bit more detail later). [Spring and the community already provide many different types of readers and writers](https://docs.spring.io/spring-batch/docs/4.3.x/reference/html/appendix.html#listOfReadersAndWriters) so writing a full-fledged batch pipeline could take very little code. [Readers](https://docs.spring.io/spring-batch/docs/current/api/org/springframework/batch/item/ItemReader.html#read--) and [writers](https://docs.spring.io/spring-batch/docs/current/api/org/springframework/batch/item/ItemWriter.html) are very simple interfaces so building a custom reader/writer is as easy as defining a single method. 
+We also pass to the builder an `ItemReader` and `ItemWriter` that direct the read/write behavior of the step (these will be explained in a bit more detail later). [Spring and the community already provide many different types of readers and writers](https://docs.spring.io/spring-batch/docs/4.3.x/reference/html/appendix.html#listOfReadersAndWriters) so writing a full-fledged batch pipeline could take very little code. [Readers](https://docs.spring.io/spring-batch/docs/current/api/org/springframework/batch/item/ItemReader.html#read--) and [writers](https://docs.spring.io/spring-batch/docs/current/api/org/springframework/batch/item/ItemWriter.html) are very simple interfaces which makes building a custom one as easy as defining a single method. 
 
 We won't look too deeply into the process of defining `ItemReader`s and `ItemWriter`s here because the syntax of each is largely specific to the implementation. For completeness, here's the reader and writer definitions for this scenario:
 
