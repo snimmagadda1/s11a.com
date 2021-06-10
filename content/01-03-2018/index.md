@@ -11,6 +11,7 @@ thumbnail: '../thumbnails/luigi.png'
 tags:
     - OSE
     - other
+time: "10 min"
 ---
 
 ## The "Problem"

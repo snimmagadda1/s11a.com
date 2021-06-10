@@ -13,6 +13,7 @@ tags:
     - styled-components
     - downshift
     - react
+time: "7 min"
 ---
 
 ## Flexible and fast development

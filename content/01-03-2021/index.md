@@ -14,6 +14,7 @@ tags:
     - Batch
     - pipeline
     - Java
+time: "3 min"
 ---
 
 ## What's the deal with Spring Batch?

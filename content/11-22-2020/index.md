@@ -12,6 +12,7 @@ tags:
   - JavaScript
   - styled-components
   - responsive
+time: "5 min"
 ---
 
 ## [styled-components](https://styled-components.com/) 

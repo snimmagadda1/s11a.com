@@ -13,6 +13,7 @@ tags:
   - ES6
   - Spread
   - Set
+time: "2 min"
 ---
 
 ## Things I googled ...

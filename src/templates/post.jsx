@@ -52,10 +52,8 @@ export default class PostTemplate extends React.Component {
               <div>
                 <h1>{post.title}</h1>
                 <div className="post-meta">
-                  <time className="date">By <strong>Sai Nimmagadda</strong> on {date}</time> |
-                  <a className="twitter-link" href={twitterShare}>
-                    Share  📤
-                  </a> |
+                  <time className="date">By <strong>Sai Nimmagadda</strong> on {date}</time>
+                  <span>| {post.time} |</span>
                   <a className="github-link" href={githubLink} target="_blank">
                     Edit on Github ✍️
                   </a>
@@ -99,6 +97,7 @@ export const pageQuery = graphql`
         date
         category
         tags
+        time
       }
       fields {
         slug
