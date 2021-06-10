@@ -12,6 +12,8 @@ tags:
     - kubernetes
     - nginx
     - openshift
+time: "15 min"
+
 ---
 # Serving static content simplified
 

@@ -12,6 +12,7 @@ tags:
   - CSS
   - Grid
   - Flexbox
+time: "3 min"
 ---
 
 ## Starting a collection ...

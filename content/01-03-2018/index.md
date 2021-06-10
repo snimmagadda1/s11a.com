@@ -11,6 +11,7 @@ thumbnail: '../thumbnails/luigi.png'
 tags:
     - OSE
     - other
+time: "10 min"
 ---
 
 ## The "Problem"
@@ -146,8 +147,6 @@ To run this locally, we navigate to simply call our wrapper task using the synta
 `luigi --module provider_import ImportFlow --filename test_provider_import_A.xlsx --dbName MyDB --username usr --password pwd --local-scheduler`
 
 When things get put into production, Spotify recommends running the central scheduling server that Luigi provides. The scheduler ensures that the same task is not run by multiple processes at the same time and provides a nice visualization of your workflow. The Luigi scheduler daemon can be started in the foreground with luigid or the background with luigid --background. To run using the scheduling server, we can simply start the daemon and remove the final flag from the above call to get this output:
-
-<TODO: Input IMAGE HERE>
 
 And Voilà! We can see that all of our tasks have run in the expected order and completed successfully 🙂 !
 

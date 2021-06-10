@@ -283,7 +283,7 @@
         margin-right: 0.5rem;
     }
 
-    a {
+    a, span {
         color: $alternate-color;
         font-weight: 600;
 
@@ -301,6 +301,11 @@
             color: $primary-color;
         }
     }
+
+    span {
+        font-weight: normal;
+    }
+    
 }
 
 // About page
