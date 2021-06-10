@@ -1,5 +1,5 @@
 ---
-title: "Creating a Github Bot with Go"
+title: "Building a Github Bot with Go"
 slug: creating-a-github-bot-with-go
 cover: "https://unsplash.it/400/300/?random?AngelsofMist"
 category: "test3"
@@ -16,7 +16,8 @@ tags:
     - gitops
 ---
 
-Recently I started digging around [the Github API](https://docs.github.com/en/rest) looking to automate some small releaes management tasks that were getting out of hand. The last couple months have been **packed** with scheduled deployments. When it comes time for a release, release-XXX branches are cut in each of the repositories and development resumes. The org I'm a part of has *a lot* of services hosted in their own repositories. Normally syncing the release branch to master locally looks something like this:
+Recently I started digging around looking to automate some small releaes management tasks that were being repeated. [The Github API](https://docs.github.com/en/rest) offers alot so I was hoping to use . The last couple months have been **packed** with scheduled deployments. When it comes time for a release, release-XXX branches are cut in each repository. And there are *a lot* of services hosted in their own repositories. Normally syncing the release branch to master locally looks something like this:
+
 ```bash
 git pull
 git checkout master
@@ -24,7 +25,7 @@ git merge release-XXXX
 git push origin master
 ```
 
-This is simple enough but becomes a pain in the ass when you have to do this across many services. It also skips some pre-commit checks we have in our pipelines. You could write a decent bash script to sync all the repos at once, but it would still require human intervention and is prone to merge conflicts. There are just too many repos to have to maintain. What would be better is if something could create PRs from release branches down to the master branch for us... so let's go over how I built it :)
+This is simple enough but becomes a pain in the ass when you have to do this across many services. It also skips some checks we have in our pipelines for each pull request. You could write a bash script to do this for all the repos at once, but it would still require human intervention and is prone to merge conflicts. There are just too many repos to have to maintain. What would be better is if something could create PRs from release branches down to the master branch for us... so let's go over how I built it :)
 
 
 ## Goals
