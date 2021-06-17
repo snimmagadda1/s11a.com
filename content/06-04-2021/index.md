@@ -35,7 +35,7 @@ In this set of posts we will build a modest, multi-threaded batch pipeline. It w
 
 ## Intro to batch processing
 
-> **TL;DR:** all batch processing is reading a lot of data, doing some sort of processing, and writing the result somewhere.
+> **TL;DR:** all batch processing is the act of reading a lot of data, doing some sort of processing, and writing the result somewhere.
 
 
 If you're someone looking for a refresher in the strategies and principles of batch processing, I would recommend a skim of Spring's introduction [here](https://docs.spring.io/spring-batch/docs/current/reference/html/spring-batch-intro.html#spring-batch-intro). I found this portion of their docs super helpful. It does a great job providing background on batch processing and translating that to Spring Batch's architecture.
@@ -45,14 +45,14 @@ Like most-things-Spring, the framework comes with a lot built for you out of the
 
 ![Spring batch functional architecture](../images/spring-batch-architecture.png)
 
-The image depicts the general process flow of a Spring Batch job. In summary, an external trigger interacts with the `JobLauncher`, which is responsible for kicking off a `Job`. As jobs are triggered and run, the framework records metadata and progress to a datastore via the `JobRepository`. This metadata is used for things like reporting and restart/retry. As a developer, your job is to define the steps that perform their own reads, processing, and writes from N inputs and outputs.
+The image depicts the general process flow of a Spring Batch job. In summary, an external trigger interacts with the `JobLauncher`, which is responsible for kicking off a `Job`. Rhe framework records metadata and progress to a datastore via the `JobRepository`. This metadata is used for things like reporting and restart/retry. As a developer, your job is to define the steps that perform their own reads, processing, and writes from N inputs and outputs.
 
 Above isn't a comprehensive architecture diagram (there's some additional classes & interfaces exposed by the framework) but it should give you a baseline of what you're working with.
 
 ### The `Job` interface
 **A `Job` is the object Spring gives you to configure and declare a batch pipeline.** 
 
-It comes with some configuration options you can tune like restartability (at the highest level), step order, etc. To define your job, you'll want to use the provided `JobBuilderFactory`. Doing so will give you access to some handy builder syntax to create simple job definitions. We can define paths of execution by chaining multiple `Step`s or `Flow`s to describe our batch logic:
+To get an introduction to scripting a pipeline with Spring Batch, we can start by inspecting a `Job`. It comes with some configuration options you can tune like restartability and step order. To define your job, you'll want to use the provided `JobBuilderFactory`. Doing so will give you access to some handy builder syntax to create simple job definitions. We can define paths of execution by chaining multiple `Step`s or `Flow`s to describe our batch logic:
 
 ```java
 @Bean
@@ -98,7 +98,7 @@ public Job coolBatchJob() {
 You'll want to be familiar with the process of defining and fine tuning a step. Within the framework there are two models for steps to choose from, a *chunk-oriented* *step* or a `TaskletStep`. These two approaches are outlined below.
 
 #### Chunky steps?
-**Understanding the *chunk-oriented* processing style Spring Batch uses is essential for building steps.** In a nutshell, this means that many individual reads will occur until the count of reads equals the 'commit interval' (chunksize). At this point, the entire set of items (chunk) is written to output. If you're familiar with database operations, this is effectively reading and writing within a transaction boundary. Because it is operationally expensive to start/stop a transaction, it is preferable to process as many items as possible within each transaction. This sequence diagram and pseudocode from Spring's docs illustrate this process:
+**Understanding the *chunk-oriented* processing style Spring Batch uses is essential for efficient jobs.** In a nutshell, this means that many individual reads occur until the number reads is equal to the 'commit interval' (chunksize). At this point, the entire set of items (chunk) is written to the configured output. If you're familiar with database operations, this is effectively reading and writing within a transaction boundary. Because it is operationally expensive to start/stop a transaction, it is preferable to process as many items as possible within each transaction. This sequence diagram and pseudocode from Spring's docs illustrate this process:
 
 ![Spring batch chunk oriented processing sequence diagram](../images/chunk_oriented_processing.png)
 
@@ -220,7 +220,7 @@ The `StepBuilder` also exposes a number of options for fault tolerance, skipping
 &nbsp;
 
 #### Tasklet steps
-A `TaskletStep` is a bit simpler than a *chunk-oriented* step. It is best used in parts of a pipeline that don't fit into the chunk-based mold i.e calling a stored procedure or executing some DDL statements. The syntax for defining a `TaskletStep` is much simpler:
+A `TaskletStep` is a bit simpler than a *chunk-oriented* step. It is best used in parts of a pipeline that don't fit into the chunk-based mold such as calling a stored procedure or executing some DDL. The syntax for defining a `TaskletStep` is much simpler:
 
 ```java
 @Bean
