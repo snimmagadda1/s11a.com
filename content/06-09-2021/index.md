@@ -47,7 +47,7 @@ It's worth mentioning Github Actions also has some capabilities to create pull r
 
 
 ## Github App setup essentials
-In order to automate, we'll need to build an application that can perform actions in response to something happening. The process of creating a Github app is relatively straightforward and outlined in depth [here](https://docs.github.com/en/developers/apps/building-github-apps/creating-a-github-app). 
+In order to automate, we'll need to build an application that can perform actions in response to something happening. Github publishes some handy [events](https://docs.github.com/en/developers/webhooks-and-events/events/github-event-types) whenever something happens. At it's core, the bot we're going to build is a server that will interpret and respond to these events to do something useful. The process of creating a Github app is relatively straightforward and outlined in depth [here](https://docs.github.com/en/developers/apps/building-github-apps/creating-a-github-app). 
 
 Set the homepage & callback URL to anything (don't need them for our bot's purposes). However, make sure webhooks are set to active. For the webhook URL, I recommend heading over to [smee.io](https://smee.io) to generate a development webhook URL to start. Smee provides a handy node package we can run to receive forwarded events. During development, smee will act as the middleman to allow our localhost to receive Github event payloads. When the bot is ready to be deployed, we will change the webhook URL to our deployment's domain name.
 
@@ -90,11 +90,11 @@ Notice the above request is to the `/app/installations` endpoint. This is import
 
 ### How to translate this to code...
 
-Now, we could write our own methods to making the request to authenticate and manage access token expiration. However, there exists an elegant open-source solution that I want to highlight. 
+Now, we could write our own methods to send the POST request required for an access token as well as manage expiration. However, why reinvent the wheel? There's an elegant open-source solution that I want to highlight. 
 
 Bradley Falzon's [ghinstallation](https://github.com/bradleyfalzon/ghinstallation) is an awesome solution to provide "authenication as an installation" for https://github.com/google/go-github. ghinstallation leverages the fact that the go-github library is built on the stdlib `http.Client`. It allows you to create a `http.Client` that handles authentication for you. This can then be passed to the go-github library for easy use. By Using these two libraries in tandem we get free authentication/refresh capability and methods for the majority of endpoints in Github's API. 
 
-This works because ghinstallation provides an implementation of the [`http.RoundTripper`](https://golang.org/pkg/net/http/#Transport.RoundTrip) interface, called a `Transport`. Every request sent using the go-github library will use the `Transport` implementation. The `Transport` implements `RoundTrip` as follows, stamping an access token on each reqeust the go-github library uses:
+This works because ghinstallation provides an implementation of the [`http.RoundTripper`](https://golang.org/pkg/net/http/#Transport.RoundTrip) interface, called a `Transport`. I like to think of a `http.RoundTripper` as Go's equivalent of middleware. The `RoundTripper` runs the HTTP transaction and returns the response, meaning we can put any logic in the `RoundTrip(*Request)` function and it wil execute before a response is obtained. Every request sent using the go-github library will use the `Transport` implementation. The `Transport` implements `RoundTrip` by stamping an access token on each request: 
 
 ```go
 func (t *Transport) RoundTrip(req *http.Request) (*http.Response, error) {
@@ -110,9 +110,27 @@ func (t *Transport) RoundTrip(req *http.Request) (*http.Response, error) {
 }
 ```
 
+ghinstallation also takes care of refreshing behind the scenes (the method `t.Token()` checks if the cached access token is expired)!.
+
 Now that we have some background on what we're doing, the go code to do it can be broken down into two steps:
 1. Create a `Transport` (`ghinstallation.RoundTripper`) and a `http.Client` that uses that transport as it's `RoundTipper`
 2. Create a go-github client
+
+Creating an authenticated github client with these two libraries looks something like this:
+
+```go
+	// Create an app transport (semi-authenticated)
+	atr, err := ghinstallation.NewAppsTransportKeyFromFile(http.DefaultTransport, APP_ID, PRIVATE_KEY_PATH)
+	if err != nil {
+		log.Fatal("error creating GitHub app client", err)
+	}
+
+	client, err := v3.NewEnterpriseClient(s.client.GitHubURL, s.client.GithubUploadURL, &http.Client{Transport: s.atr})
+	if err != nil {
+		log.Fatal("failed to init enterprise client", err)
+	}
+
+```
 
 ## Responding to webhook events
 
