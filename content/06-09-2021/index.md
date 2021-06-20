@@ -57,12 +57,62 @@ On the permissions page request read/write access to Repository level *Contents*
 
 Go ahead and create the app. Make sure to generate and save a private key (.pem) since that will serve as the auth mechanism. That's it for registering the app!
 
-The bot will perform "actions", some of which sit behind protections, via the API. So lets take a look at how to authenticate as a client of the API.
+The bot will perform "actions" via the API. Some of those actions will require authentication. So lets take a look at how to authenticate as a client of the API.
 
 ## Authenticating 
 
+Github exposes a [single method](https://docs.github.com/en/developers/apps/building-github-apps/authenticating-with-github-apps) to authenticate as an application. The process is straightforward enough: You create and sign a JWT that is sent in a request for an access token. The private key we downloaded above will be used for the signature. The maximum lifetime we can request for an access token is 10 minutes. If we wanted to do this in Go, it would look something like this using [jwt-go](github.com/dgrijalva/jwt-go):
 
-Github exposes a [single method](https://docs.github.com/en/developers/apps/building-github-apps/authenticating-with-github-apps) to authenticate as an application. The process is straightforward enough: You create and sign a JWT that is sent in a request for an access token. The private key we downloaded above will be used for the signature.
+```go
+	claims := &jwt.StandardClaims{
+		IssuedAt:  time.Now().Unix(),
+		ExpiresAt: time.Now().Add(time.Minute).Unix(),
+		Issuer:    strconv.FormatInt(t.appID, 10),
+	}
+	bearer := jwt.NewWithClaims(jwt.SigningMethodRS256, claims)
+
+	ss, err := bearer.SignedString(pem)
+	if err != nil {
+		return nil, fmt.Errorf("Signing error: %s", err)
+	}
+```
+
+The last step to getting an access token is sending the JWT in the `Header` of an access token request: 
+
+```
+curl -i -X POST \
+-H "Authorization: Bearer YOUR_JWT" \
+-H "Accept: application/vnd.github.v3+json" \
+https://api.github.com/app/installations/:installation_id/access_tokens
+```
+
+Notice the above request is to the `/app/installations` endpoint. This is important and required to perform actions in the API for your installation. 
+
+### How to translate this to code...
+
+Now, we could write our own methods to making the request to authenticate and manage access token expiration. However, there exists an elegant open-source solution that I want to highlight. 
+
+Bradley Falzon's [ghinstallation](https://github.com/bradleyfalzon/ghinstallation) is an awesome solution to provide "authenication as an installation" for https://github.com/google/go-github. ghinstallation leverages the fact that the go-github library is built on the stdlib `http.Client`. It allows you to create a `http.Client` that handles authentication for you. This can then be passed to the go-github library for easy use. By Using these two libraries in tandem we get free authentication/refresh capability and methods for the majority of endpoints in Github's API. 
+
+This works because ghinstallation provides an implementation of the [`http.RoundTripper`](https://golang.org/pkg/net/http/#Transport.RoundTrip) interface, called a `Transport`. Every request sent using the go-github library will use the `Transport` implementation. The `Transport` implements `RoundTrip` as follows, stamping an access token on each reqeust the go-github library uses:
+
+```go
+func (t *Transport) RoundTrip(req *http.Request) (*http.Response, error) {
+	token, err := t.Token(req.Context())
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Set("Authorization", "token "+token)
+	req.Header.Add("Accept", acceptHeader) // We add to "Accept" header to avoid overwriting existing req headers.
+	resp, err := t.tr.RoundTrip(req)
+	return resp, err
+}
+```
+
+Now that we have some background on what we're doing, the go code to do it can be broken down into two steps:
+1. Create a `Transport` (`ghinstallation.RoundTripper`) and a `http.Client` that uses that transport as it's `RoundTipper`
+2. Create a go-github client
 
 ## Responding to webhook events
 
