@@ -62,7 +62,7 @@ The bot will perform its "actions" via the API. Some of those actions will requi
 
 ## Authenticating
 
-Github exposes a [single method](https://docs.github.com/en/developers/apps/building-github-apps/authenticating-with-github-apps) to authenticate as an application. The process is straightforward enough: You create and sign a JWT and send it off in a request for an access token. The private key we downloaded above will be used for the signature piece. The maximum lifetime we can request for an access token is 10 minutes. If we wanted to do this in Go, it would look something like this using [jwt-go](github.com/dgrijalva/jwt-go):
+Github exposes a [single method](https://docs.github.com/en/developers/apps/building-github-apps/authenticating-with-github-apps) to authenticate as an application. The process is straightforward enough: You create and sign a JWT then send it off in a request for an access token. The private key we downloaded above will be used for the signature piece. The maximum lifetime we can request for an access token is 10 minutes. If we wanted to do this in Go, it would look something like this using [jwt-go](github.com/dgrijalva/jwt-go):
 
 ```go
 	iss := time.Now()
@@ -93,11 +93,11 @@ Notice the above request is to the `/app/installations` endpoint. This is import
 
 ### How to translate this to code...
 
-Now, we could write our own methods to send the request for an access token and manage expiration. However, why reinvent the wheel? There's an elegant open-source solution that I want to highlight.
+Now, we could write our own methods to send the request for an access token and manage expiration. But why reinvent the wheel? There's an elegant open-source solution that I want to highlight. It's makes calling the API with some Go code too easy.
 
 Bradley Falzon's [ghinstallation](https://github.com/bradleyfalzon/ghinstallation) is an awesome example of providing "authentication as an installation" for https://github.com/google/go-github. ghinstallation leverages the fact that the go-github library's backbone is built with the stdlib `http.Client`. That means if we have a `http.Client` that handles authentication internally, it can then be passed to the go-github library for easy use. Using these two libraries in tandem we get free authentication/refresh capability and methods for the majority of endpoints in Github's API.
 
-Internally this works because ghinstallation provides an implementation of the [`http.RoundTripper`](https://golang.org/pkg/net/http/#Transport.RoundTrip) interface, called a `Transport`. I like to think of a `http.RoundTripper` as Go's somewhat equivalent of middleware for the `http.Client`. The `RoundTripper` runs the HTTP transaction and returns the response, meaning we can put logic in the `RoundTrip(*Request)` function and it wil execute before a response is obtained. Every request sent using the go-github library will use this `Transport` from ghinstallation. The `Transport` implements `RoundTrip` by stamping an access token on each request:
+**This is cool!** Internally ghinstallation provides an implementation of the [`http.RoundTripper`](https://golang.org/pkg/net/http/#Transport.RoundTrip) interface, named a `Transport`. I like to think of a `http.RoundTripper` as Go's somewhat equivalent of middleware for the `http.Client`. The `RoundTripper` runs the HTTP transaction and returns the response, meaning we can put logic in the `RoundTrip(*Request)` function and it wil execute before a response is obtained. Every request sent using the go-github library will use this `Transport` from ghinstallation. The `Transport` implements `RoundTrip` by stamping an access token on each request:
 
 ```go
 type Transport struct {
@@ -128,12 +128,12 @@ func (t *Transport) RoundTrip(req *http.Request) (*http.Response, error) {
 
 ghinstallation also takes care of refreshing behind the scenes (the method `t.Token()` checks if the cached access token is expired)! If you're interested in the finer details of how this works, [go check out the full library](https://github.com/bradleyfalzon/ghinstallation/blob/master/transport.go)! It's a pretty slim module.
 
-Now that we have some background on what we're doing, the go code to do it can be broken down into two steps:
+Now that we have some background on the "how" of authentication with some Go code, the go code to do it can be broken down into two steps:
 
 1. Create a `Transport` (`ghinstallation.RoundTripper`) and a `http.Client` that uses that transport as it's `RoundTipper`
 2. Create a go-github client
 
-Creating an authenticated github client with these two libraries looks something like this:
+Creating an authenticated github client with these two libraries looks something like this (shown for enterprise clients, see the full source for the slight variation to create a github.com client):
 
 ```go
 	// Create an app transport (semi-authenticated)
@@ -149,6 +149,24 @@ Creating an authenticated github client with these two libraries looks something
 
 ```
 
+That's it! No fiddling with claims, reading files manually, parsing private keys, etc. By firing off methods on the `client` object, we can begin to write some automation.
+
 ## Responding to webhook events
 
-## Deploying and watching the automation :eyes:
+At it's core our 'bot' is going to be a simple server that can respond to a HTTP request payload. To run a quick web server with Go you can just register a handler function on the default mux: 
+
+```go
+http.HandleFunc("/", Handle)
+log.Print("Ready to handle github events")
+err = http.ListenAndServe("0.0.0.0:3000", nil)
+if err != nil && err != http.ErrServerClosed {
+	log.Fatal(err)
+}
+```
+
+That's half the battle. Really. We just need to make sure the function `Handle` can interpret the event payloads and respond. The function should do a few things to make life a bit easier. In this scenario, whenever a commit is made to the release branch we'll want to create a PR from that branch to master. Additionally, we should assign reviewers based on the recent committers to the branch. I'm going to take an extra step and actually branch off the release branch before creating the PR. This will make sure we don't acidentally merge master into release (sometimes Github's UI presents a "This branch is out of date..." message). All of this can be done via Github's API.
+
+For each action, here are the corresponding endpoint(s) needed:
+
+- **Creat**
+## Deploying and watching the automation 👀
