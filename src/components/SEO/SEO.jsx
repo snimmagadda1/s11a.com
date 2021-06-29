@@ -17,6 +17,9 @@ class SEO extends Component {
         ? postMeta.description
         : postNode.excerpt;
       image = postMeta.cover;
+      if (postMeta.thumbnail) {
+        image = postMeta.thumbnail.childImageSharp.fixed.src
+      }
       postURL = urljoin(config.siteUrl, config.pathPrefix, postPath);
     } else {
       title = config.siteTitle;
@@ -24,9 +27,9 @@ class SEO extends Component {
       image = config.siteLogo;
     }
 
-    console.log('The image found is s', image)
+    console.log('The image found is', image)
 
-    image = urljoin(config.siteUrl, config.pathPrefix, image);
+    image = urljoin(config.siteUrl, image);
     const blogURL = urljoin(config.siteUrl, config.pathPrefix);
     const schemaOrgJSONLD = [
       {

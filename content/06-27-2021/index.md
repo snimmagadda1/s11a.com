@@ -1,7 +1,7 @@
 ---
 title: "Building a Github Bot with Go"
 slug: creating-a-github-bot-with-go
-cover: "https://unsplash.it/400/300/?random?AngelsofMist"
+cover: "../thumbnails/octocat.jpg"
 category: "test3"
 categories:
   - Code
