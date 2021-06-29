@@ -204,7 +204,7 @@ func Handle(response http.ResponseWriter, request *http.Request) {
 }
 ```
 
-Notice how we are firing each `processEvent` in a new goroutine.It is up to you to create your own secret with the RSA key contents.
+Notice how we are firing each `processEvent` in a new goroutine. It is up to you to create your own secret with the RSA key contents.
 
 To make our release management easier, the `processEvent` function we write should do a few things:
 - Whenever a commit is made to the release branch we'll want to create a PR from that branch to master. 
@@ -217,7 +217,7 @@ For each action, here are the corresponding endpoint(s) needed:
 - **Assign reviewers:** I' chose to do this by getting authors who contributed to the branch with **[list commits](https://docs.github.com/en/rest/reference/repos#list-commits)** and followed by **[request reviewers](https://docs.github.com/en/rest/reference/pulls#review-requests)**
 - **Checkout a branch: [Create a reference](https://docs.github.com/en/rest/reference/git#create-a-reference)**
 
-With libraries creating a PR and assigning reviewers takes writing very little code. The `processEvent` method to run whenever a commit is made to the release is below, with [full source here](https://github.com/snimmagadda1/github-PR-automation/tree/master/pkg/client):
+Using libraries the actions above translate to writing minimal code. The `processEvent` method to run whenever a commit is made to the release is below with [full source here](https://github.com/snimmagadda1/github-PR-automation/tree/master/pkg/client):
 
 
 ```go
