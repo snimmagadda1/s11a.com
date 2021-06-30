@@ -44,7 +44,7 @@ The bot's full source can be [found here](https://github.com/snimmagadda1/github
 
 #### A quick note about Github Actions
 
-It's worth mentioning Github Actions also has some capabilities to create pull requests and commits between branches without needing to write code. We operate on an older enterprise version of Github without actions available so an app was the way to automate things in this case. As a  you responsible for hosting Github Actions so you save some *\$\$\$* going that route. However, this bot has very small footprint and we already had a k8s cluster so hosting this thing there was logical. The app-based approach also has the ability to be installed at an organization level to monitor many repos, whereas Github Actions need to be configured at a repository level.
+It's worth mentioning Github Actions also has some capabilities to create pull requests and commits between branches without needing to write code. We operate on an older enterprise version of Github without actions available so an app was the way to automate things in this case. As a  you responsible for hosting Github Actions so you save some *\$\$\$* going that route. However, this bot has very small footprint and we already had a k8s cluster so hosting this thing there was logical. The app-based approach also has the ability to be installed at an organization level to monitor many repos, whereas Github Actions need to be configured at a repository level. You might event want to think about hosting something based on this as a serverless solution. for an even lighter footprint..
 
 ## Github App setup essentials
 
