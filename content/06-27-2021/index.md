@@ -62,7 +62,7 @@ The bot will perform its "actions" via the API. Some of those actions will requi
 
 ## Authenticating
 
-Github exposes a [single method](https://docs.github.com/en/developers/apps/building-github-apps/authenticating-with-github-apps) to authenticate as an application. The process is straightforward enough: You create and sign a JWT then send it off in a request for an access token. The private key we downloaded above will be used for signature generation. The maximum lifetime we can request for an access token is 10 minutes. If we wanted to do this in Go, creating the JWT would look something like this using [jwt-go](github.com/dgrijalva/jwt-go):
+The app is going to need permission to make its requests. Github exposes a [single method](https://docs.github.com/en/developers/apps/building-github-apps/authenticating-with-github-apps) to authenticate as an application. The process is straightforward enough: You create and sign a JWT then send it off in a request for an access token. The private key we downloaded above will be used for signature generation. The maximum lifetime we can request for an access token is 10 minutes. If we wanted to do this in Go, creating the JWT would look something like this using [jwt-go](github.com/dgrijalva/jwt-go):
 
 ```go
 	iss := time.Now()
@@ -95,7 +95,7 @@ Notice the above request is to the `/app/installations` endpoint. This is import
 
 Now, we could write our own methods to send the request for an access token and manage expiration. But why reinvent the wheel? There's an elegant open-source solution that I want to highlight. It's makes calling the API with minimal Go code simple and satisfying.
 
-Bradley Falzon's [ghinstallation](https://github.com/bradleyfalzon/ghinstallation) is an awesome example of how powerful a robust `stdlib` can be. The package provides "authentication as an installation" for https://github.com/google/go-github. ghinstallation leverages the fact that the go-github library's backbone is built using the `http.Client`. That means we can give the `go-github` library a custom `http.Client`, say one that handle's authentication internally, and not have to worry about authenticating. This is exactly what ghinstallation gives us. Using these two libraries in tandem we get free authentication/refresh capability and methods for the majority of endpoints in Github's API.
+Bradley Falzon's [ghinstallation](https://github.com/bradleyfalzon/ghinstallation) is an awesome example of how powerful a robust `stdlib` like the one Go packs can be. The package provides "authentication as an installation" for https://github.com/google/go-github. ghinstallation leverages the fact that the go-github library's backbone is built using the `http.Client`. That means we can give the `go-github` library a custom `http.Client`, say one that handle's authentication internally, and not have to worry about authenticating. This is exactly what ghinstallation gives us. Using these two libraries in tandem we get free authentication/refresh capability and methods for the majority of endpoints in Github's API.
 
 **This is cool!** Internally ghinstallation provides an implementation of the [`http.RoundTripper`](https://golang.org/pkg/net/http/#Transport.RoundTrip) interface, named a `Transport`. I like to think of a `http.RoundTripper` as Go's somewhat equivalent of middleware for the `http.Client`. The `RoundTripper` runs the HTTP transaction and returns the response, meaning we can put logic in the `RoundTrip(*Request)` function and it wil execute before a response is obtained. Every request sent using the go-github library will use this `Transport` from ghinstallation. The `Transport` implements `RoundTrip` by stamping an access token on each request:
 
@@ -295,7 +295,7 @@ RUN mkdir keys
 RUN go build -o main cmd/main.go
 CMD ["/app/main"]
 ```
-For the deployment manifest, we'll keep it relatively straightforward. The bot will need some environment variables set specific to where it is being run (Organization name, repos, keys, etc). If you want to view the full definition, you can do so [here](https://github.com/snimmagadda1/github-PR-automation/blob/master/deploy/k8s.yaml). Notably we chose to mount the app's private key as a secret named `github-rsa-keypair` and the mountPath `/app/keys`.
+For the deployment manifest, I've included an example. The bot will need some environment variables set specific to where it is being run (Organization name, repos, keys, etc). If you want to view the full definition, you can do so [here](https://github.com/snimmagadda1/github-PR-automation/blob/master/deploy/k8s.yaml). Notably we chose to mount the app's private key as a secret named `github-rsa-keypair` and the mountPath `/app/keys`.
 
 ```k8s
 .
