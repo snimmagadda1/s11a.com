@@ -209,7 +209,7 @@ Notice how we are firing each `processEvent` in a new goroutine. It is up to you
 To make our release management easier, the `processEvent` function we write should do a few things:
 - Whenever a commit is made to the release branch we'll want to create a PR from that branch to master. 
 - We should assign reviewers based on the recent committers to the branch. 
-- I'm going to take an extra (optional) step and actually create a branhc of the release branch before creating the PR. This will make sure we don't acidentally merge master into release (sometimes Github's UI presents a "This branch is out of date..." message). All of this can be done via Github's API.
+- I'm going to take an extra (optional) step and actually create a branhc of the release branch before creating the PR. This will make sure we don't accidentally merge master into release (sometimes Github's UI presents a "This branch is out of date..." message). All of this can be done via Github's API.
 
 For each action, here are the corresponding endpoint(s) needed:
 
@@ -264,7 +264,7 @@ func processEvent(p *ghwebhooks.PushPayload) {
 }
 ```
 
-The last steps to create a running app is to start a HTTP server using the `Handle` function above.'
+The last steps to create a running app is to start a HTTP server using the `Handle` function above.
 
 
 ## Deploying and watching the automation 👀
@@ -317,4 +317,4 @@ Executing the yaml will create a deployment and a service. Don't forget to creat
 
 
 ## Summary
-To keep this post digestable I've left out a decent bit of implementation. Hopefully it gives folks some direction on building similar apps. If you're looking for more detail around the implementation I encounrage you to check out the [full source](https://github.com/snimmagadda1/github-PR-automation) or reach out of you have any questions.
+To keep this post digestible I've left out a decent bit of implementation. Hopefully it gives folks some direction on building similar apps. If you're looking for more detail around the implementation I encourage you to check out the [full source](https://github.com/snimmagadda1/github-PR-automation) or reach out of you have any questions.
