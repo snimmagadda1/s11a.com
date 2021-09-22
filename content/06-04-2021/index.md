@@ -45,14 +45,14 @@ Like most-things-Spring, the framework comes with a lot built for you out of the
 
 ![Spring batch functional architecture](../images/spring-batch-architecture.png)
 
-The image depicts the general process flow of a Spring Batch job. In summary, an external trigger interacts with the `JobLauncher`, which is responsible for kicking off a `Job`. Rhe framework records metadata and progress to a datastore via the `JobRepository`. This metadata is used for things like reporting and restart/retry. As a developer, your job is to define the steps that perform their own reads, processing, and writes from N inputs and outputs.
+The image depicts the general process flow of a Spring Batch job. In summary, an external trigger interacts with the `JobLauncher`, which is responsible for kicking off a `Job`. The framework records metadata and progress to a datastore via the `JobRepository`. This metadata is used for things like reporting and restart/retry. As a developer, your job is to define the steps that perform their own reads, processing, and writes from N inputs and outputs.
 
-Above isn't a comprehensive architecture diagram (there's some additional classes & interfaces exposed by the framework) but it should give you a baseline of what you're working with.
+Above isn't a comprehensive architecture diagram (there's some additional classes & interfaces exposed by the framework), but it should give you a baseline of what you're working with.
 
 ### The `Job` interface
 **A `Job` is the object Spring gives you to configure and declare a batch pipeline.** 
 
-To get an introduction to scripting a pipeline with Spring Batch, we can start by inspecting a `Job`. It comes with some configuration options you can tune like restartability and step order. To define your job, you'll want to use the provided `JobBuilderFactory`. Doing so will give you access to some handy builder syntax to create simple job definitions. We can define paths of execution by chaining multiple `Step`s or `Flow`s to describe our batch logic:
+To get an intro to scripting a pipeline with Spring Batch, we can start by inspecting a `Job` object. It comes with some configuration options you can tune like restartability and step order. To define your job, you'll want to use the provided `JobBuilderFactory`. Doing so will give you access to some handy builder syntax to create simple job definitions. We can define paths of execution by chaining multiple `Step`s or `Flow`s to describe our batch logic:
 
 ```java
 @Bean
@@ -268,7 +268,7 @@ This simplicity allows for easy extensibility and reuse. Spring provides a numbe
 
 
 ### the `ItemProcessor` interface
-Not all steps require processing or complex transformations of data. When you need to perform some specific calculations, filtering, or apply business logic on the dataset, an [`ItemProcessor`](https://docs.spring.io/spring-batch/docs/current/api/org/springframework/batch/item/ItemProcessor.html) comes in handy. The processor interface definition is below:
+Not all steps require processing or complex transformations of data. An [`ItemProcessor`](https://docs.spring.io/spring-batch/docs/current/api/org/springframework/batch/item/ItemProcessor.html) comes in handy when you need to perform some specific calculations, filtering, or apply business logic on the dataset. The processor interface definition is below:
 
 ```java
 public interface ItemProcessor<I, O> {
@@ -310,4 +310,4 @@ public interface ItemWriter<T> {
 ```
 
 ## Summary
-We've touched on the basics of configuring jobs and the inner workings of a step in Spring Batch which should enable you to start writing some batch jobs. All-things-spring have a boatload of configuration options and tools to speed up implementation and reduce boilerplate code. The official docs present some additional useful tools like listeners and parallel processing options that may improve the quality your job. In the next post we will take this basis to develop and run a full pipeline E2E.
+We've touched on the basics of configuring jobs and the inner workings of a step in Spring Batch which should enable you to start writing some batch jobs. All-things-spring have a boatload of configuration options and tools to speed up implementation and reduce boilerplate code, so I encourage you to take advantage of the ecosystem. The official docs present some additional useful tools like listeners and parallel processing options that may improve the quality your job. In the next post we will take this basis to develop and run a full pipeline E2E.
