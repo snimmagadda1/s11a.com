@@ -18,7 +18,13 @@ module.exports = {
     }
   },
   plugins: [
-    "gatsby-plugin-sass",
+    "gatsby-disable-404",
+    {
+      resolve: "gatsby-plugin-sass",
+      options: {
+        implementation: require("sass"),
+      },
+    },    
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-lodash",
     {
@@ -82,12 +88,6 @@ module.exports = {
             }
           }
         ]
-      }
-    },
-    {
-      resolve: "gatsby-plugin-google-analytics",
-      options: {
-        trackingId: config.googleAnalyticsID
       }
     },
     {
@@ -184,7 +184,8 @@ module.exports = {
               }
             }
           `,
-            output: config.siteRss
+            output: config.siteRss,
+            title: "Sai Nimmagadda's Programming Blog"
           }
         ]
       }
