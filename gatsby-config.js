@@ -18,6 +18,7 @@ module.exports = {
     }
   },
   plugins: [
+    "gatsby-disable-404",
     {
       resolve: "gatsby-plugin-sass",
       options: {
@@ -183,7 +184,8 @@ module.exports = {
               }
             }
           `,
-            output: config.siteRss
+            output: config.siteRss,
+            title: "Sai Nimmagadda's Programming Blog"
           }
         ]
       }
