@@ -1,5 +1,5 @@
 ---
-title: "Building a Github Bot with Go"
+title: "Building a github bot with Go"
 slug: creating-a-github-bot-with-go
 cover: "../thumbnails/octocat.jpg"
 category: "test3"
