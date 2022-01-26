@@ -7,7 +7,7 @@ categories:
   - Code
   - Backend
   - Cloud
-date: "01/28/2022"
+date: "01/26/2022"
 thumbnail: "../thumbnails/lambda.png"
 tags:
   - AWS
