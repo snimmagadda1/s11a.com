@@ -139,7 +139,7 @@ module.exports = {
 
 ```
 
-Here for brevity I'm only showing the scheduling logic that runs within the lambda. Full [handler code can be found here](https://github.com/snimmagadda1/garlic-bot) but that's really it!
+For brevity I'm only showing the scheduling logic that runs within the lambda. Full [handler code can be found here](https://github.com/snimmagadda1/garlic-bot) but that's really it!
 
 As mentioned, it adds an element of randomness to the schedule by using the `Math.Random()` function to get the number of minutes to add to the current time:
 
