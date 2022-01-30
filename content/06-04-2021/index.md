@@ -20,14 +20,14 @@ time: "20 min"
 The last post took look at a Spring Batch project template to get off the ground quickly. In this series we're going to take it a step further and use the starter to build out a batch job. We won't focus too much here on the implementation of the framework itself ([docs do a good job of that](https://docs.spring.io/spring-batch/docs/4.3.x/reference/html/domain.html#domainLanguageOfBatch)), but rather practical descriptions and use-cases to quickly enable yourself to build robust batch jobs for enterprise apps.
 
 ## Prerequisites
-You should be proficient with Java for this overview. Also, knowledge of the following is very beneficial:
-- Spring framework (IoC, beans, context, etc)
-- Databases
 
-Here we'll do a practical overview of some of the primary components that you'll work with in Spring Batch. Depending on your use case, you may want to dig around [the official docs](https://spring.io/projects/spring-batch#learn) for additional info. 
+You should be proficient with Java for this overview. Also, knowledge of Spring framework (IoC, beans, context, etc) is very beneficial.
+
+Here we'll do a practical overview of some of the primary components that you'll work with in Spring Batch. Depending on your use case, you may want to dig around [the official docs](https://spring.io/projects/spring-batch#learn) for additional info.
 
 ## Goals
-* You want to understand how Spring Batch works to create custom batch jobs for real-world use cases 
+
+- You want to understand how Spring Batch works to create custom batch jobs for real-world use cases 
   
 In this set of posts we will build a modest, multi-threaded batch pipeline. It will read a directory of files (XML data dumps from Stack Exchange), perform some processing, and write to a relational DB (MySQL). Here is the link to the full source:
 
@@ -41,6 +41,7 @@ In this set of posts we will build a modest, multi-threaded batch pipeline. It w
 If you're someone looking for a refresher in the strategies and principles of batch processing, I would recommend a skim of Spring's introduction [here](https://docs.spring.io/spring-batch/docs/current/reference/html/spring-batch-intro.html#spring-batch-intro). I found this portion of their docs super helpful. It does a great job providing background on batch processing and translating that to Spring Batch's architecture.
 
 ## Understanding Spring Batch... enough to get started
+
 Like most-things-Spring, the framework comes with a lot built for you out of the box. You can get [up and running pretty quickly](https://spring.io/guides/gs/batch-processing/). Adding `@EnableBatchProcessing` to your spring app gives you everything you need to code with for free (many beans!). Personal experience has taught me it's best to have a decent grasp on Spring's implementation of whatever you're using. We'll use the following diagram to discuss the way Spring implements batch and how to use some of the common interfaces.
 
 ![Spring batch functional architecture](../images/spring-batch-architecture.png)
@@ -50,6 +51,7 @@ The image depicts the general process flow of a Spring Batch job. In summary, an
 Above isn't a comprehensive architecture diagram (there's some additional classes & interfaces exposed by the framework), but it should give you a baseline of what you're working with.
 
 ### The `Job` interface
+
 **A `Job` is the object Spring gives you to configure and declare a batch pipeline.** 
 
 To get an intro to scripting a pipeline with Spring Batch, we can start by inspecting a `Job` object. It comes with some configuration options you can tune like restartability and step order. To define your job, you'll want to use the provided `JobBuilderFactory`. Doing so will give you access to some handy builder syntax to create simple job definitions. We can define paths of execution by chaining multiple `Step`s or `Flow`s to describe our batch logic:
@@ -66,7 +68,6 @@ public Job coolBatchJob() {
 ```
 
 In the above snippet, we're defining a job called `coolBatchJob` and kicking it off with a single step. That step is coming from a method `stepA()` that returns an object of type `Step`. 
-
 
 Many batch pipelines consist of multiple steps with triggers and even conditional logic. What if we only wanted to run a step if certain conditions are met? The builder allows us to define this with ease. For example, the following demonstrates how the builder is used to detail conditional logic. The pipeline runs a "happy path" of `stepA` followed by a sequence of steps in `flow1()` and `flow2()`; however, we've also defined an alternate step to run if `stepA` returns an ending status of `NOTIFY`:
 
@@ -90,14 +91,14 @@ public Job coolBatchJob() {
 &nbsp;
 &nbsp;
 
-
 ### The `Step` interface
-**A `Step` is one level lower than a Job. It represents an independent unit of work.** Spring doesn't impose too many restrictions on how a step must be implemented. A step could be as simple as reading from a file and writing to a table in a DB. A more complicated step might read a file with different entities, apply some business or filtering logic, and write the aggregate somewhere. Just like a job has a `JobExecution` object holding metadata for each run, each step is associated with a `StepExecution` recording metadata such as readCount, errorCount, and execution time.
 
+**A `Step` is one level lower than a Job. It represents an independent unit of work.** Spring doesn't impose too many restrictions on how a step must be implemented. A step could be as simple as reading from a file and writing to a table in a DB. A more complicated step might read a file with different entities, apply some business or filtering logic, and write the aggregate somewhere. Just like a job has a `JobExecution` object holding metadata for each run, each step is associated with a `StepExecution` recording metadata such as readCount, errorCount, and execution time.
 
 You'll want to be familiar with the process of defining and fine tuning a step. Within the framework there are two models for steps to choose from, a *chunk-oriented* *step* or a `TaskletStep`. These two approaches are outlined below.
 
 #### Chunky steps?
+
 **Understanding the *chunk-oriented* processing style Spring Batch uses is essential for efficient jobs.** In a nutshell, this means that many individual reads occur until the number reads is equal to the 'commit interval' (chunksize). At this point, the entire set of items (chunk) is written to the configured output. If you're familiar with database operations, this is effectively reading and writing within a transaction boundary. Because it is operationally expensive to start/stop a transaction, it is preferable to process as many items as possible within each transaction. This sequence diagram and pseudocode from Spring's docs illustrate this process:
 
 ![Spring batch chunk oriented processing sequence diagram](../images/chunk_oriented_processing.png)
@@ -153,8 +154,8 @@ public class Person {
     }
 }
 ```
-In this scenario we have to read from a CSV, do some capitalization, and insert rows to a SQL table. Just like with jobs, there's a builder available for configuring a step. Here we define a `Step` with name `personStep` and chunk size of 100, meaning 100 names will be read then committed in aggregate.
 
+In this scenario we have to read from a CSV, do some capitalization, and insert rows to a SQL table. Just like with jobs, there's a builder available for configuring a step. Here we define a `Step` with name `personStep` and chunk size of 100, meaning 100 names will be read then committed in aggregate.
 
 ```java
 @Bean
@@ -220,6 +221,7 @@ The `StepBuilder` also exposes a number of options for fault tolerance, skipping
 &nbsp;
 
 #### Tasklet steps
+
 A `TaskletStep` is a bit simpler than a *chunk-oriented* step. It is best used in parts of a pipeline that don't fit into the chunk-based mold such as calling a stored procedure or executing some DDL. The syntax for defining a `TaskletStep` is much simpler:
 
 ```java
@@ -264,10 +266,11 @@ public interface ItemReader<T> {
 
 }
 ```
+
 This simplicity allows for easy extensibility and reuse. Spring provides a number of readers for different datasources such as streams, SQL/NoSQL, flat files, and more that will fit the majority of use cases.
 
-
 ### the `ItemProcessor` interface
+
 Not all steps require processing or complex transformations of data. An [`ItemProcessor`](https://docs.spring.io/spring-batch/docs/current/api/org/springframework/batch/item/ItemProcessor.html) comes in handy when you need to perform some specific calculations, filtering, or apply business logic on the dataset. The processor interface definition is below:
 
 ```java
@@ -299,6 +302,7 @@ public class PersonItemProcessor implements ItemProcessor<Person, Person> {
 ```
 
 ### The `ItemWriter` interface
+
 Another relatively simple interface, the `ItemWriter` is responsible for the write-back operations. The method of write could be anything such as writing to MongoDB or a file.
 
 ```java
@@ -310,4 +314,5 @@ public interface ItemWriter<T> {
 ```
 
 ## Summary
+
 We've touched on the basics of configuring jobs and the inner workings of a step in Spring Batch which should enable you to start writing some batch jobs. All-things-spring have a boatload of configuration options and tools to speed up implementation and reduce boilerplate code, so I encourage you to take advantage of the ecosystem. The official docs present some additional useful tools like listeners and parallel processing options that may improve the quality your job. In the next post we will take this basis to develop and run a full pipeline E2E.
