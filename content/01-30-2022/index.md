@@ -414,7 +414,7 @@ You may also notice the rapid-starter & package `com.batch.config.db` sets up sp
 2022-03-06 18:58:14.933  INFO 50201 --- [main] com.snimma1.Application: Started Application in 2.004 seconds (JVM running for 2.229)
 ```
 
-To write to MySQL, we need to define `ItemWriters` using the app `Datasource` we just configured. There are a number of valid ways to do this. For example, we could write a custom `ItemWriter` by injecting the MySQl `Datasource` into our implementation. However, doing a quick review of the Spring-supported writes we can save some time by leveraging the the `JpaItemWriter` [implementation](https://docs.spring.io/spring-batch/docs/current/api/org/springframework/batch/item/database/JpaItemWriter.html) that comes with Spring Batch. We can create a single instance of a `JpaItemWriter` with the persistance context for the `app.datasource` and use it to write each entity (i.e post, comment, etc) to MySQL. Since the rapid-starter has already setup spring-data-jpa, we just need to inject the `EntityManager` associated with `app.datasource` to create a working writer. Our complete `WritersConfig` looks like this:
+To write to MySQL, we need to define `ItemWriter`s using the `Datasource` we just configured. There are a number of valid ways to do this. For example, we could write a custom `ItemWriter` by injecting the MySQl `Datasource` into our implementation3. However, doing a quick review of the Spring-supported writes we can save some time by leveraging the the `JpaItemWriter` [implementation](https://docs.spring.io/spring-batch/docs/current/api/org/springframework/batch/item/database/JpaItemWriter.html) that comes with Spring Batch. We can create a single instance of a `JpaItemWriter` with the persistance context for the `app.datasource` and use it to write each entity (i.e post, comment, etc) to MySQL. Since the rapid-starter has already setup spring-data-jpa, we just need to inject the `EntityManager` associated with `app.datasource` to create a working writer. Our complete `WritersConfig` looks like this:
 
 ```java
 @Configuration
@@ -433,3 +433,4 @@ public class WritersConfig {
   }
 }
 ```
+t
