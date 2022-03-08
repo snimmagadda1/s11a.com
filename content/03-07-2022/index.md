@@ -7,7 +7,7 @@ categories:
   - Code
   - Backend
   - Cloud
-date: "01/30/2022"
+date: "03/07/2022"
 thumbnail: "../thumbnails/batchprocessing.png"
 tags:
   - Spring
