@@ -17,7 +17,7 @@ tags:
 time: "15 min"
 ---
 
-The [first post in this series](https://s11a.com/building-a-batch-pipeline-01-crash-course-in-spring-batch) went over some fundamental concepts and interfaces we will encounter as developers using Spring Batch. Now, let's build on those ideas to construct a full batch pipeline. Hopefully this can serve as a reference for how quickly a Java developer can build batch jobs.
+The [first post in this series](https://s11a.com/building-a-batch-pipeline-01-crash-course-in-spring-batch) went over some fundamental concepts and interfaces you will encounter as a developer using Spring Batch. Now, let's build on those ideas to construct a full batch pipeline. Hopefully this can serve as a reference for how quickly a Java developer can build batch jobs.
 
 ## Prerequisites
 
@@ -29,42 +29,20 @@ The full, completed source code can be [found here](https://github.com/snimmagad
 
 ## The scenario
 
-I'm sure you're aware of Stack Exchange, but did you know the people over at Stack Exchange, Inc publish all content as scheduled [data dumps](https://archive.org/details/stackexchange)? We're going to take these public records and ingest them into a relational database to demonstrate the development flow of using Spring Batch.
+I'm sure you're aware of Stack Exchange, but did you know the people over at Stack Exchange, Inc publish all content as scheduled [data dumps](https://archive.org/details/stackexchange)? We're going to take these public records and ingest them into a relational database to demonstrate development with Spring Batch.
 
-The job will ingest everyting in a single site on StackExchange's (posts, comments, users, etc) into a MySQL database. Using Spring Batch we can do this in an extensible manner usign a minimal amount of code.
+The job will ingest everything in a site on StackExchange (posts, comments, users, etc) into a MySQL database. Using Spring Batch we can create a maintainable and extensible Job usign a minimal amount of code.
 
 ![Batch job dataflow](../images/batch-job.png)
 
 ### The datamodel
 
-Stack Exchange publishes each site in individual archives. Luckily, they all follow [the same relational schema](https://meta.stackexchange.com/questions/2677/database-schema-documentation-for-the-public-data-dump-and-sede/2678#2678) that translates to MySQL. The datamodel for an individual site can be reduced to a few models: Posts, Comments, Users, Badges, Votes, and Post History.
+Stack Exchange publishes each site in individual archives. They all follow [the same relational schema](https://meta.stackexchange.com/questions/2677/database-schema-documentation-for-the-public-data-dump-and-sede/2678#2678) that can be translated to MySQL. The datamodel for an individual site on the Stack Exchange network can be reduced to a few models: Posts, Comments, Users, Badges, Votes, and Post History.
 
 The schema we'll be using to define a stack exchange site [can be found here](https://github.com/snimmagadda1/stack-exchange-dump-to-mysql/blob/master/src/main/resources/schema-base.sql).
 
-Since we already know the full datamodel, we can use it to define all the entities as POJOs following pretty standard Spring JPA conventions. For example, the basic comments entity we'll start with looks like this:
 
-```java
-@Data
-@Entity(name = "comments")
-@AllArgsConstructor
-@NoArgsConstructor
-public class Comment {
-
-    @Id
-    private BigInteger id;
-    private BigInteger postId;
-    private Integer score;
-    private String text;
-    private String creationDate;
-    private String userDisplayName;
-    private BigInteger userId;
-    private String contentLicense;
-}
-```
-
-Each of the other objects follows a similar pattern, and all the models [can be found here](https://github.com/snimmagadda1/stack-exchange-dump-to-mysql/tree/master/src/main/java/com/snimma1/model). With entity definitions in hand, we can work on mapping inputs and outputs to them.
-
-### Setting up the project & reading data
+## Setting up the project & reading data
 
 A starting point for many batch jobs is the delivery of a file. In this exercise, the job will read XML files in a target directory. To set that up, we can download our input data from [here](https://archive.org/details/stackexchange).
 
@@ -107,7 +85,34 @@ spring:
 
 Out of the box there are some sample readers and writes in the package `com.batch.config.readers` for testing that aren't needed, so clear those out. With a blank project, let's work on reading and printing the data we've downloaded.
 
-Spring Batch and the community have written many readers and writers for common use cases. For reading XML, the `StaxEventItemReader` meets our requirements. As the docs describe:
+### Adding POJOs for the domain objects
+
+Since we already know the full datamodel, we can use it to define all the entities as POJOs following pretty standard Spring JPA conventions. For example, the basic comments entity we'll start with looks like this:
+
+```java
+@Data
+@Entity(name = "comments")
+@AllArgsConstructor
+@NoArgsConstructor
+public class Comment {
+
+    @Id
+    private BigInteger id;
+    private BigInteger postId;
+    private Integer score;
+    private String text;
+    private String creationDate;
+    private String userDisplayName;
+    private BigInteger userId;
+    private String contentLicense;
+}
+```
+
+Each of the other objects follows a similar pattern, and all the models [can be found here](https://github.com/snimmagadda1/stack-exchange-dump-to-mysql/tree/master/src/main/java/com/snimma1/model). With entity definitions in hand, we can work on mapping inputs and outputs to them.
+
+### Reading and parsing XML records in batch
+
+Spring Batch and the community have written many readers and writers for common use cases. For reading XML, the `StaxEventItemReader` meets most requirements. As the docs describe:
 
 > The StaxEventItemReader configuration provides a typical setup for the processing of records from an XML input stream.
 
@@ -144,9 +149,9 @@ Specifying this information using fluent builder syntax looks like this:
   }
 ```
 
-Above we create a `StaxEventItemReader` named `postReader` that operates on elements named `row` using the `Jaxb2Marshaller` (a generic marshaller/unmarshaller using the Java Architecture for XML Binding a.k.a JAXB spec). We're also binding the class `Posts` defined above to the unmarshaller instance `unmarsh`.
+Above we create a `StaxEventItemReader` named `postReader` that operates on elements named `row` using the `Jaxb2Marshaller` (a generic marshaller/unmarshaller using the Java Architecture for XML Binding a.k.a JAXB spec). We're also binding the `Post` class defined above to the unmarshaller instance `unmarsh`.
 
-We need to do one more thing before reading XML, and that is annotate the POJO entities we defined with some metadata required for parsing. You'll notice the addition of a few annotations. `XmlRootElement` specifies the name of individual elements in a document and `XmlAttribute` specifies how to map to fields in the class. Lastly, `XmlAccessorType` is used to determine how to marshal to/from XML, and we specify that `XmlAccessType.FIELD` to signify that each field should be found to XML:
+We need to do one more thing before reading XML, and that is annotate the POJO entities we defined with some metadata required for deserialization. You'll notice the addition of a few annotations. `XmlRootElement` specifies the name of individual elements in a document and `XmlAttribute` specifies how to map to fields in the class. Lastly, `XmlAccessorType` is used to determine how to marshal to/from XML, and we specify that `XmlAccessType.FIELD` to signify that each field should be found to XML:
 
 ```java
 import javax.persistence.Entity;
@@ -188,7 +193,7 @@ public class Badge {
 
 At this point we can use this `ItemReader` in a `Step` and start ingesting XML rows of post data backed by entities.
 
-Before doing that, let's clean up our reader definition and parameterize some configuration info. We can extract the file name and path to Spring properties, and reference in our configuration class `ReadersConfig`. In `application.yaml` add properties pointing to the input data:
+Before doing that, let's clean up our reader definition and parameterize some configuration info to make the job a bit more robust. We can extract the file name and path to Spring properties, and reference in our configuration class `ReadersConfig`. In `application.yaml` add properties pointing to the input data:
 
 ```yaml
 import:
@@ -242,15 +247,6 @@ public class ReadersConfig {
 Now let's print some data with this reader! I grabbed this slick `ConsoleItemWriter` from [Spring Batch Toolkit](https://github.com/arey/spring-batch-toolkit#spring-batch-toolkit) to use as the writer in a test step. It 'writes' by logging to the console.
 
 ```java
-package com.snimma1.custom;
-
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.batch.item.ItemWriter;
-
-import java.util.List;
-
 /**
  * Logs each content item by reflection with the {@link ToStringBuilder#reflectionToString(Object)}
  * method.
@@ -369,9 +365,9 @@ Compiling and running the job results in Posts being printed to the console in r
 Having validated that the `StaxEventItemReader` we created works for post data, the definitions for reading the other Stack Exchange domain objects can be written with the same set of steps.
 Simply define a Bean of type `StaxEventItemReader` that is bound to the POJO representing the data, and use it as the delegate in another `MultiResourceItemReader` pointing to the data on the local filesystem. The final reader definitions for posts, comments, badges, post history, users, and votes are [defined here](https://github.com/snimmagadda1/stack-exchange-dump-to-mysql).
 
-### Connecting & writing to MySQL
+## Connecting & writing to MySQL
 
-If you recall, a chunk-oriented step must read from at least one input and write to at least one output. So far we've constructed wiring to read our target data from XML and write to the console. Now let's close the loop and write to a more meaningful output.
+If you recall, a chunk-oriented step must read from at least one input and write to at least one output. So far we've constructed wiring to read our target data from XML and write to the console. Now let's close the loop and write to a relational database.
 
 Before defining the `ItemWriter`s for the job, let's get an instance of MySQL up and running. This can be done many ways. The simplest for local development nowadays is via a container. Using docker we can start an instance of MySQL as follows:
 
@@ -383,7 +379,7 @@ docker run --name test-mysql -e MYSQL_ROOT_PASSWORD=password -e MYSQL_ROOT_USER=
 
 Once your instance of MySQL is running, the last setup step is to create the target database and execute the schema. I created a database `stacke` and executed [the full schema here](https://github.com/snimmagadda1/stack-exchange-dump-to-mysql/blob/master/src/main/resources/schema-base.sql) to get a set of empty tables to populate via the batch job.
 
-With a running database and empty schema let's make the working batch application aware of it by adding an additional datasource. The rapid-starter template already has taken care of most of the boilerplate to do so. Configuring the `app.datasource` properties with our MySQL details in `application.yaml` will do the job:
+With a running database and empty schema let's make the working batch application aware of it by adding an additional data source. The rapid-starter template already has taken care of most of the boilerplate to do so. Configuring the `app.datasource` properties with our MySQL details in `application.yaml` will do the job:
 
 ```yaml
 app:
@@ -398,23 +394,23 @@ app:
 You may also notice the rapid-starter & package `com.batch.config.db` sets up spring-data-jpa. This will come in handy shortly... To verify succesful configuration, go ahead and start up the application. You should see some new output this time similar to below if everything worked:
 
 ```bash
-2022-03-06 18:58:13.676  INFO 50201 --- [main] o.hibernate.jpa.internal.util.LogHelper: HHH000204: Processing PersistenceUnitInfo [name: appPersU]
-2022-03-06 18:58:13.696  INFO 50201 --- [main] org.hibernate.Version: HHH000412: Hibernate ORM core version 5.4.25.Final
-2022-03-06 18:58:13.759  INFO 50201 --- [main] o.hibernate.annotations.common.Version: HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2022-03-06 18:58:13.890  INFO 50201 --- [main] org.hibernate.dialect.Dialect: HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
-2022-03-06 18:58:14.293  INFO 50201 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2022-03-06 18:58:14.297  INFO 50201 --- [main] j.LocalContainerEntityManagerFactoryBean: Initialized JPA EntityManagerFactory for persistence unit 'appPersU'
-2022-03-06 18:58:14.482  INFO 50201 --- [main] o.hibernate.jpa.internal.util.LogHelper: HHH000204: Processing PersistenceUnitInfo [name: springPersU]
-2022-03-06 18:58:14.502  INFO 50201 --- [main] org.hibernate.dialect.Dialect: HHH000400: Using dialect: org.hibernate.dialect.HSQLDialect
-2022-03-06 18:58:14.583  INFO 50201 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2022-03-06 18:58:14.583  INFO 50201 --- [main] j.LocalContainerEntityManagerFactoryBean: Initialized JPA EntityManagerFactory for persistence unit 'springPersU'
-2022-03-06 18:58:14.683  WARN 50201 --- [main] o.s.b.c.c.a.DefaultBatchConfigurer: No transaction manager was provided, using a DataSourceTransactionManager
-2022-03-06 18:58:14.686  INFO 50201 --- [main] o.s.b.c.r.s.JobRepositoryFactoryBean: No database type set, using meta data indicating: HSQL
-2022-03-06 18:58:14.767  INFO 50201 --- [main] o.s.b.c.l.support.SimpleJobLauncher: No TaskExecutor has been set, defaulting to synchronous executor.
-2022-03-06 18:58:14.933  INFO 50201 --- [main] com.snimma1.Application: Started Application in 2.004 seconds (JVM running for 2.229)
+2022-03-06  INFO 50201 --- [main] o.hibernate.jpa.internal.util.LogHelper: HHH000204: Processing PersistenceUnitInfo [name: appPersU]
+2022-03-06  INFO 50201 --- [main] org.hibernate.Version: HHH000412: Hibernate ORM core version 5.4.25.Final
+2022-03-06  INFO 50201 --- [main] o.hibernate.annotations.common.Version: HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-03-06  INFO 50201 --- [main] org.hibernate.dialect.Dialect: HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2022-03-06  INFO 50201 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-03-06  INFO 50201 --- [main] j.LocalContainerEntityManagerFactoryBean: Initialized JPA EntityManagerFactory for persistence unit 'appPersU'
+2022-03-06  INFO 50201 --- [main] o.hibernate.jpa.internal.util.LogHelper: HHH000204: Processing PersistenceUnitInfo [name: springPersU]
+2022-03-06  INFO 50201 --- [main] org.hibernate.dialect.Dialect: HHH000400: Using dialect: org.hibernate.dialect.HSQLDialect
+2022-03-06  INFO 50201 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-03-06  INFO 50201 --- [main] j.LocalContainerEntityManagerFactoryBean: Initialized JPA EntityManagerFactory for persistence unit 'springPersU'
+2022-03-06  WARN 50201 --- [main] o.s.b.c.c.a.DefaultBatchConfigurer: No transaction manager was provided, using a DataSourceTransactionManager
+2022-03-06  INFO 50201 --- [main] o.s.b.c.r.s.JobRepositoryFactoryBean: No database type set, using meta data indicating: HSQL
+2022-03-06  INFO 50201 --- [main] o.s.b.c.l.support.SimpleJobLauncher: No TaskExecutor has been set, defaulting to synchronous executor.
+2022-03-06  INFO 50201 --- [main] com.snimma1.Application: Started Application in 2.004 seconds (JVM running for 2.229)
 ```
 
-To write to MySQL, we need to define `ItemWriter`s using the `Datasource` we just configured. There are a number of valid ways to do this. For example, we could write a custom `ItemWriter` by injecting the MySQl `Datasource` into our implementation3. However, doing a quick review of the Spring-supported writes we can save some time by leveraging the the `JpaItemWriter` [implementation](https://docs.spring.io/spring-batch/docs/current/api/org/springframework/batch/item/database/JpaItemWriter.html) that comes with Spring Batch. We can create a single instance of a `JpaItemWriter` with the persistance context for the `app.datasource` and use it to write each entity (i.e post, comment, etc) to MySQL. Since the rapid-starter has already setup spring-data-jpa, we just need to inject the `EntityManager` associated with `app.datasource` to create a working writer. Our complete `WritersConfig` looks like this:
+To write batches to MySQL, we need to define `ItemWriter`s using the `Datasource` we just configured. There are a number of valid ways to do this. For example, we could write a custom `ItemWriter` by injecting the MySQl `DataSource` into our implementation. However, we can save some time by leveraging the the `JpaItemWriter` [implementation](https://docs.spring.io/spring-batch/docs/current/api/org/springframework/batch/item/database/JpaItemWriter.html) that comes with Spring Batch. We can create a single instance of a `JpaItemWriter` with the persistance context for the `app.datasource` and use it to write each entity (i.e post, comment, etc) to MySQL. Since the rapid-starter has already setup spring-data-jpa, we just need to inject the `EntityManager` associated with `app.datasource` to create a working writer. Our complete `WritersConfig` looks like this:
 
 ```java
 @Configuration
@@ -433,3 +429,263 @@ public class WritersConfig {
   }
 }
 ```
+
+With some minor modifications to the job configuration class `BatchConfig` we can test dataflow end-to-end. After swapping out the `ConsoleItemWriter`, the job's configuration looks like this:
+
+```java
+@Configuration
+@EnableBatchProcessing
+@EnableTask
+public class BatchConfig {
+
+  public static final int BATCH_CHUNK_SIZE = 500;
+
+  public TaskConfigurer taskConfigurer;
+
+  public final JobBuilderFactory jobBuilderFactory;
+
+  public final StepBuilderFactory stepBuilderFactory;
+
+  /** Holds all readers available for job */
+  private final ReadersConfig readers;
+
+  /** Holds all writers available for job */
+  private final WritersConfig writers;
+
+  @Autowired
+  public BatchConfig(
+      JobBuilderFactory jobBuilderFactory,
+      StepBuilderFactory stepBuilderFactory,
+      TaskConfigurer taskConfigurer,
+      ReadersConfig readers,
+      WritersConfig writers) {
+    this.jobBuilderFactory = jobBuilderFactory;
+    this.stepBuilderFactory = stepBuilderFactory;
+    this.taskConfigurer = taskConfigurer;
+    this.readers = readers;
+    this.writers = writers;
+  }
+
+  @Bean
+  public Step step1(
+      @Qualifier("appEntityManager") LocalContainerEntityManagerFactoryBean factory) {
+    return stepBuilderFactory
+        .get("posts")
+        .<Post, Post>chunk(BATCH_CHUNK_SIZE)
+        .reader(readers.multiPostsReader())
+        .writer(writers.jpaItemWriter(factory))
+        .faultTolerant()
+        .build();
+  }
+
+  @Bean
+  public Job importStackDumpToSql(Step step1) {
+    return jobBuilderFactory
+        .get("writePosts")
+        .incrementer(new RunIdIncrementer())
+        .start(step1)
+        .build();
+  }
+}
+```
+
+Running this and checking the output we get ... an error?!:
+
+```bash
+.
+.
+2022-03-06  INFO 54620 --- [           main] com.snimma1.processor.PostProcessor      : Processed post with title Can food be addictive?
+2022-03-06  INFO 54620 --- [           main] com.snimma1.processor.PostProcessor      : Processed post with title What are these lines in teeth?
+2022-03-06  ERROR 54620 --- [           main] o.s.batch.core.step.AbstractStep         : Encountered an error executing step posts in job stackDump2SQL
+
+org.springframework.retry.ExhaustedRetryException: Retry exhausted after last attempt in recovery path, but exception is not skippable.; nested exception is javax.persistence.TransactionRequiredException: no transaction is in progress
+        at org.springframework.batch.core.step.item.FaultTolerantChunkProcessor$5.recover(FaultTolerantChunkProcessor.java:429) ~[spring-batch-core-4.2.5.RELEASE.jar:4.2.5.RELEASE]
+        at org.springframework.retry.support.RetryTemplate.handleRetryExhausted(RetryTemplate.java:512) ~[spring-retry-1.2.5.RELEASE.jar:na]
+.
+.
+```
+
+This one confused me initially because everything above looks like it should write Posts to MySQL. After a bit of research, it turns out Spring Batch uses a [`TransactionManager`](https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/transaction.html) under the hood to write job progress and metadata. It will not share this by default. And this makes sense! If the batch logic fails then only batch data should be rolled back and not important logging details and metadata. To solve this we simply need to explicitly pass the `appTransactionManager` (already created via the template project) to the step definition like so:
+
+```java
+  @Bean
+  public Step step1(
+      @Qualifier("appJpaTransactionManager") JpaTransactionManager transactionManager,
+      @Qualifier("appEntityManager") LocalContainerEntityManagerFactoryBean factory) {
+    return stepBuilderFactory
+        .get("posts")
+        .transactionManager(transactionManager)
+        .<Post, Post>chunk(BATCH_CHUNK_SIZE)
+        .reader(readers.multiPostsReader())
+        .writer(writers.jpaItemWriter(factory))
+        .faultTolerant()
+        .build();
+  }
+```
+
+Re-running with these changes and observe the step will write Posts to MySQL!
+
+```bash
+2022-03-07  INFO 8182 --- [main] com.snimma1.Application: Started Application in 1.855 seconds (JVM running for 2.057)
+2022-03-07  INFO 8182 --- [main] c.t.b.h.TaskJobLauncherCommandLineRunner: Running default command line with: []
+2022-03-07  INFO 8182 --- [main] o.s.b.c.l.support.SimpleJobLauncher: Job: [SimpleJob: [name=writePosts]] launched with the following parameters: [{run.id=1}]
+2022-03-07  INFO 8182 --- [main] o.s.c.t.b.l.TaskBatchExecutionListener: The job execution id 0 was run within the task execution 0
+2022-03-07  INFO 8182 --- [main] o.s.batch.core.job.SimpleStepHandler: Executing step: [posts]
+```
+
+![Select * from posts](../images/selectPosts.png)
+
+Having validated the reader/writer pattern above there's not much more needed to create `Step` definitions for the other domain objects. To do so, simply copy the `Step` definition above and change the model type. For example, the step to import users would look like this:
+
+```java
+  @Bean
+  public Step step2(
+      @Qualifier("appJpaTransactionManager") JpaTransactionManager transactionManager,
+      @Qualifier("appEntityManager") LocalContainerEntityManagerFactoryBean factory) {
+    return stepBuilderFactory
+        .get("users")
+        .transactionManager(transactionManager)
+        .<User, User>chunk(BATCH_CHUNK_SIZE)
+        .reader(readers.multiUsersReader())
+        .writer(writers.jpaItemWriter(factory))
+        .faultTolerant()
+        .build();
+  }
+```
+
+## An example `ItemProcessor`
+
+Before we finish building out the other write steps, let's add a processing stage to format some post data. This should serve as a starting point for how to add business logic or transformations via an `ItemProcessor`. Recall, an `ItemProcessor` is simple. Given one object, some transformations occur, and another object is returned. The interface that a processor must implement is below:
+
+```java
+public interface ItemProcessor<I, O> {
+    O process(I item) throws Exception;
+}
+```
+
+Therefore, defining a class `PostProcessor` could look like this (for example purposes we're not doing many transformations):
+
+```java
+public class PostProcessor implements ItemProcessor<Post, Post> {
+
+    @Override
+    public Post process(Post in) throws Exception {
+
+        Charset charset = Charset.forName("UTF-8");
+
+        log.info("Processed post with title " + in.getTitle());
+        return Post.builder()
+                .id(in.getId())
+                .postType(in.getPostType())
+                .parentId(in.getParentId())
+                .acceptedAnswerId(in.getAcceptedAnswerId())
+                .creationDate(in.getCreationDate())
+                .score(in.getScore())
+                .viewCount(in.getViewCount())
+                .body(StringEscapeUtils.unescapeHtml4(in.getBody()))
+                .ownerUserId(in.getOwnerUserId())
+                .ownerDisplayName(in.getOwnerDisplayName())
+                .lastEditorUserId(in.getLastEditorUserId())
+                .lastEditorDisplayName(in.getLastEditorDisplayName())
+                .lastEditDate(in.getLastEditDate())
+                .lastActivityDate(in.getLastActivityDate())
+                .communityOwnedDate(in.getCommunityOwnedDate())
+                .closedDate(in.getClosedDate())
+                .title(StringEscapeUtils.unescapeHtml4(in.getTitle()))
+                .tags(in.getTags())
+                .answerCount(in.getAnswerCount())
+                .commentCount(in.getCommentCount())
+                .contentLicense(in.getContentLicense())
+                .build();
+    }
+}
+```
+
+After adding the `PostProcessor` to the configuration for the write post step we can see each post is being processed when running the job:
+
+```java
+@Bean
+PostProcessor postProcessor() {
+  return new PostProcessor();
+}
+
+@Bean
+public Step step1(
+    @Qualifier("appJpaTransactionManager") JpaTransactionManager transactionManager,
+    @Qualifier("appEntityManager") LocalContainerEntityManagerFactoryBean factory,
+    PostProcessor postProcessor) {
+  return stepBuilderFactory
+      .get("posts")
+      .transactionManager(transactionManager)
+      .<Post, Post>chunk(BATCH_CHUNK_SIZE)
+      .reader(readers.multiPostsReader())
+      .processor(postProcessor)
+      .writer(writers.jpaItemWriter(factory))
+      .faultTolerant()
+      .build();
+}
+```
+
+```bash
+2022-03-07 INFO 4889 --- [main] com.snimma1.processor.PostProcessor: Processed post with title Does sleeping position affect health?
+2022-03-07 INFO 4889 --- [main] com.snimma1.processor.PostProcessor: Processed post with title How effective was the 2014-2015 influenza vaccination?
+2022-03-07 INFO 4889 --- [main] com.snimma1.processor.PostProcessor: Processed post with title Does having too much sugary things cause headaches?
+```
+
+## Executing parallel writes
+
+Each of the other `Step`s in job follows the same pattern outlined above (save for the processing step). You can find the full set of `Step` [definitions here](https://github.com/snimmagadda1/stack-exchange-dump-to-mysql/blob/master/src/main/java/com/snimma1/config/batch/BatchConfig.java#L107). What I want to focus on before recapping is the concept of parallel processing within Spring Batch.
+
+The framework offers two modes of parallel processing:
+
+- Single process, multi-threaded
+- Multi-process
+
+Definitions and in-depth examples of both can be found in [Spring's docs here](https://docs.spring.io/spring-batch/docs/current/reference/html/scalability.html). All the data we're batching can be read and written in parallel, so an easy efficiency win would be to execute every step in unison. This is an example of single process, multi-threaded. Spring Batch steps can be sequenced using some additional tools the framework provides. By defining a `Flow` and providing a `ThreadPool`, each `Step` will be executed in parallel. The Java configuration to do this is below:
+
+```java
+@Bean
+public TaskExecutor taskExecutor() {
+    SimpleAsyncTaskExecutor executor = new SimpleAsyncTaskExecutor("batch_x");
+    executor.setConcurrencyLimit(CONCURRENCY_LIMIT);
+    return (TaskExecutor) executor;
+}
+
+@Bean
+public Flow splitFlow(
+        @Qualifier("step1") Step step1,
+        @Qualifier("step2") Step step2,
+        @Qualifier("step3") Step step3,
+        @Qualifier("step4") Step step4,
+        @Qualifier("step5") Step step5,
+        @Qualifier("step6") Step step6) {
+    final Flow f1 = new FlowBuilder<Flow>("s1").from(step1).end();
+    final Flow f2 = new FlowBuilder<Flow>("s2").from(step2).end();
+    final Flow f3 = new FlowBuilder<Flow>("s3").from(step3).end();
+    final Flow f4 = new FlowBuilder<Flow>("s4").from(step4).end();
+    final Flow f5 = new FlowBuilder<Flow>("s5").from(step5).end();
+    final Flow f6 = new FlowBuilder<Flow>("s6").from(step6).end();
+
+    return new FlowBuilder<SimpleFlow>("splitFlow")
+            .split(taskExecutor())
+            .add(f1, f2, f3, f4, f5, f6)
+            .build();
+}
+
+
+@Bean
+public Job importStackDumpToSql(Flow jobFlow) {
+    return jobBuilderFactory
+            .get("stackDump2SQL")
+            .incrementer(new RunIdIncrementer())
+            .start(jobFlow)
+            .end()
+            .build();
+}
+```
+
+Now we can sit back and executing the job to get an import of an entire Stack Exchange site into MySQL!
+
+## Summary
+
+We have built out a full multi-threaded, parameterized batch job using Spring. To do so we used some open-source ItemReader & Writer implementations tailored to load Stack Exchange sites published as XML data dumps to a MySQL database.
