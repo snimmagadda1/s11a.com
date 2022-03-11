@@ -257,7 +257,7 @@ Now let's print some data with this reader! I grabbed this slick `ConsoleItemWri
 public class ConsoleItemWriter<T> implements ItemWriter<T> {
 
     private static final Logger LOG = LoggerFactory.getLogger(ConsoleItemWriter.class);
-s
+
     @Override
     public void write(List<? extends T> items) throws Exception {
         LOG.trace("Console item writer start");
