@@ -1,7 +1,7 @@
 ---
 title: "Writing a Cosmos DB stored procedure with continuation"
 slug: writing-a-cosmos-db-stored-procedure-with-continuation
-cover: "../thumbnails/batchprocessing.png"
+cover: "../thumbnails/azure.png"
 category: "test3"
 categories:
   - Code
@@ -18,7 +18,7 @@ tags:
 time: "5 min"
 ---
 
-We will explore one of the essential features of Cosmos DB - pagination and continuation tokens. Below is a robust & practical implementation for using continuation tokens using the [JavaScript server-side SDK](https://github.com/Azure/azure-cosmosdb-js-server/) to define the procedure and the [Java client SDK](https://github.com/Azure/azure-cosmosdb-java) to execute it.
+We will explore one of the essential features of Cosmos DB - pagination and continuation tokens. Below is a brief look at a robust & practical implementation for using continuation tokens in a stored procedure. We will use the [JavaScript server-side SDK](https://github.com/Azure/azure-cosmosdb-js-server/) to define the procedure and the [Java client SDK](https://github.com/Azure/azure-cosmosdb-java) to execute it.
 
 ## Prerequisites
 
@@ -28,7 +28,7 @@ We will explore one of the essential features of Cosmos DB - pagination and cont
 
 ## Setting up a workspace
 
-The code here has been hacked together from the [quickstart for java example](https://github.com/Azure-Samples/azure-cosmos-java-getting-started/blob/main/src/main/java/com/azure/cosmos/sample/sync/SyncMain.java). To create a workspace, simply use the portal to create a Cosmos DB [free tier](https://learn.microsoft.com/en-us/azure/cosmos-db/free-tier).
+The code here has been hacked together from the [quick start for java example](https://github.com/Azure-Samples/azure-cosmos-java-getting-started/blob/main/src/main/java/com/azure/cosmos/sample/sync/SyncMain.java). To create a workspace, simply use the portal to create a Cosmos DB [free tier](https://learn.microsoft.com/en-us/azure/cosmos-db/free-tier).
 
 Once you have a Cosmos instance, set the primary key and connection strings that the program will use to create a client.
 
@@ -136,7 +136,7 @@ private GetItemsProcedureResponse runStoredProcedure(String continuation) throws
 
 ```
 
-I've put together example code thatdemonstrates the process [here](https://github.com/snimmagadda1/azure-cosmos-stored-procedure-pagination-continuation). Simply clone, set the env vars for your cosmos instance, package, and then run it to inspect the output of the procedure calls:
+I've put together example code that demonstrates the process [here](https://github.com/snimmagadda1/azure-cosmos-stored-procedure-pagination-continuation). Simply clone, set the env vars for your cosmos instance, package, and then run it to inspect the output of the procedure calls:
 
 ```log
 INFO: Getting database account endpoint from https://XXXX.documents.azure.com:443/
