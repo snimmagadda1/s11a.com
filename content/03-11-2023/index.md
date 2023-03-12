@@ -79,7 +79,7 @@ function getItems(continuation) {
 }
 ```
 
-Within the chain's terminating `value()` we are setting the `FeedOptions` to the default `pageSize` of 100 wiring in the`continuation` token from procedure input. In the callback we set the response body to include the resulting documents in `result` field and the associated continuation token, it it exists, in the `continuation` field.
+Within the chain's terminating `value()` we are setting the `FeedOptions` to the default `pageSize` of 100 wiring in the `continuation` token from procedure input. In the callback we set the response body to include the resulting documents in `result` field and the associated continuation token, it it exists, in the `continuation` field.
 
 The full server-side JS API can be found [here](http://azure.github.io/azure-cosmosdb-js-server/index.html).
 
