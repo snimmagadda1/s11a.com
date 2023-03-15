@@ -2,7 +2,7 @@ const config = {
   siteTitle: "s11a Programming Blog", // Site title.
   siteTitleShort: "s11a", // Short site title for homescreen (PWA). Preferably should be under 12 characters to prevent truncation.
   siteTitleAlt: "s11a website", // Alternative site title for SEO.
-  siteLogo: "logos/logo-1024.png", // Logo used for SEO and manifest.
+  siteLogo: "logos/logo-512.png", // Logo used for SEO and manifest.
   siteUrl: "https://s11a.com", // Domain of your website without pathPrefix.
   repo: "https://github.com/snimmagadda1/s11a.com",
   pathPrefix: "", // Prefixes all links. For cases when deployed to example.github.io/gatsby-advanced-starter/.
