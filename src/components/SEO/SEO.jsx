@@ -24,12 +24,10 @@ class SEO extends Component {
     } else {
       title = config.siteTitle;
       description = config.siteDescription;
-      image = config.siteLogo;
+      image = config.siteLogo + '/';
     }
 
-    console.log('The image found is', image);
-
-    image = config.siteUrl + '/' + image;
+    image = config.siteUrl + image;
     const blogURL = urljoin(config.siteUrl, config.pathPrefix);
     const schemaOrgJSONLD = [
       {
