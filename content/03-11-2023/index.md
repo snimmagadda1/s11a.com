@@ -163,7 +163,6 @@ Got response with continuation -RID:~QoESALqhssy8AgAAAAAAAA==#RT:7#TRC:700#ISV:2
 Got response with continuation -RID:~QoESALqhssw0CAAAAAAAAA==#RT:21#TRC:2100#ISV:2#IEO:65567#QCF:8
 Fetched 900 addresses from collection in 9 attempts
 Demo complete, please hold while resources are released
-Running procedure to query items
 Closing the client
 ```
 
