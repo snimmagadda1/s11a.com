@@ -156,33 +156,28 @@ module.exports = {
                 ]
               }));
             },
-            query: `
-            {
-              allMarkdownRemark(
-                limit: 1000,
-                sort: { order: DESC, fields: [fields___date] },
-              ) {
-                edges {
-                  node {
-                    excerpt
-                    html
-                    timeToRead
-                    fields {
-                      slug
-                      date
-                    }
-                    frontmatter {
-                      title
-                      cover
-                      date
-                      category
-                      tags
-                    }
-                  }
-                }
-              }
-            }
-          `,
+            query: `{
+  allMarkdownRemark(limit: 1000, sort: {fields: {date: DESC}}) {
+    edges {
+      node {
+        excerpt
+        html
+        timeToRead
+        fields {
+          slug
+          date
+        }
+        frontmatter {
+          title
+          cover
+          date
+          category
+          tags
+        }
+      }
+    }
+  }
+}`,
             output: config.siteRss,
             title: "Sai Nimmagadda's Programming Blog"
           }

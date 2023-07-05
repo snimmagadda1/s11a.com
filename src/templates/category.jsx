@@ -23,30 +23,28 @@ export default class CategoryTemplate extends React.Component {
 }
 
 /* eslint no-undef: "off" */
-export const pageQuery = graphql`
-  query CategoryPage($category: String) {
-    allMarkdownRemark(
-      limit: 1000
-      sort: { fields: [fields___date], order: DESC }
-      filter: { frontmatter: { category: { eq: $category } } }
-    ) {
-      totalCount
-      edges {
-        node {
-          fields {
-            slug
-            date
-          }
-          excerpt
-          timeToRead
-          frontmatter {
-            title
-            tags
-            cover
-            date
-          }
+export const pageQuery = graphql`query CategoryPage($category: String) {
+  allMarkdownRemark(
+    limit: 1000
+    sort: {fields: {date: DESC}}
+    filter: {frontmatter: {category: {eq: $category}}}
+  ) {
+    totalCount
+    edges {
+      node {
+        fields {
+          slug
+          date
+        }
+        excerpt
+        timeToRead
+        frontmatter {
+          title
+          tags
+          cover
+          date
         }
       }
     }
   }
-`;
+}`;
