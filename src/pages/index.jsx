@@ -23,14 +23,7 @@ class Index extends React.Component {
               <p>I'm a full stack software engineer focused on using tech to find novel solutions to today's problems. My day to day focus is largely in the healthcare sphere. I build things, contribute to open source, and love a good challenge.</p>
               <div className="social-buttons">
                 <div>
-                  <a
-                    className="twitter-follow-button"
-                    href="https://twitter.com/funsaized"
-                    data-size="large"
-                    data-show-screen-name="false"
-                  >
-                    Follow @funsaized
-                  </a>
+                  <a href="https://twitter.com/funsaized?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-size="large" data-show-screen-name="false" data-show-count="false">Follow @funsaized</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                 </div>
                 <div>
                   <GitHubButton
