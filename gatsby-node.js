@@ -6,22 +6,22 @@ const webpack = require("webpack");
 
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
-      plugins: [
-          new webpack.ProvidePlugin({
-              Buffer: [require.resolve("buffer/"), "Buffer"],
-          }),
-      ],
-      resolve: {
-          fallback: {
-              "crypto": false,
-              "assert": false,
-              "util": false,
-              "http": false,
-              "https": false,
-              "os": false
-          },
+    plugins: [
+      new webpack.ProvidePlugin({
+        Buffer: [require.resolve("buffer/"), "Buffer"],
+      }),
+    ],
+    resolve: {
+      fallback: {
+        crypto: false,
+        assert: false,
+        util: false,
+        http: false,
+        https: false,
+        os: false,
       },
-  })
+    },
+  });
 };
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
@@ -54,7 +54,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
         createNodeField({
           node,
           name: "date",
-          value: date.toISOString()
+          value: date.toISOString(),
         });
       }
     }
@@ -62,6 +62,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   }
 };
 
+// Programmatic page creation via node APIs
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
   const postPage = path.resolve("src/templates/post.jsx");
@@ -119,7 +120,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   postsEdges.forEach((edge, index) => {
     if (edge.node.frontmatter.tags) {
-      edge.node.frontmatter.tags.forEach(tag => {
+      edge.node.frontmatter.tags.forEach((tag) => {
         tagSet.add(tag);
       });
     }
@@ -141,27 +142,27 @@ exports.createPages = async ({ graphql, actions }) => {
         nexttitle: nextEdge.node.frontmatter.title,
         nextslug: nextEdge.node.fields.slug,
         prevtitle: prevEdge.node.frontmatter.title,
-        prevslug: prevEdge.node.fields.slug
-      }
+        prevslug: prevEdge.node.fields.slug,
+      },
     });
   });
 
-  tagSet.forEach(tag => {
+  tagSet.forEach((tag) => {
     createPage({
       path: `/tags/${_.kebabCase(tag)}/`,
       component: tagPage,
       context: {
-        tag
-      }
+        tag,
+      },
     });
   });
-  categorySet.forEach(category => {
+  categorySet.forEach((category) => {
     createPage({
       path: `/categories/${_.kebabCase(category)}/`,
       component: categoryPage,
       context: {
-        category
-      }
+        category,
+      },
     });
   });
 };

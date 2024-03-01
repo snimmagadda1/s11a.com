@@ -11,7 +11,7 @@ const config = {
   disqusShortname: "https-s11a-com", // Disqus shortname.
   postDefaultCategoryID: "Tech", // Default category for posts.
   dateFromFormat: "MM-DD-YYYY", // Date format used in the frontmatter.
-  dateFormat: 'MMMM Do, YYYY', // Date format for display.
+  dateFormat: "MMMM Do, YYYY", // Date format for display.
   userName: "Sai Nimmagadda", // Username to display in the author segment.
   userEmail: "ExampleUser@example.com", // Email used for RSS feed's author segment
   userTwitter: "Funsaized", // Optionally renders "Follow Me" in the UserInfo segment.
@@ -24,32 +24,36 @@ const config = {
     {
       label: "GitHub",
       url: "https://github.com/snimmagadda1",
-      iconClassName: "fa fa-github"
+      iconClassName: "fa fa-github",
     },
     {
       label: "Twitter",
       url: "https://twitter.com/FunSaized",
-      iconClassName: "fa fa-twitter"
+      iconClassName: "fa fa-twitter",
     },
     {
       label: "Email",
       url: "saiguy@me.com",
-      iconClassName: "fa fa-envelope"
-    }
+      iconClassName: "fa fa-envelope",
+    },
   ],
   menuLinks: [
     {
-      name: 'Me',
-      link: '/about/',
+      name: "Me",
+      link: "/about/",
     },
     {
-      name: 'Articles',
-      link: '/blog/',
-    }
+      name: "Articles",
+      link: "/blog/",
+    },
+    {
+      name: "Notes",
+      link: "/notes/",
+    },
   ],
   copyright: "Copyright © 2019. Sai Nimmagadda", // Copyright string for the footer of the website and RSS feed.
   themeColor: "#9dd4cf", // Used for setting manifest and progress theme colors.
-  backgroundColor: "#e0e0e0" // Used for setting manifest background color.
+  backgroundColor: "#e0e0e0", // Used for setting manifest background color.
 };
 
 // Validate
