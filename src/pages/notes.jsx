@@ -6,10 +6,9 @@ import PostListing from '../components/PostListing/PostListing'
 import SEO from '../components/SEO/SEO'
 import config from '../../data/SiteConfig'
 
-export default class BlogPage extends Component {
+export default class NotesPage extends Component {
   state = {
     searchTerm: '',
-    currentCategories: [],
     posts: this.props.data.posts.edges,
     filteredPosts: this.props.data.posts.edges,
   }
@@ -29,67 +28,26 @@ export default class BlogPage extends Component {
       post.node.frontmatter.title.toLowerCase().includes(searchTerm.toLowerCase())
     )
 
-    if (currentCategories.length > 0) {
-      filteredPosts = filteredPosts.filter(
-        post =>
-          post.node.frontmatter.categories &&
-          currentCategories.every(cat => post.node.frontmatter.categories.includes(cat))
-      )
-    }
-
     this.setState({ filteredPosts })
   }
 
-  updateCategories = category => {
-    const { currentCategories } = this.state
-
-    if (!currentCategories.includes(category)) {
-      this.setState(prevState => ({
-        currentCategories: [...prevState.currentCategories, category],
-      }))
-    } else {
-      this.setState(prevState => ({
-        currentCategories: prevState.currentCategories.filter(cat => category !== cat),
-      }))
-    }
-  }
-
   render() {
-    const { filteredPosts, searchTerm, currentCategories } = this.state
+    const { filteredPosts, searchTerm } = this.state
     const filterCount = filteredPosts.length
-    const categories = this.props.data.categories.group
 
     return (
       <Layout>
-        <Helmet title={`Articles – ${config.siteTitle}`} />
+        <Helmet title={`Notes – ${config.siteTitle}`} />
         <SEO />
         <div className="container">
-          <h1>Articles</h1>
-          <div className="category-container">
-            {categories.map(category => {
-              const active = currentCategories.includes(category.fieldValue)
-
-              return (
-                <div
-                  className={`category-filter ${active ? 'active' : ''}`}
-                  key={category.fieldValue}
-                  onClick={async () => {
-                    await this.updateCategories(category.fieldValue)
-                    await this.filterPosts()
-                  }}
-                >
-                  {category.fieldValue}
-                </div>
-              )
-            })}
-          </div>
+          <h1>Notes</h1>
           <div className="search-container">
             <input
               className="search"
               type="text"
               name="searchTerm"
               value={searchTerm}
-              placeholder="Type here to filter posts..."
+              placeholder="Type here to filter notes..."
               onChange={this.handleChange}
             />
             <div className="filter-count">{filterCount}</div>
@@ -105,7 +63,7 @@ export const pageQuery = graphql`query BlogQuery {
   posts: allMarkdownRemark(
       limit: 2000, 
       sort: {fields: {date: DESC}},
-      filter: {frontmatter: {type: {ne: "note"}}}
+      filter: {frontmatter: {type: {eq: "note"}}}
     ) {
     edges {
       node {
@@ -129,12 +87,6 @@ export const pageQuery = graphql`query BlogQuery {
           date
         }
       }
-    }
-  }
-  categories: allMarkdownRemark(limit: 2000) {
-    group(field: {frontmatter: {categories: SELECT}}) {
-      fieldValue
-      totalCount
     }
   }
 }`
