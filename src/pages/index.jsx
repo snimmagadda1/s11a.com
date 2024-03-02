@@ -23,9 +23,6 @@ class Index extends React.Component {
               <p>I'm a full stack software engineer focused on using tech to find novel solutions to today's problems. My day to day focus is largely in the healthcare sphere. I build things, contribute to open source, and love a good challenge.</p>
               <div className="social-buttons">
                 <div>
-                  <a href="https://twitter.com/funsaized?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-size="large" data-show-screen-name="false" data-show-count="false">Follow @funsaized</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                </div>
-                <div>
                   <GitHubButton
                     href="https://github.com/snimmagadda1"
                     data-size="large"
@@ -59,7 +56,11 @@ export default Index;
 
 /* eslint no-undef: "off" */
 export const pageQuery = graphql`query IndexQuery {
-  allMarkdownRemark(limit: 2000, sort: {fields: {date: DESC}}) {
+  allMarkdownRemark(
+      limit: 2000, 
+      sort: {fields: {date: DESC}},
+      filter: {frontmatter: {type: {ne: "note"}}}
+    ) {
     edges {
       node {
         fields {

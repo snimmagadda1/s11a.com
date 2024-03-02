@@ -102,7 +102,11 @@ export default class BlogPage extends Component {
 }
 
 export const pageQuery = graphql`query BlogQuery {
-  posts: allMarkdownRemark(limit: 2000, sort: {fields: {date: DESC}}) {
+  posts: allMarkdownRemark(
+      limit: 2000, 
+      sort: {fields: {date: DESC}},
+      filter: {frontmatter: {type: {ne: "note"}}}
+    ) {
     edges {
       node {
         fields {
