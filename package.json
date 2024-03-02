@@ -16,7 +16,6 @@
     "gatsby-plugin-react-helmet": "^6.11.0",
     "gatsby-plugin-sass": "^6.11.0",
     "gatsby-plugin-sharp": "^5.11.0",
-    "gatsby-plugin-twitter": "^5.11.0",
     "gatsby-remark-autolink-headers": "^6.11.0",
     "gatsby-remark-copy-linked-files": "^6.11.0",
     "gatsby-remark-images": "^7.11.0",
@@ -33,7 +32,7 @@
     "react-dom": "^18.2.0",
     "react-github-btn": "^1.0.5",
     "react-helmet": "^5.2.1",
-    "react-share": "^2.4.0",
+    "react-share": "5.1.0",
     "react-twitter-widgets": "^1.9.5",
     "url-join": "^4.0.1"
   },

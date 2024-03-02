@@ -8,9 +8,8 @@
     margin: 15px 0;
 }
 
-.social-links > div {
+.social-links > button {
     margin: 5px 15px;
-    cursor: pointer;
 }
 
 .share-count {

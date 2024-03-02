@@ -14,8 +14,8 @@ module.exports = {
         config.siteUrl,
         config.pathPrefix
       )}/logos/logo-512.png`,
-      copyright: config.copyright
-    }
+      copyright: config.copyright,
+    },
   },
   plugins: [
     "gatsby-disable-404",
@@ -24,22 +24,22 @@ module.exports = {
       options: {
         implementation: require("sass"),
       },
-    },    
+    },
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-lodash",
     {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "assets",
-        path: `${__dirname}/static/`
-      }
+        path: `${__dirname}/static/`,
+      },
     },
     {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "posts",
-        path: `${__dirname}/content/`
-      }
+        path: `${__dirname}/content/`,
+      },
     },
     {
       resolve: "gatsby-transformer-remark",
@@ -48,11 +48,11 @@ module.exports = {
           {
             resolve: "gatsby-remark-images",
             options: {
-              maxWidth: 690
-            }
+              maxWidth: 690,
+            },
           },
           {
-            resolve: "gatsby-remark-responsive-iframe"
+            resolve: "gatsby-remark-responsive-iframe",
           },
           "gatsby-remark-copy-linked-files",
           "gatsby-remark-autolink-headers",
@@ -64,7 +64,7 @@ module.exports = {
               aliases: {},
               showLineNumbers: false,
               noInlineHighlight: false,
-              inlineCodeMarker: '>',
+              inlineCodeMarker: ">",
               languageExtensions: [
                 {
                   language: "superscript",
@@ -85,21 +85,20 @@ module.exports = {
                 global: false,
               },
               escapeEntities: {},
-            }
-          }
-        ]
-      }
+            },
+          },
+        ],
+      },
     },
     {
       resolve: "gatsby-plugin-nprogress",
       options: {
-        color: config.themeColor
-      }
+        color: config.themeColor,
+      },
     },
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
     "gatsby-plugin-catch-links",
-    "gatsby-plugin-twitter",
     {
       resolve: "gatsby-plugin-manifest",
       options: {
@@ -110,8 +109,8 @@ module.exports = {
         background_color: config.backgroundColor,
         theme_color: config.themeColor,
         display: "minimal-ui",
-        icon: "src/favicon.png", 
-      }
+        icon: "src/favicon.png",
+      },
     },
     "gatsby-plugin-offline",
     {
@@ -143,7 +142,7 @@ module.exports = {
           {
             serialize(ctx) {
               const { rssMetadata } = ctx.query.site.siteMetadata;
-              return ctx.query.allMarkdownRemark.edges.map(edge => ({
+              return ctx.query.allMarkdownRemark.edges.map((edge) => ({
                 categories: edge.node.frontmatter.tags,
                 date: edge.node.fields.date,
                 title: edge.node.frontmatter.title,
@@ -152,8 +151,8 @@ module.exports = {
                 guid: rssMetadata.site_url + edge.node.fields.slug,
                 custom_elements: [
                   { "content:encoded": edge.node.html },
-                  { author: config.userEmail }
-                ]
+                  { author: config.userEmail },
+                ],
               }));
             },
             query: `{
@@ -179,10 +178,10 @@ module.exports = {
   }
 }`,
             output: config.siteRss,
-            title: "Sai Nimmagadda's Programming Blog"
-          }
-        ]
-      }
-    }
-  ]
+            title: "Sai Nimmagadda's Programming Blog",
+          },
+        ],
+      },
+    },
+  ],
 };
