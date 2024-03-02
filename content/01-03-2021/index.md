@@ -15,6 +15,7 @@ tags:
     - pipeline
     - Java
 time: "3 min"
+type: "post"
 ---
 
 ## What's the deal with Spring Batch?

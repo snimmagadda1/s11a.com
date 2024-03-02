@@ -16,6 +16,7 @@ tags:
   - Lambda
   - Serverless
 time: "5 min"
+type: "post"
 ---
 On a snowy day a while back I threw together a project to explore serverless functions. For whatever reason I decided the world needed a [Twitter garlic 'bot'](https://twitter.com/GarlicHub). It has a single purpose. It retweets things about garlic. It is glorious, simple, and to-date serves garlic content to 250+ individuals:
 

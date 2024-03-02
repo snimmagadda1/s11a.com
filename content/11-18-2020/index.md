@@ -14,6 +14,7 @@ tags:
   - Spread
   - Set
 time: "2 min"
+type: "post"
 ---
 
 ## Things I googled ...

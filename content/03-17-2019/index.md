@@ -13,7 +13,7 @@ tags:
     - nginx
     - openshift
 time: "15 min"
-
+type: "post"
 ---
 # Serving static content simplified
 

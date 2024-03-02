@@ -14,6 +14,7 @@ tags:
     - JavaScript
     - Tools
 time: "5 min"
+type: "post"
 ---
 
 

@@ -14,6 +14,7 @@ tags:
     - Cloudfront
     - Route53
 time: "7 min"
+type: "post"
 ---
 
 I recently migrated this site's hosting to AWS and was pleasantly surprised to find that you can host a static, secure website with a custom domain on the AWS free tier (not including the cost of the domain). Hosting on AWS can be done with a number of services but for this example we'll be using the following:

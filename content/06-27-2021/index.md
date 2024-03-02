@@ -15,6 +15,7 @@ tags:
   - github
   - gitops
 time: "15 min"
+type: "post"
 ---
 
 Recently I started digging around looking to automate some simple tasks that were being repeated as part of a release management process for a bunch of microservices. [The Github API](https://docs.github.com/en/rest) offers a lot, so I was hoping to use it build something to respond to events. The last couple months have been **packed** with scheduled deployments. When it comes time for a release, release-XXX branches are cut in each repository. There are _a lot_ of services hosted in their own repos. If a change gets pushed to a release branch, it needs to be merged down into master. Normally doing this locally looks something like this:

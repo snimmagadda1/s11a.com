@@ -12,6 +12,7 @@ tags:
     - OSE
     - other
 time: "10 min"
+type: "post"
 ---
 
 ## The "Problem"

@@ -13,6 +13,7 @@ tags:
     - Netlify
     - Route53
 time: "10 min"
+type: "post"
 ---
 
 ##### TL;DR: ~~Cloudfront~~ + ~~S3~~ + Route53 -> Netlify DNS

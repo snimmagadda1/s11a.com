@@ -16,6 +16,7 @@ tags:
   - Java
   - JavaScript
 time: "5 min"
+type: "post"
 ---
 
 We will explore one of the essential features of Cosmos DB - pagination and continuation tokens. Below is a brief look at a robust & practical implementation for using continuation tokens in a stored procedure. We will use the [JavaScript server-side SDK](https://github.com/Azure/azure-cosmosdb-js-server/) to define the procedure and the [Java client SDK](https://github.com/Azure/azure-cosmosdb-java) to execute it.

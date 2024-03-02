@@ -15,6 +15,7 @@ tags:
   - pipeline
   - Java
 time: "15 min"
+type: "post"
 ---
 
 The [first post in this series](https://s11a.com/building-a-batch-pipeline-01-crash-course-in-spring-batch) went over some fundamental concepts and interfaces you will encounter as a developer using Spring Batch. Now, let's build on those ideas to construct a full batch pipeline. Hopefully this can serve as a reference for how quickly a Java developer can build batch jobs.

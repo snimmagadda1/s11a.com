@@ -13,6 +13,7 @@ tags:
   - Grid
   - Flexbox
 time: "3 min"
+type: "post"
 ---
 
 ## Starting a collection ...

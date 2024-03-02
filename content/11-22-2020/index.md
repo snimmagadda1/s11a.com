@@ -13,6 +13,7 @@ tags:
   - styled-components
   - responsive
 time: "5 min"
+type: "post"
 ---
 
 ## [styled-components](https://styled-components.com/) 

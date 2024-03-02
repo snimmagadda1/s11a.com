@@ -14,6 +14,7 @@ tags:
     - downshift
     - react
 time: "7 min"
+type: "post"
 ---
 
 ## Flexible and fast development
