@@ -2,19 +2,20 @@ import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 import { graphql } from 'gatsby'
 import Layout from '../layout'
-import PostListing from '../components/PostListing/PostListing'
+// import PostListing from '../components/PostListing/PostListing'
 import SEO from '../components/SEO/SEO'
 import config from '../../data/SiteConfig'
 
 export default class NotesPage extends Component {
   state = {
     searchTerm: '',
-    posts: this.props.data.posts.edges,
-    filteredPosts: this.props.data.posts.edges,
+    notes: this.props.data.notes.nodes,
+    filteredNotes: this.props.data.notes.nodes,
   }
 
   handleChange = async event => {
     const { name, value } = event.target
+    console.warn('Handling change in notes listing with name:', name, 'and value:', value);
 
     await this.setState({ [name]: value })
 
@@ -22,18 +23,19 @@ export default class NotesPage extends Component {
   }
 
   filterPosts = () => {
-    const { posts, searchTerm, currentCategories } = this.state
+    const { notes, searchTerm } = this.state
 
-    let filteredPosts = posts.filter(post =>
-      post.node.frontmatter.title.toLowerCase().includes(searchTerm.toLowerCase())
+    let filteredNotes = notes.filter(notes =>
+      notes.name.toLowerCase().includes(searchTerm.toLowerCase())
     )
 
-    this.setState({ filteredPosts })
+    this.setState({ filteredNotes })
   }
 
   render() {
-    const { filteredPosts, searchTerm } = this.state
-    const filterCount = filteredPosts.length
+    const { filteredNotes, searchTerm } = this.state
+    // todo
+    const filterCount = filteredNotes.length
 
     return (
       <Layout>
@@ -52,41 +54,27 @@ export default class NotesPage extends Component {
             />
             <div className="filter-count">{filterCount}</div>
           </div>
-          <PostListing postEdges={filteredPosts} expanded={true}/>
+          <div className="notes">
+            {
+              filteredNotes.map(note => {
+                return (
+                  <h2>{note.name}</h2>
+                )
+              })
+            }
+          </div>
+          {/* TODO: <NotesListing /> */}
+          {/* <PostListing postEdges={filteredPosts} expanded={true}/> */}
         </div>
       </Layout>
     )
   }
 }
 
-export const pageQuery = graphql`query BlogQuery {
-  posts: allMarkdownRemark(
-      limit: 2000, 
-      sort: {fields: {date: DESC}},
-      filter: {frontmatter: {type: {eq: "note"}}}
-    ) {
-    edges {
-      node {
-        fields {
-          slug
-          date
-        }
-        excerpt(pruneLength: 180)
-        timeToRead
-        frontmatter {
-          title
-          tags
-          categories
-          thumbnail {
-            childImageSharp {
-              fixed(width: 70, height: 70) {
-                ...GatsbyImageSharpFixed
-              }
-            }
-          }
-          date
-        }
-      }
+export const pageQuery = graphql`query NotesQuery {
+  notes: allFile(filter: {sourceInstanceName: {eq: "notes"}, extension: {eq: "pdf"}}) {
+    nodes {
+      name
     }
   }
 }`
