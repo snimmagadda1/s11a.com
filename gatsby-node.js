@@ -167,38 +167,38 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 
-  // // Notes
-  // const notesRes = await graphql(`
-  //   {
-  //     allFile(
-  //       filter: {
-  //         sourceInstanceName: { eq: "notes" }
-  //         extension: { eq: "pdf" }
-  //       }
-  //     ) {
-  //       nodes {
-  //         name
-  //         publicURL
-  //       }
-  //     }
-  //   }
-  // `);
+  // Notes
+  const notesRes = await graphql(`
+    {
+      allFile(
+        filter: {
+          sourceInstanceName: { eq: "notes" }
+          extension: { eq: "pdf" }
+        }
+      ) {
+        nodes {
+          name
+          publicURL
+        }
+      }
+    }
+  `);
 
-  // if (result.errors) {
-  //   console.error(result.errors);
-  //   throw result.errors;
-  // }
+  if (notesRes.errors) {
+    console.error(notesRes.errors);
+    throw notesRes.errors;
+  }
 
-  // // Create pages for notes
-  // result.data.allFile.nodes.forEach((node) => {
-  //   const slug = `/notes/${node.name}`;
-  //   createPage({
-  //     path: slug,
-  //     component: path.resolve("src/templates/note.jsx"),
-  //     context: {
-  //       slug,
-  //       noteFile: node.publicURL,
-  //     },
-  //   });
-  // });
+  // Create pages for notes
+  notesRes.data.allFile.nodes.forEach((node) => {
+    const slug = `/notes/${node.name}`;
+    createPage({
+      path: slug,
+      component: path.resolve("src/templates/note.jsx"),
+      context: {
+        slug,
+        noteFile: node.publicURL,
+      },
+    });
+  });
 };

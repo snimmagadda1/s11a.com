@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
-import { graphql } from 'gatsby'
+import { Link, graphql } from 'gatsby'
 import Layout from '../layout'
-// import PostListing from '../components/PostListing/PostListing'
 import SEO from '../components/SEO/SEO'
 import config from '../../data/SiteConfig'
+import { slugToTitle } from "../services/appConstants";
 
 export default class NotesPage extends Component {
   state = {
@@ -43,6 +43,7 @@ export default class NotesPage extends Component {
         <SEO />
         <div className="container">
           <h1>Notes</h1>
+          <p>Writing things helps with understanding. Below is a repo of my scribbles...</p>
           <div className="search-container">
             <input
               className="search"
@@ -58,13 +59,13 @@ export default class NotesPage extends Component {
             {
               filteredNotes.map(note => {
                 return (
-                  <h2>{note.name}</h2>
+                  <Link to={`/notes/${note.name}`}>
+                    <h2>{slugToTitle(note.name.replace('/notes/', ''))}</h2>
+                  </Link>
                 )
               })
             }
           </div>
-          {/* TODO: <NotesListing /> */}
-          {/* <PostListing postEdges={filteredPosts} expanded={true}/> */}
         </div>
       </Layout>
     )
