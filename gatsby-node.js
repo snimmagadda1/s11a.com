@@ -24,6 +24,7 @@ exports.onCreateWebpackConfig = ({ actions }) => {
   });
 };
 
+// Modifies markdownRemark nodes to include a date & slug field
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
   let slug;
@@ -162,6 +163,41 @@ exports.createPages = async ({ graphql, actions }) => {
       component: categoryPage,
       context: {
         category,
+      },
+    });
+  });
+
+  // Notes
+  const notesRes = await graphql(`
+    {
+      allFile(
+        filter: {
+          sourceInstanceName: { eq: "notes" }
+          extension: { eq: "pdf" }
+        }
+      ) {
+        nodes {
+          name
+          publicURL
+        }
+      }
+    }
+  `);
+
+  if (notesRes.errors) {
+    console.error(notesRes.errors);
+    throw notesRes.errors;
+  }
+
+  // Create pages for notes
+  notesRes.data.allFile.nodes.forEach((node) => {
+    const slug = `/notes/${node.name}`;
+    createPage({
+      path: slug,
+      component: path.resolve("src/templates/note.jsx"),
+      context: {
+        slug,
+        noteFile: node.publicURL,
       },
     });
   });

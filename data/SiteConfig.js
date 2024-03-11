@@ -8,7 +8,6 @@ const config = {
   pathPrefix: "", // Prefixes all links. For cases when deployed to example.github.io/gatsby-advanced-starter/.
   siteDescription: "A personal development blog", // Website description used for RSS feeds/meta description tag.
   siteRss: "/rss.xml", // Path to the RSS file.
-  disqusShortname: "https-s11a-com", // Disqus shortname.
   postDefaultCategoryID: "Tech", // Default category for posts.
   dateFromFormat: "MM-DD-YYYY", // Date format used in the frontmatter.
   dateFormat: "MMMM Do, YYYY", // Date format for display.
