@@ -17,6 +17,17 @@ module.exports = {
       copyright: config.copyright,
     },
   },
+  headers: [
+    {
+      source: `/static/*`,
+      headers: [
+        {
+          key: `X-Frame-Options`,
+          value: `SAMEORIGIN`,
+        },
+      ],
+    },
+  ],
   plugins: [
     "gatsby-disable-404",
     {
