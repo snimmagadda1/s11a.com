@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "gatsby";
-import face from "../../images/face.png";
+import { StaticImage } from "gatsby-plugin-image"
 
 export default class Navbar extends Component {
   state = {
@@ -32,7 +32,7 @@ export default class Navbar extends Component {
         <div className="nav-container">
           <div className="me">
             <Link key="sai" to="/" activeClassName="active">
-              <img src={face} className="favicon" alt="Face" />
+              <StaticImage src="../../images/face.png" className="favicon" alt="Face" />
               <span className="text">Sai Nimmagadda</span>
             </Link>
           </div>

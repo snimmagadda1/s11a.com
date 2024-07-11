@@ -1,9 +1,7 @@
 import React, { Component } from "react";
+import { StaticImage } from "gatsby-plugin-image"
 import mePic from '../../images/me.jpg';
-import leetCode from '../../../static/logos/leetcode.png';
-import udemy from '../../../static/logos/udemy.png';
-import graphql from '../../../static/logos/graphql.png';
-import qmk from '../../../static/logos/qmk.png'
+
 class About extends Component {
 
   navigateToSomething = (url) => {
@@ -11,6 +9,10 @@ class About extends Component {
   }
 
   render() {
+    // const mePic = '../../images/me.jpg';
+    const leetCode = '../../../static/logos/leetcode.png';
+    const udemy = '../../../static/logos/udemy.png';
+    const qmk = '../../../static/logos/qmk.png';
     return (
       <div className="about">
         <h1>About me</h1>
@@ -28,7 +30,7 @@ class About extends Component {
             <button className="muted-button"
               onClick={() => this.navigateToSomething("https://github.com/snimmagadda1/coding-challenges")}>
               Tryna remember DS & algos
-              <img
+              <StaticImage
                 src={leetCode}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -39,7 +41,7 @@ class About extends Component {
             <button className="muted-button"
               onClick={() => this.navigateToSomething("https://www.udemy.com/course/go-programming-language/")}>
               Learning Golang
-              <img
+              <StaticImage
                 src={udemy}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -50,7 +52,7 @@ class About extends Component {
             <button className="muted-button"
               onClick={() => this.navigateToSomething("https://docs.qmk.fm/#/")}>
               Hacking my keyboard (QMK)
-              <img
+              <StaticImage
                 src={qmk}
                 target="_blank"
                 rel="noopener noreferrer"
