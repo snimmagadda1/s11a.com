@@ -121,9 +121,7 @@ export const pageQuery = graphql`query BlogQuery {
           categories
           thumbnail {
             childImageSharp {
-              fixed(width: 70, height: 70) {
-                ...GatsbyImageSharpFixed
-              }
+              gatsbyImageData(layout: FIXED, width: 70, height: 70)
             }
           }
           date

@@ -44,9 +44,7 @@ export const pageQuery = graphql`query TagPage($tag: String) {
           date
           thumbnail {
             childImageSharp {
-              fixed(width: 50, height: 50) {
-                ...GatsbyImageSharpFixed
-              }
+              gatsbyImageData(layout: FIXED, width: 50, height: 50)
             }
           }
         }

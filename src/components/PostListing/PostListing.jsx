@@ -1,5 +1,5 @@
 import React from "react";
-import Img from 'gatsby-image'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { Link } from "gatsby";
 
 class PostListing extends React.Component {
@@ -29,14 +29,14 @@ class PostListing extends React.Component {
         {postList.map(post => {
           let thumbnail;
           if (post.thumbnail) {
-            thumbnail = post.thumbnail.childImageSharp.fixed;
+            thumbnail = getImage(post.thumbnail);
           }
 
           return (
             <Link to={post.path} key={post.title}>
                <div className="post-info">
                 <div className="icon">
-                  {thumbnail ? <Img fixed={thumbnail} /> : <div />}
+                  {thumbnail ? <GatsbyImage image={thumbnail} alt=""/> : <div />}
                 </div>
                 <div className="post-line">
                   <h2>{post.title}</h2>

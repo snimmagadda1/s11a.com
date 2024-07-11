@@ -18,7 +18,7 @@ class SEO extends Component {
         : postNode.excerpt;
       image = postMeta.cover;
       if (postMeta.thumbnail) {
-        image = postMeta.thumbnail.childImageSharp.fixed.src
+        image = postMeta.thumbnail.childImageSharp.gatsbyImageData.images.fallback.src
       }
       postURL = urljoin(config.siteUrl, config.pathPrefix, postPath);
     } else {

@@ -1,7 +1,7 @@
 import React from "react";
 import Helmet from "react-helmet";
 import { graphql } from "gatsby";
-import Img from "gatsby-image";
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import Layout from "../layout";
 import UserInfo from "../components/UserInfo/UserInfo";
 import PostTags from "../components/PostTags/PostTags";
@@ -32,7 +32,7 @@ export default class PostTemplate extends React.Component {
       post.category_id = config.postDefaultCategoryID;
     }
     if (post.thumbnail) {
-      thumbnail = post.thumbnail.childImageSharp.fixed;
+      thumbnail = getImage(post.thumbnail);
     }
     return (
       <Layout>
@@ -46,7 +46,7 @@ export default class PostTemplate extends React.Component {
               className={`single-header ${!thumbnail ? "no-thumbnail" : ""}`}
             >
               {thumbnail ? (
-                <Img fixed={post.thumbnail.childImageSharp.fixed} />
+                <GatsbyImage image={thumbnail} alt=""/>
               ) : null}
               <div>
                 <h1>{post.title}</h1>
@@ -84,11 +84,9 @@ export const pageQuery = graphql`
       frontmatter {
         title
         thumbnail {
-          childImageSharp {
-            fixed(width: 150, height: 150) {
-              ...GatsbyImageSharpFixed
+            childImageSharp {
+              gatsbyImageData(layout: FIXED, width: 150, height: 140)
             }
-          }
         }
         slug
         cover
