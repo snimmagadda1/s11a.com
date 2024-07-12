@@ -4,7 +4,7 @@ import mePic from '../../images/me.jpg';
 
 class About extends Component {
 
-  navigateToSomething = (url) => {
+  navigateToSomething = (url: string) => {
     window.open(url, '_blank')
   }
 
@@ -32,7 +32,6 @@ class About extends Component {
               Tryna remember DS & algos
               <StaticImage
                 src={leetCode}
-                target="_blank"
                 rel="noopener noreferrer"
                 className="button-pic"
                 alt="LeetCode"
@@ -43,7 +42,6 @@ class About extends Component {
               Learning Golang
               <StaticImage
                 src={udemy}
-                target="_blank"
                 rel="noopener noreferrer"
                 className="button-pic"
                 alt="Udemy"
@@ -54,7 +52,6 @@ class About extends Component {
               Hacking my keyboard (QMK)
               <StaticImage
                 src={qmk}
-                target="_blank"
                 rel="noopener noreferrer"
                 className="button-pic"
                 alt="AdvancedReact"
@@ -63,7 +60,6 @@ class About extends Component {
           </div>
           <img
             src={mePic}
-            target="_blank"
             rel="noopener noreferrer"
             className="me-pic"
             alt="Me picture"

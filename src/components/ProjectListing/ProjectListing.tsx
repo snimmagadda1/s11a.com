@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
 import GitHubButton from 'react-github-btn'
+import { Project } from '../../models';
 
-export default class ProjectListing extends Component {
+type Props = {
+    projects: Project[]
+}
+
+export default class ProjectListing extends Component<Props, {}> {
     render() {
         const { projects } = this.props
 
