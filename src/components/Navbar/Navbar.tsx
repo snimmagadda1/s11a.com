@@ -1,8 +1,17 @@
 import React, { Component } from "react";
 import { Link } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image"
+import { MenuLink } from "../../models";
 
-export default class Navbar extends Component {
+type Props = {
+  menuLinks: MenuLink[]
+}
+
+type State = {
+  scrolled: boolean;
+};
+
+export default class Navbar extends Component<Props, State> {
   state = {
     scrolled: false
   };
