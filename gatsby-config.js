@@ -29,6 +29,7 @@ module.exports = {
     },
   ],
   plugins: [
+    "gatsby-plugin-sitemap",
     "gatsby-disable-404",
     {
       resolve: "gatsby-plugin-sass",
