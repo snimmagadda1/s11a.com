@@ -17,7 +17,7 @@ export default class ProjectListing extends Component<Props, {}> {
                         <h2>
                             <a
                                 className="project-link"
-                                href={project.source}
+                                href={project.path}
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
