@@ -35,6 +35,6 @@ export default [
     path: "https://todo.s11a.com/home",
     source: "https://github.com/snimmagadda1/feined-todo",
     description:
-      "A barebones, calendar-centric todo app... b/c everyone has to have one of these",
+      "A local-first, calendar-centric todo app... b/c everyone has to have one of these",
   },
 ];
