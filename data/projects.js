@@ -15,7 +15,7 @@ export default [
   },
   {
     icon: "☕",
-    title: "(caf)FEINED",
+    title: "Fickle Cal",
     path: "https://todo.s11a.com/home",
     source: "https://github.com/snimmagadda1/feined-todo",
     description:
