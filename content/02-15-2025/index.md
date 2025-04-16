@@ -17,7 +17,7 @@ time: "5 min"
 type: "post"
 ---
 
-I recently started poking at the developer experience (DX) of the Node.js world. As a Java dev by day, I wanted to learn the community's patterns on a lower level. I went through the exercise of standing up an Express.js + Passport.js server for a project, and surprisingly I didn't find a consensus pattern to functionally test routes secured with Oauth 2.0. Many docs were helpful, but dated. The approach here outlines a Passport.js strategy to test protected routes without making HTTP requests to the authentication provider.
+I recently started poking at the developer experience (DX) of the Node.js world. As a Java dev by day, I wanted to learn the JS community patterns on a lower level. I went through the exercise of standing up an Express.js + Passport.js server for a project, and surprisingly I didn't find a consensus pattern to functionally test routes secured with Oauth 2.0. Many docs were helpful, but dated. The approach here outlines a Passport.js strategy to test protected routes without making HTTP requests to the authentication provider.
 
 ## Prerequisites
 
@@ -27,11 +27,11 @@ I recently started poking at the developer experience (DX) of the Node.js world.
 
 ## The problem
 
-Testing protected routes using a [delegated sign-in](https://web.archive.org/web/20160322014955/http://hueniverse.com/2009/04/16/introducing-sign-in-with-twitter-oauth-style-connect/) generally requires making HTTP requests to the authentication provider. If you recall, the OAuth 2.0 authorization code flow[^1]:
+I wrote a little app with an option to sign-up using Github, and wanted to write functional tests. Testing protected routes using a [delegated sign-in](https://web.archive.org/web/20160322014955/http://hueniverse.com/2009/04/16/introducing-sign-in-with-twitter-oauth-style-connect/) generally requires making HTTP requests to the authentication provider. If you recall, the OAuth 2.0 authorization code flow[^1]:
 
 ![Oauth 2.0 authorization code flow](../images/oauth2-authorization-code-flow.png) 
 
-If we have a route similar to below, how do we 'get past' the authentication in our functional tests to assert the business logic?:
+If we have a route similar to this, how do we 'get past' the authentication in our functional tests to assert the business logic?:
 
 ```typescript
 // Create a user
@@ -58,7 +58,7 @@ app.post(
 
 ## Recapping the Oauth2 setup
 
-I'll skip the majority of the Express setup & configuration & focus on setting up the testing approach. For reference, the full application and quick start can be found [here](https://github.com/snimmagadda1/express-passport-github-oauth2-functional-testing). The project delegates sign in via Github OAuth 2.0, specifically using session-based authentication with cookies. Notably, the app's strategy from `passport-github2` is defined straight from documentation as:
+I'll skip the majority of the Express setup & configuration & focus on setting up the testing approach. For reference, the full application and quick start can be found [here](https://github.com/snimmagadda1/express-passport-github-oauth2-functional-testing). The project delegates sign in via Github OAuth 2.0, specifically using session-based authentication with cookies. Notably, the app's strategy from `passport-github2` defined straight from the docs:
 
 ```typescript
 import passport from "passport";
@@ -90,7 +90,7 @@ passport.use(
 );
 ```
 
-and on successful authentication performs a standard redirect to the homepage:
+and on successful authentication it performs a standard redirect to the homepage:
 
 ```typescript
 app.get(
@@ -100,7 +100,7 @@ app.get(
 );
 ```
 
-However, if we try to test a protected route such as POST /users, with the above setup the test will have to actually authenticate with Github's Authorization server, using real credentials. This is extraneous for functional testing. There has to be a better way.
+This is good and simple. But, if we try to test the business logic behind a protected route such as POST /users, out of the box, the test will have to actually authenticate with Github's Authorization server, using real credentials. This is extraneous for functional testing (and a potential security risk!). There has to be a better way.
 
 
 [^1]: [DigitalOcean Intro to OAuth 2.0](https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2)
