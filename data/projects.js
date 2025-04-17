@@ -1,5 +1,13 @@
 export default [
   {
+    icon: "☕",
+    title: "Fickle Cal",
+    path: "https://todo.s11a.com/home",
+    source: "https://github.com/snimmagadda1/feined-todo",
+    description:
+      "A local-first, calendar-centric todo app... b/c everyone has to have one of these",
+  },
+  {
     icon: "🧄",
     title: "Garlic-bot",
     path: "https://twitter.com/garlichub",
@@ -12,14 +20,6 @@ export default [
     path: "https://github.com/snimmagadda1/stack-exchange-graphql-server",
     source: "https://github.com/snimmagadda1/stack-exchange-graphql-server",
     description: "A GraphQL endpoint for Stack Exchange data powered by Go",
-  },
-  {
-    icon: "☕",
-    title: "Fickle Cal",
-    path: "https://todo.s11a.com/home",
-    source: "https://github.com/snimmagadda1/feined-todo",
-    description:
-      "A local-first, calendar-centric todo app... b/c everyone has to have one of these",
   },
   {
     icon: "🐥",
