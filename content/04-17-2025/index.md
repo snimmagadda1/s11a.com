@@ -10,9 +10,10 @@ categories:
 date: "04/17/2025"
 thumbnail: "../thumbnails/nodejs.png"
 tags:
-  - CSS
   - JavaScript
-  - Tools
+  - Node.js
+  - API
+  - Testing
 time: "5 min"
 type: "post"
 ---
