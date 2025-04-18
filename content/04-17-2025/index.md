@@ -1,6 +1,6 @@
 ---
-title: "Testing Express Routes Secured with OAuth 2.0 and Passport.js"
-slug: testing-express-routes-secured-with-oauth2-and-passportjs
+title: "Testing Routes Secured with OAuth 2.0 and Passport.js"
+slug: testing-routes-secured-with-oauth2-and-passportjs
 cover: "../thumbnails/nodejs.png"
 category: "test3"
 categories:
@@ -19,7 +19,8 @@ type: "post"
 ---
 
 I recently started poking at the developer experience of the Node.js world. As a Java dev by day, I wanted to learn the JS community patterns on a lower level. I went through the exercise of standing up an Express.js + Passport.js server for a project
-and surprisingly didn't find a consensus pattern to test routes secured with Oauth 2.0. Many docs were helpful, but dated. Therefore, approach here outlines the path I took: a Passport.js strategy to functionally test protected routes without making HTTP requests to the authentication provider.
+and surprisingly didn't find a consensus pattern to test an app using Oauth 2.0 for authorization. Many docs were helpful, but dated.
+Therefore, approach here outlines the path I took: a Passport.js strategy to functionally test protected routes without making HTTP requests to the authentication provider.
 
 ## Prerequisites
 
